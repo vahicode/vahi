@@ -42,6 +42,11 @@ const HomePage = (props) => {
             <h3 className="text-2xl font-bold lg:text-3xl">{t('welcomeTitle')}</h3>
             <p dangerouslySetInnerHTML={{ __html: t('welcomeP1') }} />
             <p dangerouslySetInnerHTML={{ __html: t('welcomeP2') }} />
+            <div className="p-12">
+              <a href="https://www.arrestblindness.eu/">
+                <img src="/img/arrestblindness.png" />
+              </a>
+            </div>
           </div>
           <div className="max-w-lg">
             <div className="mt-4 max-w-prose rounded-lg bg-primary p-8 px-8 drop-shadow">

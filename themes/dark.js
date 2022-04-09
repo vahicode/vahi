@@ -3,15 +3,15 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   fontFamily:
     '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
-  primary: colors.emerald['900'],
-  'primary-focus': colors.emerald['800'],
+  primary: colors.emerald['700'],
+  'primary-focus': colors.emerald['600'],
   'primary-content': colors.neutral['50'],
 
   secondary: colors.sky['500'],
   'secondary-focus': colors.sky['400'],
   'secondary-content': colors.sky['900'],
 
-  accent: colors.pink['900'],
+  accent: colors.pink['800'],
   'accent-focus': colors.pink['700'],
   'accent-content': colors.neutral['50'],
 

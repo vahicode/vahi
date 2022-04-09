@@ -9,4 +9,7 @@ tryVahiMsg: 'If you do not have an invite code, or if you do have one but would 
 tryVahiTitle: Can I try VaHI?
 contactUs: Contact us
 sourceCode: Source code
+inviteCode: Invite code
+enterInviteCode: Please enter your invite code below
+invalidInviteCode: Invalid invite code
 

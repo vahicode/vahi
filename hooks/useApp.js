@@ -17,6 +17,7 @@ function useApp(full = true) {
 
   // Persistent state
   const [theme, setTheme] = useLocalStorage('theme', prefersDarkMode ? 'dark' : 'light')
+  const [invite, setInvite] = useLocalStorage('invite', null)
 
   // React State
   const [primaryMenu, setPrimaryMenu] = useState(false)
@@ -30,11 +31,13 @@ function useApp(full = true) {
     loading,
     primaryMenu,
     theme,
+    invite,
 
     // State setters
     setLoading,
     setPrimaryMenu,
     setTheme,
+    setInvite,
     startLoading: () => {
       setLoading(true)
       setPrimaryMenu(false)

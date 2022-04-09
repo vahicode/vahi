@@ -17,6 +17,7 @@
   },
   "prettier": "@freesewing/prettier-config",
   "dependencies": {
+    "axios": "^0.26.1",
     "daisyui": "^2.13.6",
     "next": "latest",
     "next-i18next": "^11.0.0",

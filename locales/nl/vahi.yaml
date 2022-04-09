@@ -9,4 +9,7 @@ tryVahiMsg: 'Heb je geen uitnodigingscode, of heb je er wel een maar wil je graa
 tryVahiTitle: Kan ik VaHI uitproberen?
 contactUs: Neem contact op
 sourceCode: Broncode
+inviteCode: Uitnodigingscode
+enterInviteCode: Gelieve je uitnodigingscode in te voeren
+invalidInviteCode: Ongeldige uitnodigingscode
 
