@@ -1,0 +1,106 @@
+// This is the VaHI Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../db/vahi.db"
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  createdBy  String
+  isDemoUser Boolean
+  inviteCode String   @unique
+  isActive   Boolean  @default(true)
+  lastLogin  DateTime
+  notes      String
+  Rating     Rating[]
+}
+
+model Role {
+  id          String  @id
+  description String
+  Admin       Admin[]
+}
+
+model Admin {
+  email     String   @id
+  createdAt DateTime @default(now())
+  createdBy String
+  password  String
+  notes     String
+  active    Boolean  @default(true)
+  lastLogin DateTime
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    String
+}
+
+model Eye {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  createdBy String
+  active    Boolean   @default(true)
+  notes     String
+  Picture   Picture[]
+  Rating    Rating[]
+}
+
+model Picture {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  createdBy String
+  eye       Eye      @relation(fields: [eyeId], references: [id])
+  eyeId     Int
+  img       Bytes
+}
+
+model Rating {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  createdBy String
+  eye       Eye      @relation(fields: [eyeId], references: [id])
+  eyeId     Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  v1        Int
+  v2        Int
+  v3        Int
+  v5        Int
+  v6        Int
+  v7        Int
+  v8        Int
+  v9        Int
+  v10       Int
+  v11       Int
+  v12       Int
+  v13       Int
+  h1        Int
+  h2        Int
+  h3        Int
+  h5        Int
+  h6        Int
+  h7        Int
+  h8        Int
+  h9        Int
+  h10       Int
+  h11       Int
+  h12       Int
+  h13       Int
+  i1        Int
+  i2        Int
+  i3        Int
+  i5        Int
+  i6        Int
+  i7        Int
+  i8        Int
+  i9        Int
+  i10       Int
+  i11       Int
+  i12       Int
+  i13       Int
+}

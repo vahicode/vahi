@@ -32,16 +32,18 @@ const config = {
       users: {
         // The unique ID of the user (primary key)
         id: [ 'INTEGER', 'PRIMARY KEY' ], 
+        // ISO8601 date representation of when this user was created
+        createdAt: [ 'TEXT', 'NOT NULL' ],
         // The admin who created this user
-        by: [ 'TEXT', 'NOT NULL' ],
+        createdBy: [ 'TEXT', 'NOT NULL' ],
         // Whether or not this is a demo user (1 for yes)
-        demo: [ 'INTEGER' ],
+        isDemoUser: [ 'INTEGER' ],
         // The invite code for this user
-        invite: [ 'TEXT', 'NOT NULL', 'UNIQUE' ],
+        inviteCode: [ 'TEXT', 'NOT NULL', 'UNIQUE' ],
         // Whether or not this user is active (1 for yes)
-        active: [ 'INTEGER' ],
+        isActive: [ 'INTEGER' ],
         // ISO8601 date representation of the last login by this user
-        lastlogin: [ 'TEXT' ],
+        lastLogin: [ 'TEXT' ],
         // Any notes added by the admin
         notes: [ 'TEXT' ],
         // Extra foreign key contraints
@@ -133,6 +135,12 @@ const config = {
         }
       }
     }
+  },
+  invites: {
+    // Construct random invite codes out of these characters
+    characters: 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789-',
+    // Length of the invite codes
+    length: 32,
   },
   passwords: {
     // Construct random passwords out of these characters
