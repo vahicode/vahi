@@ -17,10 +17,57 @@ For more information on what VaHI does/is, please visit [vahi.eu](https://vahi.e
 Check out [the v2 roadmap](https://github.com/vahicode/vahi/discussions/1) to see what I'm working on.
 I am open to ideas/suggestions for what you would like to see in our mext major release.
 
+## Technology stack 🤓
+
+VaHI 2 is a NextJS app using a sqlite database through [prisma](https://www.prisma.io/).
+
+To run it, you will need NodeJS on your system (I recommend 
+using [nvm](https://github.com/nvm-sh/nvm) for installing NodeJS).
+
+## Getting started 🚀
+
+> Version 2 of VaHI is **a work in progress**. In other words, if you're curious or are interested
+in contributing, feel free to kick the tires. But if you expect something that *just works* it's
+too early for that.
+
+To get started, clone the repo:
+
+```bash
+git clone git@github.com:vahicode/vahi.git
+```
+
+Enter the repo, and install dependencies:
+
+```bash
+cd vahi
+npm install
+```
+
+Now you can initialize (create and seed) the database.
+To do so, run the following command:
+
+```bash
+npm run initdb
+```
+
+If at any moment you want to remove the database, you can run this command:
+
+```bash
+npm run rmdb
+```
+
+After which you can initialize it again.
+
+> Note that you can also just remove the database file (by default that file is `db/vahi.db`)
+
+## Configuration 🔧
+
+Check the configuration file `vahi.config.mjs` and the Prisma schema in `prisma/prisma.schema`
+for ways to configure VaHI.
+
 ## Where to get help 🤯
 
 If you want to report a problem, please [create an issue](https://github.com/vahicode/vahi/issues/new).
-
 
 ## Contribute
 

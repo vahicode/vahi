@@ -1,4 +1,4 @@
-import { getDb } from 'api/utils.js'
+import { getDb } from 'api/utils.mjs'
 
 const handler = (req, res) => {
   const db = getDb()

@@ -67,7 +67,7 @@ const AdminLoginPage = (props) => {
 
 
         <button className="btn btn-primary mt-8" onClick={login}>
-          {t('login')}
+          {t('vahi:login')}
         </button>
       </div>
     </Page>

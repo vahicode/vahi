@@ -34,3 +34,23 @@ export const generatePassword = () => {
   return [pwd, hash, salt]
 }
 
+// Capitalize string
+export const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
+
+// Silly ascii art
+export const vascii = `
+
+  ╔══════════════════════════════════════════╗
+  ║     __   __    _  _ ___                  ║
+  ║     \\ \\ / /_ _| || |_ _|                 ║
+  ║      \\ V / _\` | __ || |                  ║
+  ║       \\_/\\__,_|_||_|___|                 ║
+  ║       A standardized grading system      ║
+  ║       for limbal stem cell deficiency    ║
+  ║                                          ║
+  ╚══════════════════════════════════════════╝ 
+`
+                     
+
+
+

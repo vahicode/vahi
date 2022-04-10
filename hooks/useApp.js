@@ -3,7 +3,6 @@ import { useState } from 'react'
 import useLocalStorage from 'hooks/useLocalStorage.js'
 // Locale and translation
 import { useTranslation } from 'next-i18next'
-import { capitalize } from '../utils.js'
 
 function useApp(full = true) {
   // Locale (aka language)

@@ -11,13 +11,12 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
+  id         String    @id
+  createdAt  DateTime  @default(now())
   createdBy  String
   isDemoUser Boolean
-  inviteCode String   @unique
-  isActive   Boolean  @default(true)
-  lastLogin  DateTime
+  isActive   Boolean   @default(true)
+  lastLogin  DateTime?
   notes      String
   Rating     Rating[]
 }
@@ -29,14 +28,14 @@ model Role {
 }
 
 model Admin {
-  email     String   @id
-  createdAt DateTime @default(now())
+  email     String    @id
+  createdAt DateTime  @default(now())
   createdBy String
   password  String
   notes     String
-  active    Boolean  @default(true)
-  lastLogin DateTime
-  role      Role     @relation(fields: [roleId], references: [id])
+  active    Boolean   @default(true)
+  lastLogin DateTime?
+  role      Role      @relation(fields: [roleId], references: [id])
   roleId    String
 }
 
@@ -66,7 +65,7 @@ model Rating {
   eye       Eye      @relation(fields: [eyeId], references: [id])
   eyeId     Int
   user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+  userId    String
   v1        Int
   v2        Int
   v3        Int
