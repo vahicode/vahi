@@ -19,9 +19,10 @@ I am open to ideas/suggestions for what you would like to see in our mext major 
 
 ## Technology stack 🤓
 
-VaHI 2 is a NextJS app using a sqlite database through [prisma](https://www.prisma.io/).
+VaHI 2 is a [NextJS](https://nextjs.org/) app using 
+a [SQLite database](https://www.sqlite.org/) through [prisma](https://www.prisma.io/).
 
-To run it, you will need NodeJS on your system (I recommend 
+To run it, you will need [NodeJS](https://nodejs.org/en/) on your system (I recommend 
 using [nvm](https://github.com/nvm-sh/nvm) for installing NodeJS).
 
 ## Getting started 🚀
