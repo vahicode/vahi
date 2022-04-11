@@ -28,7 +28,7 @@ const seed = async () => {
           update: {},
           create: {
             ...entry,
-            password: `${pwd}:${hash}:${salt}`,
+            password: `${hash}:${salt}`,
             createdBy: entry.email
           }
         })

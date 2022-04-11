@@ -1,15 +1,32 @@
-import { getDb } from 'api/utils.mjs'
+import { PrismaClient } from '@prisma/client'
+import { checkPassword } from 'api/utils.mjs'
 
-const handler = (req, res) => {
-  const db = getDb()
-  if (!req.body.invite) return res.status(400).json({ error: 'Please provide an invite code' })
+const prisma = new PrismaClient()
 
-  db.get("SELECT * FROM users WHERE invite = ?", [ req.body.invite ], result => {
-    console.log(result)
-    res.status(200).json({ name: 'John Doe' })
-  })
+const handler = async (req, res) => {
+  let result = false
+  try {
+    result = await prisma.Admin.findUnique({ 
+      where: {
+        email: req.body.username
+      }
+    })
+  }
+  catch (err) {
+    console.log(err)
+  }
+  if (!result) return res.status(403).send({ error: 'login_failed' })
 
-  
+  const [ hash, algo, salt ] = result.password.split(':')
+
+  if (checkPassword(req.body.password, hash, salt)) {
+    console.log('looks good')
+  } else {
+    console.log('auth failed')
+  }
+
+
+  return res.send(result)
 }
 
 export default handler

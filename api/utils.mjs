@@ -23,15 +23,24 @@ export const generatePassword = () => {
   // Generate random password
   const pwd = randomString(config.passwords.length)
   // Generate random salt
-  let salt = randomString(config.passwords.length)
+  const salt = randomString(config.passwords.length)
   // Base-64 encode salt to avoid confusion over ':' delimiters
-  salt = new Buffer.from(salt).toString('base64')
+  const salt64 = new Buffer.from(salt).toString('base64')
   // Hash password + salt
   const hasher = createHash(config.passwords.algorithm)
   hasher.update(pwd+salt)
   const hash = hasher.digest('hex')+':'+config.passwords.algorithm
 
-  return [pwd, hash, salt]
+  return [pwd, hash, salt64]
+}
+
+export const checkPassword = (pwd, hash, salt64) => {
+  const salt = new Buffer.from(salt64, 'base64').toString()
+  // Hash password + salt
+  const hasher = createHash(config.passwords.algorithm)
+  hasher.update(pwd+salt)
+
+  return (hasher.digest('hex') === hash)
 }
 
 // Capitalize string

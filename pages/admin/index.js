@@ -7,6 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import Logo from 'components/logos/vahi.js'
 import axios from 'axios'
+import Popout from 'components/popout.js'
 
 const AdminLoginPage = (props) => {
   const app = useApp()
@@ -17,16 +18,16 @@ const AdminLoginPage = (props) => {
   const [reveal, setReveal] = useState(false)
   const [error, setError] = useState(false)
 
-  const login = async () => {
+  const login = async (evt) => {
+    evt.preventDefault()
     let result = false
     try {
-      result = await axios.post('/api/login', { invite: code })
+      result = await axios.post('/api/login', { username, password })
     }
     catch(err) {
-      console.log(err)
+      if (err?.response?.data?.error === 'login_failed') setError({ warning: true, msg: t('loginFailed') })
     }
     
-    console.log(result)
   }
 
   return (
@@ -36,39 +37,41 @@ const AdminLoginPage = (props) => {
           <span>{t('administration')}: </span>
           <span>{t('vahi:login')}</span>
         </h1>
-        <label className="label">
-          <span className="label-text">{t('adminUsername')}</span>
-        </label>
-        <input type="text" placeholder={t('adminUsername')} className="input input-bordered w-full" 
-          value={username} onChange={evt => setUsername(evt.target.value)}/>
-        <label className="label">
-          <span className="label-text">{t('adminPassword')}</span>
-        </label>
+        {error && <Popout compact {...error}>{error.msg}</Popout>}
+        <form onSubmit={login}>
+          <label className="label">
+            <span className="label-text">{t('adminUsername')}</span>
+          </label>
+          <input type="text" placeholder={t('adminUsername')} className="input input-bordered w-full" autoFocus={true} 
+            value={username} onChange={evt => setUsername(evt.target.value)}/>
+          <label className="label">
+            <span className="label-text">{t('adminPassword')}</span>
+          </label>
 
-        <label className="input-group">
-          <input
-            type={reveal ? "text" : "password"}
-            placeholder={t('adminPassword')}
-            className={`
-              input input-bordered grow text-base-content border-r-0
-            `}
-            value={password}
-            onChange={evt => setPassword(evt.target.value)}
-          />
-          <button 
-            className={`border border-primary` }
-            onClick={() => setReveal(!reveal)}
-          >
-            <span role="img" className={`bg-transparent`}>
-              {reveal ? '👀' : '🙈'}
-            </span>
+          <label className="input-group">
+            <input
+              type={reveal ? "text" : "password"}
+              placeholder={t('adminPassword')}
+              className={`
+                input input-bordered grow text-base-content border-r-0
+              `}
+              value={password}
+              onChange={evt => setPassword(evt.target.value)}
+            />
+            <button 
+              className={`border border-primary` }
+              onClick={() => setReveal(!reveal)}
+            >
+              <span role="img" className={`bg-transparent`}>
+                {reveal ? '👀' : '🙈'}
+              </span>
+            </button>
+          </label>
+
+          <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={login}>
+            {t('vahi:login')}
           </button>
-        </label>
-
-
-        <button className="btn btn-primary mt-8" onClick={login}>
-          {t('vahi:login')}
-        </button>
+        </form>
       </div>
     </Page>
   )
