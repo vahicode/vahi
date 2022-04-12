@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import config from '../vahi.config.mjs'
+  
+const prefix = config.session.prefix
 
-// See: https://usehooks.com/useLocalStorage/
+const useLocalStorage = (key, initialValue) => {
 
-function useLocalStorage(key, initialValue) {
-  const prefix = 'fs_'
+
   const [storedValue, setStoredValue] = useState(() => {
     if (typeof window === 'undefined') return initialValue // SSR has no window object
     try {

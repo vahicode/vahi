@@ -19,11 +19,22 @@ const config = {
   // Controls the length and complexity of the auto-generated passwords for admins
   passwords: {
     // Construct random passwords out of these characters
-    characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=-_)(*&^%$#@!|}{][:;?>.<,',
+    characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+=-_)(*&^%#@!|}{][:;?>.<,',
     // Length of the random passwords
     length: 42,
     // Hashing algorithm to use. Run `openssl list -digest-algorithms` to see what's available
     algorithm: 'sha512',
+  },
+  /// JSON Web Token settings
+  jwt: {
+    secret: process.env.VAHI_SECRET,
+    issuer: process.env.VAHI_JWT_ISSUER || 'vahi.eu',
+    audience: process.env.VAHI_JWT_ISSUER || 'vahi.eu',
+    expiresIn: '6 days',
+  },
+  session: {
+    // Localstorage prefix
+    prefix: 'VaHI_',
   },
   // The seed database script (npm run seed) will populate the database with the records you define below
   seed: {

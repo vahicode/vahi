@@ -2,6 +2,7 @@ import config from '../vahi.config.mjs'
 import sqlite3 from 'sqlite3'
 import path from 'path'
 import crypto from 'crypto'
+import jwt from 'jsonwebtoken'
 
 const { createHash } = crypto
 
@@ -60,6 +61,17 @@ export const vascii = `
   ╚══════════════════════════════════════════╝ 
 `
                      
-
+// Returns a JSON Web Token
+export const getJWT = data => jwt.sign(
+  {
+    aud: config.jwt.audience,
+    iss: config.jwt.issuer,
+    ...data,
+  },
+  config.jwt.secret,
+  {
+    expiresIn: config.jwt.expiresIn
+  },
+)
 
 

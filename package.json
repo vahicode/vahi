@@ -14,6 +14,7 @@
     "start": "next start",
     "initdb": "npx prisma db push && node ./prisma/seed.mjs",
     "rmdb": "node ./scripts/rmdb.mjs",
+    "secret": "node ./scripts/secret.mjs",
     "rootpasswordreset": "node ./prisma/rootpwdreset.mjs",
     "prettier": "npx prettier --write '*.js' 'components/*.js' 'pages/*.js' 'hooks/*.js' 'scripts/*.mjs' 'themes/*.js'",
     "prebuild": "node scripts/prebuild.mjs"
@@ -23,6 +24,7 @@
     "@prisma/client": "3.12.0",
     "axios": "^0.26.1",
     "daisyui": "^2.13.6",
+    "jsonwebtoken": "^8.5.1",
     "next": "latest",
     "next-i18next": "^11.0.0",
     "react": "^17.0.2",

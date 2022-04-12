@@ -11,7 +11,7 @@ import Popout from 'components/popout.js'
 
 const AdminLoginPage = (props) => {
   const app = useApp()
-  const { t } = useTranslation(['admin', 'vahi'])
+  const { t } = useTranslation(['admin', 'vahi', 'errors'])
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -20,19 +20,25 @@ const AdminLoginPage = (props) => {
 
   const login = async (evt) => {
     evt.preventDefault()
+    setError(false)
     let result = false
     try {
-      result = await axios.post('/api/login', { username, password })
+      result = await axios.post('/api/admin-login', { username, password })
     }
     catch(err) {
       if (err?.response?.data?.error === 'login_failed') setError({ warning: true, msg: t('loginFailed') })
     }
-    
+    if (result?.data?.token && result.data?.admin) {
+      app.setToken(result.data.token)
+      app.setAdmin(result.data.admin)
+    } else setError({ warning: true, msg: t('errors:unexpectedError') })
   }
 
   return (
     <Page app={app}>
       <div className="form-control w-full max-w-md m-auto">
+        <pre>{JSON.stringify(app.token, null ,2)}</pre>
+        <pre>{JSON.stringify(app.admin, null ,2)}</pre>
         <h1>
           <span>{t('administration')}: </span>
           <span>{t('vahi:login')}</span>

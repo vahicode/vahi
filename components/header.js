@@ -7,6 +7,7 @@ import CloseIcon from 'components/icons/close.js'
 import MenuIcon from 'components/icons/menu.js'
 import LoginIcon from 'components/icons/login.js'
 import { useTranslation } from 'next-i18next'
+import AdminMenu from 'components/admin/menu.js'
 
 const Right = (props) => (
   <svg
@@ -105,12 +106,17 @@ const Header = ({ app }) => {
             )}
           </button>
           <div className="hidden flex-row items-center sm:flex">
-            <Link href="/invite">
-              <a className="btn btn-ghost text-neutral-content">
-                <LoginIcon />
-                <span className="pl-4">{t('login')}</span>
-              </a>
-            </Link>
+            {app.admin?.active 
+              ? <AdminMenu app={app} />
+              : (
+                <Link href="/invite">
+                  <a className="btn btn-ghost text-neutral-content">
+                    <LoginIcon />
+                    <span className="pl-4">{t('login')}</span>
+                  </a>
+                </Link>
+              )
+            }
           </div>
           <div className="hidden gap-2 md:flex md:flex-row">
             <Link href="/">

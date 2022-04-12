@@ -10,5 +10,5 @@ module.exports = {
     suffix: '}',
   },
   localeStructure: '{lng}/{ns}',
-  namespaces: ['vahi', 'themes', 'admin'],
+  namespaces: ['vahi', 'themes', 'admin', 'errors'],
 }
