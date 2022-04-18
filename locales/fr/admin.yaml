@@ -3,4 +3,14 @@ adminOnly: Cette page est uniquement pour administrateurs
 adminPassword: Admin mot de passe
 adminUsername: Admin nom d'utilisateur
 loginFailed: Connexion échouée
+users: Utilisateurs
+pictures: Images
+eyes: Yeux
+addUsers: Ajouter des Utilisateurs
+addPictures: Ajouter des Yeux
+addEyes: Ajouter des Images
+administrators: Administrateurs
+addAdministrators: Ajouter des Administrateurs
+exportData: Exporter des données
+logout: Déconnexion
 

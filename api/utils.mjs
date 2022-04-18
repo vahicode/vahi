@@ -44,9 +44,6 @@ export const checkPassword = (pwd, hash, salt64) => {
   return (hasher.digest('hex') === hash)
 }
 
-// Capitalize string
-export const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
-
 // Silly ascii art
 export const vascii = `
 

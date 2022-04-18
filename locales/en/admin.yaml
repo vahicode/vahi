@@ -3,5 +3,14 @@ adminOnly: This page is for administrators only
 adminPassword: Admin password
 adminUsername: Admin username
 loginFailed: Login failed
-
+users: Users
+pictures: Pictures
+eyes: Eyes
+addUsers: Add Users
+addPictures: Add Picture
+addEyes: Add Eyes
+administrators: Administrators
+addAdministrators: Add Administrators
+exportData: Export Data
+logout: Log Out
 
