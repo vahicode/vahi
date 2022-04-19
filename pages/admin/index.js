@@ -34,50 +34,69 @@ const AdminLoginPage = (props) => {
     } else setError({ warning: true, msg: t('errors:unexpectedError') })
   }
 
+  const logout = async (evt) => {
+    setError(false)
+    app.setToken(null)
+    app.setAdmin(null)
+  }
+
+  const admin = app.admin?.active
+
   return (
     <Page app={app}>
       <div className="form-control w-full max-w-md m-auto">
-        <pre>{JSON.stringify(app.token, null ,2)}</pre>
-        <pre>{JSON.stringify(app.admin, null ,2)}</pre>
         <h1>
           <span>{t('administration')}: </span>
-          <span>{t('vahi:login')}</span>
+          {admin
+            ? <span>{t('vahi:logout')}</span>
+            : <span>{t('vahi:login')}</span>
+          }
         </h1>
         {error && <Popout compact {...error}>{error.msg}</Popout>}
-        <form onSubmit={login}>
-          <label className="label">
-            <span className="label-text">{t('adminUsername')}</span>
-          </label>
-          <input type="text" placeholder={t('adminUsername')} className="input input-bordered w-full" autoFocus={true} 
-            value={username} onChange={evt => setUsername(evt.target.value)}/>
-          <label className="label">
-            <span className="label-text">{t('adminPassword')}</span>
-          </label>
-
-          <label className="input-group">
-            <input
-              type={reveal ? "text" : "password"}
-              placeholder={t('adminPassword')}
-              className={`
-                input input-bordered grow text-base-content border-r-0
-              `}
-              value={password}
-              onChange={evt => setPassword(evt.target.value)}
-            />
-            <button 
-              className={`border border-primary` }
-              onClick={() => setReveal(!reveal)}
-            >
-              <span role="img" className={`bg-transparent`}>
-                {reveal ? '👀' : '🙈'}
-              </span>
-            </button>
-          </label>
-
-          <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={login}>
-            {t('vahi:login')}
-          </button>
-        </form>
+        {admin 
+          ? (
+            <>
+              <p>{t('logoutMessage')}</p>
+              <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={logout}>
+                {t('logout')}
+              </button>
+            </>
+          )
+          : (
+            <form onSubmit={login}>
+              <label className="label">
+                <span className="label-text">{t('adminUsername')}</span>
+              </label>
+              <input type="text" placeholder={t('adminUsername')} className="input input-bordered w-full" autoFocus={true} 
+                value={username} onChange={evt => setUsername(evt.target.value)}/>
+              <label className="label">
+                <span className="label-text">{t('adminPassword')}</span>
+              </label>
+              <label className="input-group">
+                <input
+                  type={reveal ? "text" : "password"}
+                  placeholder={t('adminPassword')}
+                  className={`
+                    input input-bordered grow text-base-content border-r-0
+                  `}
+                  value={password}
+                  onChange={evt => setPassword(evt.target.value)}
+                />
+                <button 
+                  className={`border border-primary` }
+                  onClick={() => setReveal(!reveal)}
+                >
+                  <span role="img" className={`bg-transparent`}>
+                    {reveal ? '👀' : '🙈'}
+                  </span>
+                </button>
+              </label>
+              <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={login}>
+                {t('vahi:login')}
+              </button>
+            </form>
+          )
+        }
       </div>
     </Page>
   )

@@ -6,6 +6,8 @@ import jwt from 'jsonwebtoken'
 
 const { createHash } = crypto
 
+export const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
+
 // Returns database instance
 export const getDb = () => new sqlite3.Database(path.resolve(path.join(config.db.folder, config.db.file)))
 

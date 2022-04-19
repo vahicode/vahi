@@ -86,7 +86,7 @@ const AdminMenu = ({ app }) => {
         </li>
         <li className="py-1"><hr className="p-0" /></li>
         <li>
-          <Link href={`/admin/logout`}>
+          <Link href={`/admin`}>
             <button className="btn-ghost hover:bg-base-200 text-accent flex flex-row gap-4">
               <LogoutIcon />
               <span className="text-base-content font-bold uppercase">{t('logout')}</span>

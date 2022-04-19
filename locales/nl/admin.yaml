@@ -13,4 +13,5 @@ administrators: Beheerders
 addAdministrators: Beheerders Toevoegen
 exportData: Data Exporteren
 logout: Afmelden
+logoutMessage: Je bent momenteel aangemeld als beheerder. Klik hieronder om je af te melden en je sessie als beheerder af te sluiten.
 

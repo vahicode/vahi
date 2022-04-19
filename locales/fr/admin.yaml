@@ -13,4 +13,5 @@ administrators: Administrateurs
 addAdministrators: Ajouter des Administrateurs
 exportData: Exporter des données
 logout: Déconnexion
+logoutMessage: Vous êtes actuellement connecté en tant qu'administrateur. Cliquez ci-dessous pour vous déconnecter et mettre fin à votre session d'administration.
 
