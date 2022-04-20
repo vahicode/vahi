@@ -1,8 +1,26 @@
 import { useState } from 'react'
+import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
-const AdminsOnly = ({ app, chilren }) => {
-  if (app.admin) return children
-  else return <p>Login bitch</p>
+const AdminsOnly = ({ app, children }) => {
+  const { t } = useTranslation(['admin', 'vahi', 'errors'])
+
+  return (app?.admin) 
+  ? (
+    <div className="w-full max-w-7xl m-auto px-4 lg:px-0">
+      {children}
+    </div>
+  )
+  : (
+    <div className="form-control w-full max-w-xl m-auto">
+      <h1>{t('adminOnly')}</h1>
+      <Link href='/admin'>
+        <a className="btn btn-primary mt-8 mb-4 w-full" >
+          {t('vahi:login')}
+        </a>
+      </Link>
+    </div>
+  )
 }
 
 export default AdminsOnly

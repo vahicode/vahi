@@ -1,5 +1,5 @@
 administration: Beheer
-adminOnly: Deze pagine is enkel toegangkelijk voor beheerders
+adminOnly: Deze pagina is enkel toegangkelijk voor beheerders
 adminPassword: Paswoord beheerder
 adminUsername: Gebruikersnaam beheerder
 loginFailed: Aanmelden mislukt
@@ -14,4 +14,6 @@ addAdministrators: Beheerders Toevoegen
 exportData: Data Exporteren
 logout: Afmelden
 logoutMessage: Je bent momenteel aangemeld als beheerder. Klik hieronder om je af te melden en je sessie als beheerder af te sluiten.
+numberOfUsers: Aantal gebruikers
+notes: Notities
 

@@ -12,7 +12,7 @@ const config = {
   // Controls the length and complexity of the auto-generated invite codes
   invites: {
     // Construct random invite codes out of these characters
-    characters: 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789-',
+    characters: 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789',
     // Length of the invite codes
     length: 32,
   },

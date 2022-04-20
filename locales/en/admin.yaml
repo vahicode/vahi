@@ -14,3 +14,5 @@ addAdministrators: Add Administrators
 exportData: Export Data
 logout: Log Out
 logoutMessage: You are currently logged in as administrator. Click below to log out and terminate your adminstrative session.
+numberOfUsers: Number of users
+notes: Notes

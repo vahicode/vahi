@@ -27,6 +27,11 @@ function useApp(full = true) {
   // State methods
   const togglePrimaryMenu = () => setPrimaryMenu(!primaryMenu)
 
+  // Helper method for Authorization header
+  const bearer = () => ({
+    headers: { Authorization: 'Bearer ' + token }
+  })
+
   return {
     // State
     loading,
@@ -57,6 +62,9 @@ function useApp(full = true) {
     setInvite,
     setAdmin,
     setToken,
+
+    // Methods
+    bearer,
   }
 }
 

@@ -12,14 +12,17 @@ export const capitalize = (string) => string.charAt(0).toUpperCase() + string.sl
 export const getDb = () => new sqlite3.Database(path.resolve(path.join(config.db.folder, config.db.file)))
 
 // Returns random string of len length
-export const randomString = len => {
+export const randomString = (len, set='passwords') => {
   let rnd = ''
   for (let i=0; i<len; i++) {
-    rnd += config.passwords.characters.charAt(Math.floor(Math.random() * config.passwords.characters.length))
+    rnd += config[set].characters.charAt(Math.floor(Math.random() * config[set].characters.length))
   }
   
   return rnd
 }
+
+// Returns a random invite
+export const generateInvite = () => randomString(config.invites.length, 'invites')
 
 // Returns an array containing the password, hash, and salt
 export const generatePassword = () => {
@@ -72,5 +75,10 @@ export const getJWT = data => jwt.sign(
     expiresIn: config.jwt.expiresIn
   },
 )
+
+// Authenticates based on JWT token
+export const authenticate = {
+  admin: req => jwt.verify(req.headers.authorization.slice(7), config.jwt.secret),
+}
 
 
