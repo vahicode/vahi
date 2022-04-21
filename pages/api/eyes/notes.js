@@ -1,14 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { generateInvite, authenticate } from 'api/utils.mjs'
 
-import jwt from 'passport-jwt'
-import config from '../../vahi.config.mjs'
-
-const options = {
-  jwtFromRequest: jwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
-  ...config.jwt
-}
-
 const prisma = new PrismaClient()
 
 const handler = async (req, res) => {
@@ -18,10 +10,17 @@ const handler = async (req, res) => {
   if (!admin) return res.status(403)
     .send({ error: 'authentication_failed' })
 
-  // Get users
-  const users = await prisma.user.findMany()
+  // Check that eye and notes is set
+  if (!req.body.eye || !req.body.notes) return res.status(400)
+    .send({ error: 'no_eye_specified' })  
 
-  return res.send(users)
+  // Update eye
+  const eye = await prisma.eye.update({
+    where: { id: parseInt(req.body.eye) },
+    data: { notes: req.body.notes }
+  })
+
+  return res.send(eye)
 }
 
 export default handler

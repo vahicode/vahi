@@ -15,6 +15,7 @@ const config = {
     config.resolve.alias.hooks = path.resolve('./hooks/')
     config.resolve.alias.themes = path.resolve('./themes/')
     config.resolve.alias.api = path.resolve('./api/')
+    config.resolve.alias.middleware = path.resolve('./middleware/')
     
     return config
   },

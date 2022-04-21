@@ -29,7 +29,7 @@ const AdminAddUsersPage = (props) => {
     setError(false)
     let result = false
     try {
-      result = await axios.post('/api/add-users', { count: parseInt(count) , notes }, app.bearer())
+      result = await axios.post('/api/users/add', { count: parseInt(count) , notes }, app.bearer())
     }
     catch(err) {
       if (err?.response?.data?.error === 'authentication_failed') setError({ warning: true, msg: t('loginFailed') })

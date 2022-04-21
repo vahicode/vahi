@@ -4,11 +4,9 @@ adminPassword: Admin mot de passe
 adminUsername: Admin nom d'utilisateur
 loginFailed: Connexion échouée
 users: Utilisateurs
-pictures: Images
 eyes: Yeux
 addUsers: Ajouter des Utilisateurs
-addPictures: Ajouter des Yeux
-addEyes: Ajouter des Images
+addEyes: Ajouter des Yeux
 administrators: Administrateurs
 addAdministrators: Ajouter des Administrateurs
 exportData: Exporter des données
@@ -16,4 +14,13 @@ logout: Déconnexion
 logoutMessage: Vous êtes actuellement connecté en tant qu'administrateur. Cliquez ci-dessous pour vous déconnecter et mettre fin à votre session d'administration.
 numberOfUsers: Nombre d'utilisateurs
 notes: Remarques
+delete: Effacer
+pleaseBeCareful: S'il vous plaît soyez prudente
+noWayBack: Cette action est irréversible
+disable: Désactiver
+enable: Activer
+enabled: Activé
+scale: Échelle
+createdBy: Créé par
+calibration: Calibrage
 

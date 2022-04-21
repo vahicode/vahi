@@ -4,10 +4,8 @@ adminPassword: Paswoord beheerder
 adminUsername: Gebruikersnaam beheerder
 loginFailed: Aanmelden mislukt
 users: Gebruikers
-pictures: Foto's
 eyes: Ogen
 addUsers: Gebruikers Toevoegen
-addPictures: Foto's Toevoegen
 addEyes: Ogen Toevoegen
 administrators: Beheerders
 addAdministrators: Beheerders Toevoegen
@@ -16,4 +14,13 @@ logout: Afmelden
 logoutMessage: Je bent momenteel aangemeld als beheerder. Klik hieronder om je af te melden en je sessie als beheerder af te sluiten.
 numberOfUsers: Aantal gebruikers
 notes: Notities
+delete: Verwijderen
+pleaseBeCareful: Wees alsjeblief voorzichtig
+noWayBack: Deze actie kan niet ongedaan gemaakt worden
+disable: Deactiveren
+enable: Activeren
+enabled: Actief
+scale: Schaal
+createdBy: Aangemaakt door
+calibration: Calibratie
 

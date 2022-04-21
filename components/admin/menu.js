@@ -2,19 +2,17 @@ import AdminIcon from 'components/icons/database.js'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import UserIcon from 'components/icons/user.js'
-import PictureIcon from 'components/icons/picture.js'
 import EyeIcon from 'components/icons/eye.js'
 import { capitalize } from 'components/utils.js'
 import LogoutIcon from 'components/icons/logout.js'
 import ExportIcon from 'components/icons/export.js'
 
 const choices = {
-  app: ['users', 'pictures', 'eyes'],
+  app: ['users', 'eyes'],
   admin: ['administrators']
 }
 const icons = {
   users: <UserIcon />,
-  pictures: <PictureIcon />,
   eyes: <EyeIcon />,
   administrators: <AdminIcon />,
 }

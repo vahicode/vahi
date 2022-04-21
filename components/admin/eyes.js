@@ -5,6 +5,8 @@ import AdminIcon from 'components/icons/database.js'
 import DisableIcon from 'components/icons/disable.js'
 import EnableIcon from 'components/icons/enable.js'
 import axios from 'axios'
+import Link from 'next/link'
+import Grid from 'components/grid'
 
 const updateSelected = (selected, setSelected, id) => {
   const newSelection = {...selected}
@@ -14,10 +16,10 @@ const updateSelected = (selected, setSelected, id) => {
   return setSelected(newSelection)
 }
 
-const toggleAllSelected = (allSelected, setSelected, users) => {
+const toggleAllSelected = (allSelected, setSelected, eyes) => {
   const newSelection = {}
   if (!allSelected) {
-    for (const user of users) newSelection[user.id] = true
+    for (const eye of eyes) newSelection[eye.id] = true
   }
 
   setSelected(newSelection)
@@ -46,12 +48,12 @@ const DropDownMenu = ({ t, handlers, selected, someSelected, app }) => (
       `}
     >
       <AdminIcon className="w-6 h-6 text-success" />
-      <span>{t("administration")}: {Object.keys(selected).length} {t('users')}</span>
+      <span>{t("administration")}: {Object.keys(selected).length} {t('eyes')}</span>
     </div>
     <ul tabIndex="0" className="dropdown-content menu w-80 rounded-box bg-base-100 p-2 shadow">
       <li>
         <button className="btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4"
-          onClick={handlers.activateUsers}
+          onClick={handlers.activateEyes}
         >
           <EnableIcon className="w-6 h-6 text-success" />
           <span className="text-base-content font-bold uppercase">{t('enable')}</span>
@@ -59,7 +61,7 @@ const DropDownMenu = ({ t, handlers, selected, someSelected, app }) => (
       </li>
       <li>
         <button className="btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4"
-          onClick={handlers.deactivateUsers}
+          onClick={handlers.deactivateEyes}
         >
           <DisableIcon className="w-6 h-6 text-error" />
           <span className="text-base-content font-bold uppercase">{t('disable')}</span>
@@ -69,28 +71,28 @@ const DropDownMenu = ({ t, handlers, selected, someSelected, app }) => (
   </div>
 )
 
-const Users = ({ users=[], app, setUpdate }) => {
+const Eyes = ({ eyes=[], app, setUpdate }) => {
   const { t } = useTranslation(['admin', 'vahi'])
 
   const [selected, setSelected ] = useState({})
 
   const someSelected = Object.keys(selected).length < 1 ? false : true
-  const allSelected = Object.keys(selected).length === users.length ? true : false
+  const allSelected = Object.keys(selected).length === eyes.length ? true : false
 
   const refresh = () => setUpdate(Date.now())
 
   const handlers = {
-    activateUsers: users => {
+    activateEyes: eyes => {
       axios.post(
-        '/api/users/activate',
-        { users: Object.keys(selected) },
+        '/api/eyes/activate',
+        { eyes: Object.keys(selected) },
         app.bearer()
       ).then(refresh)
     },
-    deactivateUsers: users => {
+    deactivateEyes: eyes => {
       axios.post(
-        '/api/users/deactivate',
-        { users: Object.keys(selected) },
+        '/api/eyes/deactivate',
+        { eyes: Object.keys(selected) },
         app.bearer()
       ).then(refresh)
     }
@@ -120,36 +122,41 @@ const Users = ({ users=[], app, setUpdate }) => {
                 type="checkbox" 
                 className="checkbox" 
                 checked={allSelected}
-                onChange={() => toggleAllSelected(allSelected, setSelected, users)}
+                onChange={() => toggleAllSelected(allSelected, setSelected, eyes)}
               />
             </th>
             <th>#</th>
-            <th>{t('vahi:inviteCode')}</th>
+            <th className="w-36">-</th>
+            <th>ID</th>
             <th>{t('notes')}</th>
             <th>{t('created')}</th>
             <th>{t('by')}</th>
-            <th>{t('lastLogin')}</th>
             <th>{t('enabled')}</th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user,i) => (
-            <tr key={user.id} className={`
-              ${user.isActive ? '' : 'text-error'}
-              ${user.isDemoUser ? 'text-success' : ''}
-              ${selected[user.id] ? 'font-bold' : ''}
+          {eyes.map((eye,i) => (
+            <tr key={eye.id} className={`
+              ${eye.isActive ? '' : 'text-error'}
+              ${selected[eye.id] ? 'font-bold' : ''}
               hover:pointer
             `}>
-              <td><CheckBox {...{id: user.id, selected, setSelected}}/></td>
-              <td><ToggleButton id={user.id}>{(i + 1)}</ToggleButton></td>
-              <td><ToggleButton id={user.id}>{user.id}</ToggleButton></td>
-              <td><ToggleButton id={user.id}>{user.notes ? user.notes : '-'}</ToggleButton></td>
-              <td><ToggleButton id={user.id}><TimeAgo date={user.createdAt} /></ToggleButton></td>
-              <td>{user.createdBy}</td>
-              <td>{user.lastLogin ? <TimeAgo date={user.lastLogin} /> : '-' }</td>
+              <td><CheckBox {...{id: eye.id, selected, setSelected}}/></td>
+              <td><ToggleButton id={eye.id}>{(i + 1)}</ToggleButton></td>
               <td>
-                <ToggleButton id={user.id}>
-                  {user.isActive 
+                <Link href={`/admin/eyes/${eye.id}`}>
+                  <a> 
+                    <Grid eye={eye} inactive bold />
+                  </a>
+                </Link>
+              </td>
+              <td><ToggleButton id={eye.id}>{eye.id}</ToggleButton></td>
+              <td><ToggleButton id={eye.id}>{eye.notes ? eye.notes : '-'}</ToggleButton></td>
+              <td><ToggleButton id={eye.id}><TimeAgo date={eye.createdAt} /></ToggleButton></td>
+              <td>{eye.createdBy}</td>
+              <td>
+                <ToggleButton id={eye.id}>
+                  {eye.isActive 
                     ? <EnableIcon className="w-6 h-6 text-success" />
                     : <DisableIcon className="w-6 h-6 text-error" />
                   }
@@ -163,4 +170,4 @@ const Users = ({ users=[], app, setUpdate }) => {
   )
 }
 
-export default Users
+export default Eyes

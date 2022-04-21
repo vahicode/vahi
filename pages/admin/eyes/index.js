@@ -7,22 +7,26 @@ import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import Popout from 'components/popout.js'
 import AdminsOnly from 'components/admin/admins-only.js'
-import Users from 'components/admin/users.js'
+import Eyes from 'components/admin/eyes.js'
 import Spinner from 'components/spinner.js'
 import BreadCrumbs from 'components/breadcrumbs.js'
 
-const AdminUsersPage = (props) => {
+const AdminEyesPage = (props) => {
   const app = useApp()
   const { t } = useTranslation(['admin', 'vahi', 'errors'])
 
-  const [users, setUsers] = useState(false)
+  const [eyes, setEyes] = useState(false)
   const [error, setError] = useState(false)
   const [update, setUpdate] = useState(0)
 
+  const crumbs = [
+    { url: '/admin', title: t('administration') },
+  ]
+
   useEffect(async () => {
     try {
-      const result = await axios.get('/api/users', app.bearer())
-      if (result.data) setUsers(result.data)
+      const result = await axios.get('/api/eyes', app.bearer())
+      if (result.data) setEyes(result.data)
       else setError({ warning: true, msg:  t('errors:unknownError') })
     }
     catch (err) {
@@ -30,19 +34,15 @@ const AdminUsersPage = (props) => {
     }
   }, [update])
 
-  const crumbs = [
-    { url: '/admin', title: t('administration') },
-  ]
-
   return (
     <Page app={app}>
       <AdminsOnly app={app}>
-        <BreadCrumbs crumbs={crumbs} title={t('users')}/>
+        <BreadCrumbs crumbs={crumbs} title={t('eyes')}/>
         <div className="form-control w-full">
-          <h1>{t('users')}</h1>
+          <h1>{t('eyes')}</h1>
           {error && <Popout compact {...error}>{error.msg}</Popout>}
-          {users
-            ? <Users users={users} app={app} setUpdate={setUpdate}/>
+          {eyes
+            ? <Eyes eyes={eyes} app={app} setUpdate={setUpdate}/>
             : <Spinner />
           }
         </div>
@@ -51,7 +51,7 @@ const AdminUsersPage = (props) => {
   )
 }
 
-export default AdminUsersPage
+export default AdminEyesPage
 
 export async function getStaticProps({ locale }) {
   return {
