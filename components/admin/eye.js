@@ -197,17 +197,5 @@ const Eye = ({ eye, app, setUpdate }) => {
     </div>
   )
 }
-/*
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  createdBy String
-  isActive  Boolean   @default(false)
-  notes     String
-  img       Bytes
-  scale     Float     @default(1)
-  x         Float     @default(0)
-  y         Float     @default(0)
-  Rating    Rating[]
-  */
 
 export default Eye

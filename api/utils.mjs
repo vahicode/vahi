@@ -78,7 +78,12 @@ export const getJWT = data => jwt.sign(
 
 // Authenticates based on JWT token
 export const authenticate = {
-  admin: req => jwt.verify(req.headers.authorization.slice(7), config.jwt.secret),
+  admin: (req, role=false) => {
+    const admin = jwt.verify(req.headers.authorization.slice(7), config.jwt.secret)
+    if (role && admin.roleId !== role) return false
+
+    return admin
+  }
 }
 
 

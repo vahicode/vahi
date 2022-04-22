@@ -23,4 +23,9 @@ enabled: Actief
 scale: Schaal
 createdBy: Aangemaakt door
 calibration: Calibratie
+noHaraKiri: Je kan je eigen beheerdersaccount niet deactiveren
+noHaraKiriMsg: Als je de account waar je momenteel mee bent aangemeld zou deactiveren, heb je jezelf effectief buitengeloten uit de administratieve interface. Laat ons dat dus maar niet doen.
+noDowngrade: Je kan je eigen beheerdersaccount niet downgraden
+noDowngradeMsg: Je kan een andere (super) beheerder vragen om dit te doen. Maar we laten je jezelf niet in nesten werken.
+role: Rol
 

@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next'
 import Logo from 'components/logos/vahi.js'
 import axios from 'axios'
 import Popout from 'components/popout.js'
+import AdminMenu from 'components/admin/menu.js'
 
 const AdminLoginPage = (props) => {
   const app = useApp()
@@ -46,22 +47,11 @@ const AdminLoginPage = (props) => {
     <Page app={app}>
       <div className="form-control w-full max-w-md m-auto">
         <h1>
-          <span>{t('administration')}: </span>
-          {admin
-            ? <span>{t('vahi:logout')}</span>
-            : <span>{t('vahi:login')}</span>
-          }
+          <span>{t('administration')}</span>
         </h1>
         {error && <Popout compact {...error}>{error.msg}</Popout>}
         {admin 
-          ? (
-            <>
-              <p>{t('logoutMessage')}</p>
-              <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={logout}>
-                {t('logout')}
-              </button>
-            </>
-          )
+          ? <AdminMenu app={app} list />
           : (
             <form onSubmit={login}>
               <label className="label">

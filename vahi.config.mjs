@@ -38,7 +38,8 @@ const config = {
   },
   // The seed database script (npm run seed) will populate the database with the records you define below
   seed: {
-    // Roles to create
+    // Roles to create. Make sure to order them from lower to higher access. 
+    // Last role in this list is the most powerful
     role: [
       {
         id: 'analyst',

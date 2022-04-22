@@ -17,11 +17,81 @@ const icons = {
   administrators: <AdminIcon />,
 }
 
-
-const AdminMenu = ({ app }) => {
+const AdminMenu = ({ app, list=false }) => {
   const { t } = useTranslation(['admin', 'vahi', 'errors'])
   
-  return (
+  const links = [
+    {
+      url: '/admin/users',
+      title: t('users'),
+      icon: <UserIcon />,
+      className: '',
+    },
+    {
+      url: '/admin/eyes',
+      title: t('eyes'),
+      icon: <EyeIcon />,
+      className: '',
+    },
+    'spacer',
+    {
+      url: '/admin/add/users',
+      title: t(`add${capitalize('users')}`),
+      icon: <UserIcon />,
+      className: 'text-primary',
+    },
+    {
+      url: '/admin/add/eyes',
+      title: t(`add${capitalize('eyes')}`),
+      icon: <EyeIcon />,
+      className: 'text-primary',
+    },
+    'spacer',
+    {
+      url: '/admin/export',
+      title: t('exportData'),
+      icon: <ExportIcon />,
+      className: 'text-success',
+    },
+    'spacer',
+    {
+      url: '/admin/admins',
+      title: t('administrators'),
+      icon: <AdminIcon />,
+      className: 'text-warning',
+    },
+    {
+      url: '/admin/add/admins',
+      title: t(`add${capitalize('administrators')}`),
+      icon: <AdminIcon />,
+      className: 'text-warning',
+    },
+    'spacer',
+    {
+      url: '/admin',
+      title: t('logout'),
+      icon: <LogoutIcon />,
+      className: 'text-error',
+    },
+  ]
+
+  const lis = links.map(item => item === 'spacer'
+    ? <li className="py-1"><hr className="p-0" /></li>
+    : (
+      <li key={item.url}>
+        <Link href={item.url}>
+          <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`}>
+            {item.icon}
+            <span className="text-base-content font-bold uppercase">{item.title}</span>
+          </button>
+        </Link>
+      </li>
+    )
+  )
+
+  return list
+  ?  <ul className="menu">{lis}</ul>
+  : (
     <div className="dropdown">
       <div
         tabIndex="0"
@@ -34,64 +104,7 @@ const AdminMenu = ({ app }) => {
         <AdminIcon className="w-6 h-6 text-success" />
         <span>{t("administration")}</span>
       </div>
-      <ul tabIndex="0" className="dropdown-content menu w-80 rounded-box bg-base-100 p-2 shadow">
-        {choices.app.map(item => (
-          <li key={item}>
-            <Link href={`/admin/${item}`}>
-              <button className="btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4">
-                {icons[item]}
-                <span className="text-base-content font-bold uppercase">{t(item)}</span>
-              </button>
-            </Link>
-          </li>
-        ))}
-        <li className="py-1"><hr className="p-0" /></li>
-        {choices.app.map(item => (
-          <li key={item}>
-            <Link href={`/admin/add/${item}`}>
-              <button className="btn-ghost hover:bg-base-200 text-primary flex flex-row gap-4">
-                {icons[item]}
-                <span className="text-base-content font-bold uppercase">{t(`add${capitalize(item)}`)}</span>
-              </button>
-            </Link>
-          </li>
-        ))}
-        <li className="py-1"><hr className="p-0" /></li>
-        <li>
-          <Link href={`/admin/export`}>
-            <button className="btn-ghost hover:bg-base-200 text-success flex flex-row gap-4">
-              <ExportIcon />
-              <span className="text-base-content font-bold uppercase">{t('exportData')}</span>
-            </button>
-          </Link>
-        </li>
-        <li className="py-1"><hr className="p-0" /></li>
-        <li>
-          <Link href={`/admin/admins`}>
-            <button className="btn-ghost hover:bg-base-200 text-warning flex flex-row gap-4">
-              <AdminIcon />
-              <span className="text-base-content font-bold uppercase">{t('administrators')}</span>
-            </button>
-          </Link>
-        </li>
-        <li>
-          <Link href={`/admin/add/admins`}>
-            <button className="btn-ghost hover:bg-base-200 text-warning flex flex-row gap-4">
-              <AdminIcon />
-              <span className="text-base-content font-bold uppercase">{t(`add${capitalize('administrators')}`)}</span>
-            </button>
-          </Link>
-        </li>
-        <li className="py-1"><hr className="p-0" /></li>
-        <li>
-          <Link href={`/admin`}>
-            <button className="btn-ghost hover:bg-base-200 text-accent flex flex-row gap-4">
-              <LogoutIcon />
-              <span className="text-base-content font-bold uppercase">{t('logout')}</span>
-            </button>
-          </Link>
-        </li>
-      </ul>
+      <ul tabIndex="0" className="dropdown-content menu w-80 rounded-box bg-base-100 p-2 shadow">{lis}</ul>
     </div>
   )
 }

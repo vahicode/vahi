@@ -32,6 +32,12 @@ function useApp(full = true) {
     headers: { Authorization: 'Bearer ' + token }
   })
 
+  // Helper method to logout
+  const logout = () => {
+    setToken(null)
+    setAdmin(null)
+  }
+
   return {
     // State
     loading,
@@ -65,6 +71,7 @@ function useApp(full = true) {
 
     // Methods
     bearer,
+    logout,
   }
 }
 
