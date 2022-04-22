@@ -164,8 +164,8 @@ const Admins = ({ admins=[], app, setUpdate, setError }) => {
                 <AdminLink id={admin.email}>
                   <span className={`
                     p-1 px-3 uppercase rounded-full font-bold
-                    ${admin.isActive ? roleClasses[admin.roleId] : 'text-base-content opacity-50'}
-                    `}>{admin.roleId}</span>
+                    ${admin.isActive ? roleClasses[admin.role] : 'text-base-content opacity-50'}
+                    `}>{admin.role}</span>
                 </AdminLink>
                 </td>
               <td><AdminLink id={admin.email}>{admin.notes ? admin.notes : '-'}</AdminLink></td>

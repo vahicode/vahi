@@ -38,27 +38,11 @@ const config = {
   },
   // The seed database script (npm run seed) will populate the database with the records you define below
   seed: {
-    // Roles to create. Make sure to order them from lower to higher access. 
-    // Last role in this list is the most powerful
-    role: [
-      {
-        id: 'analyst',
-        description: 'Analysts can read/export data but not make any changes',
-      },
-      {
-        id: 'admin',
-        description: 'Administrators can create invites and add new eyes/pictures to score',
-      },
-      {
-        id: 'superadmin',
-        description: 'SuperAdministrators can do everything, including creating administrators',
-      },
-    ],
     // Admin users to create
     admin: [
       { 
         email: 'root@vahi.eu', 
-        roleId: 'superadmin',
+        role: 'superadmin',
         notes: 'Superadmin role as defined in the configuration file',
       },
     ],

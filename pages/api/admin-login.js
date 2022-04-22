@@ -26,7 +26,7 @@ const handler = async (req, res) => {
   // Check if password is correct
   if (checkPassword(req.body.password, hash, salt)) {
     // Password is correct, but is the account active?
-    if (!result.active) return res.status(403).send({ error: 'account_inactive' })
+    if (!result.isActive) return res.status(403).send({ error: 'account_inactive' })
     // Looks good, but don't leak the password hash/salt
     delete result.password
     // Generate token, and stuff it with account data

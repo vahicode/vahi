@@ -17,7 +17,7 @@ const AdminStats = ({ admin, t, handlers }) => (
     </div>
     <div className="stat">
       <div className="stat-title">{t('role')}</div>
-      <div className="stat-value capitalize">{admin.roleId}</div>
+      <div className="stat-value capitalize">{admin.role}</div>
     </div>
     <div className="stat">
       <div className="stat-title">
@@ -60,7 +60,7 @@ const AdminNotes = ({ admin, t, handlers }) => {
 }
 
 const AdminRole = ({ admin, t, handlers }) => {
-  const [role, setRole] = useState(admin.roleId)
+  const [role, setRole] = useState(admin.role)
 
   return (
     <div>
@@ -74,7 +74,7 @@ const AdminRole = ({ admin, t, handlers }) => {
             </label>
           </div>
         ))}
-        {(admin.roleId === 'superadmin' && role !== 'superadmin')
+        {(admin.role === 'superadmin' && role !== 'superadmin')
           ? (
             <Popout warning>
               <h3>{t('noDowngrade')}</h3>

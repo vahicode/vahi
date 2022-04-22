@@ -29,7 +29,8 @@ const seed = async () => {
           create: {
             ...entry,
             password: `${hash}:${salt}`,
-            createdBy: entry.email
+            createdBy: entry.email,
+            isActive: true
           }
         })
         admins.push({ email: entry.email, password: pwd })

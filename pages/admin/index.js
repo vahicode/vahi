@@ -50,7 +50,7 @@ const AdminLoginPage = (props) => {
           <span>{t('administration')}</span>
         </h1>
         {error && <Popout compact {...error}>{error.msg}</Popout>}
-        {admin 
+        {app.admin 
           ? <AdminMenu app={app} list />
           : (
             <form onSubmit={login}>

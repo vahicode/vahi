@@ -22,7 +22,7 @@ const handler = async (req, res) => {
       createdBy: true,
       isActive: true,
       notes: true,
-      roleId: true,
+      role: true,
       lastLogin: true,
     }
   })

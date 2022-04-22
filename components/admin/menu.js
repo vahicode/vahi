@@ -68,7 +68,7 @@ const AdminMenu = ({ app, list=false }) => {
     },
     'spacer',
     {
-      url: '/admin',
+      onClick: app.logout,
       title: t('logout'),
       icon: <LogoutIcon />,
       className: 'text-error',
@@ -79,12 +79,21 @@ const AdminMenu = ({ app, list=false }) => {
     ? <li className="py-1"><hr className="p-0" /></li>
     : (
       <li key={item.url}>
-        <Link href={item.url}>
-          <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`}>
-            {item.icon}
-            <span className="text-base-content font-bold uppercase">{item.title}</span>
-          </button>
-        </Link>
+        {item.onClick
+          ? (
+            <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`} onClick={item.onClick}>
+              {item.icon}
+              <span className="text-base-content font-bold uppercase">{item.title}</span>
+            </button>
+          ) : (
+            <Link href={item.url}>
+              <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`}>
+                {item.icon}
+                <span className="text-base-content font-bold uppercase">{item.title}</span>
+              </button>
+            </Link>
+          )
+        }
       </li>
     )
   )

@@ -21,12 +21,6 @@ model User {
   Rating     Rating[]
 }
 
-model Role {
-  id          String  @id
-  description String
-  Admin       Admin[]
-}
-
 model Admin {
   email     String    @id
   createdAt DateTime  @default(now())
@@ -35,20 +29,19 @@ model Admin {
   notes     String
   isActive  Boolean   @default(true)
   lastLogin DateTime?
-  role      Role      @relation(fields: [roleId], references: [id])
-  roleId    String
+  role      String    @default("analyst")
 }
 
 model Eye {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
   createdBy String
-  isActive  Boolean   @default(false)
+  isActive  Boolean  @default(false)
   notes     String
   img       Bytes
-  scale     Float     @default(1)
-  x         Float     @default(0)
-  y         Float     @default(0)
+  scale     Float    @default(1)
+  x         Float    @default(0)
+  y         Float    @default(0)
   width     Float
   height    Float
   mimetype  String

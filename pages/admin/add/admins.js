@@ -52,7 +52,7 @@ const AdminAddAdminsPage = (props) => {
               <Popout note>
                 <ul className="list-disc list-inside my-4">
                   <li><strong className="capitalize pr-2">{t('username')}:</strong> {admin.email}</li>
-                  <li><strong className="capitalize pr-2">{t('role')}:</strong> {admin.roleId}</li>
+                  <li><strong className="capitalize pr-2">{t('role')}:</strong> {admin.role}</li>
                   <li><strong className="capitalize pr-2">{t('password')}:</strong> {admin.password}</li>
                 </ul>
               </Popout>

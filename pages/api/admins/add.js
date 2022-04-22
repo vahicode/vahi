@@ -4,17 +4,13 @@ import config from '../../../vahi.config.mjs'
 
 const prisma = new PrismaClient()
 
-// Superadmin role is configurable, so let's get it from config
-const superadmin = config.seed.role.slice(-1).pop().id
-const analyst = config.seed.role[0].id
-
 const handler = async (req, res) => {
 
   // Admin authentication
   const admin = authenticate.admin(req)
   if (!admin) return res.status(403)
     .send({ error: 'authentication_failed' })
-  if (admin.roleId !== superadmin) return res.status(403)
+  if (admin.role !== 'superadmin') return res.status(403)
     .send({ error: 'required_role_missing' })
 
   // Check that count is numeric and not higher than 100
@@ -30,7 +26,6 @@ const handler = async (req, res) => {
         email: req.body.email,
         notes: req.body?.notes || '',
         isActive: false,
-        roleId: analyst,
         password: `${hash}:${salt}`,
         createdBy: admin.email
       }
