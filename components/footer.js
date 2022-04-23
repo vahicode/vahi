@@ -1,9 +1,15 @@
 import Logo from 'components/logos/vahi.js'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
+import config from '../vahi.config.mjs'
+import { useRouter } from 'next/router'
+import markdown from 'markdown/footer.mjs'
+import Markdown from 'react-markdown'
 
 const Footer = ({ app }) => {
   const { t } = useTranslation()
+  const router = useRouter()
+  const lang = router.locale || 'en'
 
   return (
     <footer className="bg-neutral">
@@ -15,38 +21,12 @@ const Footer = ({ app }) => {
       `}
       >
         <div className="text-center">
-          <Logo fill="currentColor" stroke="none" size={124} className="m-auto" />
-          <h5 className="pb-0 text-4xl text-neutral-content">VaHI</h5>
-          <p className="m-auto w-72 font-bold text-neutral-content">{t('tagline')}</p>
-          <p className="mt-8 text-sm text-neutral-content">
-            <a
-              href="https://www.researchgate.net/profile/Sorcha_Dhubhghaill"
-              className="font-bold underline"
-            >
-              Prof. Dr. Sorcha Ní Dhubhghaill
-            </a>{' '}
-            is the driving force behind VaHI
-            <br />
-            <a href="https://github.com/joostdecock" className="font-bold underline">
-              Joost De Cock
-            </a>{' '}
-            is the developer of VaHI
-          </p>
-          <p className="mt-4 text-sm font-bold text-neutral-content">
-            <Link href="/contact">
-              <a title={t('contactUs')} className="underline">
-                {t('contactUs')}
-              </a>
-            </Link>
-            <span className="px-2">|</span>
-            <a
-              title={t('sourceCode')}
-              href="https://github.com/vahicode/vahi"
-              className="underline"
-            >
-              {t('sourceCode')}
-            </a>
-          </p>
+          {config.branding.footer.logo && <Logo fill="currentColor" stroke="none" size={124} className="m-auto" />}
+          <h5 className="pb-0 text-4xl text-neutral-content">{config.branding.brand[lang]}</h5>
+          <p className="m-auto w-72 font-bold text-neutral-content">{config.branding.slogan[lang]}</p>
+          <div id='footer-md' className='my-8 max-w-prose'>
+            <Markdown>{markdown[lang]}</Markdown>
+          </div>
         </div>
       </div>
     </footer>

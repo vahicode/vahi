@@ -29,14 +29,16 @@ function useApp(full = true) {
   const togglePrimaryMenu = () => setPrimaryMenu(!primaryMenu)
 
   // Helper method for Authorization header
-  const bearer = () => ({
-    headers: { Authorization: 'Bearer ' + token }
+  const bearer = (admin=true) => ({
+    headers: { Authorization: 'Bearer ' + (admin ? adminToken : userToken) }
   })
 
   // Helper method to logout
   const logout = () => {
-    setToken(null)
     setAdmin(null)
+    setAdminToken(null)
+    setUser(null)
+    setUserToken(null)
   }
 
   return {

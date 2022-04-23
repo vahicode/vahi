@@ -6,8 +6,11 @@ import LocalePicker from 'components/locale-picker.js'
 import CloseIcon from 'components/icons/close.js'
 import MenuIcon from 'components/icons/menu.js'
 import LoginIcon from 'components/icons/login.js'
+import LogoutIcon from 'components/icons/logout.js'
 import { useTranslation } from 'next-i18next'
 import AdminMenu from 'components/admin/menu.js'
+import config from '../vahi.config.mjs'
+import { useRouter } from 'next/router'
 
 const Right = (props) => (
   <svg
@@ -46,6 +49,8 @@ const Header = ({ app }) => {
   const { t } = useTranslation()
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [show, setShow] = useState(true)
+  const router = useRouter()
+  const lang = router.locale || 'en'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -106,8 +111,16 @@ const Header = ({ app }) => {
             )}
           </button>
           <div className="hidden flex-row items-center sm:flex">
-            {app.admin?.isActive 
-              ? <AdminMenu app={app} />
+            {app.admin?.isActive && <AdminMenu app={app} />}
+            {app.user?.id
+              ? (
+                <Link href="/invite">
+                  <a className="btn btn-ghost text-neutral-content">
+                    <LogoutIcon />
+                    <span className="pl-4">{t('logout')}</span>
+                  </a>
+                </Link>
+              )
               : (
                 <Link href="/invite">
                   <a className="btn btn-ghost text-neutral-content">
@@ -121,8 +134,8 @@ const Header = ({ app }) => {
           <div className="hidden gap-2 md:flex md:flex-row">
             <Link href="/">
               <a role="button" className="btn btn-ghost text-neutral-content">
-                <Logo size={24} fill="currentColor" stroke={false} />
-                <span className="pl-4">VaHI</span>
+                {config.branding.header.logo && <Logo size={24} fill="currentColor" stroke={false} />}
+                {config.branding.header.brand && <span className="pl-4">{config.branding.brand[lang]}</span>}
               </a>
             </Link>
           </div>

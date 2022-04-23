@@ -1,6 +1,7 @@
 import themes from 'themes/index.js'
 import ThemeIcon from 'components/icons/theme.js'
 import { useTranslation } from 'next-i18next'
+import config from '../vahi.config.mjs'
 
 const ThemePicker = ({ app, className }) => {
   const { t } = useTranslation(['themes', 'vahi'])
@@ -19,7 +20,7 @@ const ThemePicker = ({ app, className }) => {
         <span>{t(`${app.theme}Theme`)}</span>
       </div>
       <ul tabIndex="0" className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow">
-        {Object.keys(themes).map((theme) => (
+        {config.branding.themes.map((theme) => (
           <li key={theme}>
             <button onClick={() => app.setTheme(theme)} className="btn btn-ghost hover:bg-base-200">
               <span className="text-base-content">{t(`${theme}Theme`)}</span>

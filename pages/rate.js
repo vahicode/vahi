@@ -33,7 +33,7 @@ const AdminLoginPage = (props) => {
       if (err?.response?.data?.error === 'login_failed') setError({ warning: true, msg: t('loginFailed') })
     }
     if (result?.data?.token && result.data?.admin) {
-      app.setToken(result.data.token)
+      app.setUserToken(result.data.token)
       app.setAdmin(result.data.admin)
       app.setInvite(null)
       router.push('/rate') // Go to rate page
@@ -42,7 +42,7 @@ const AdminLoginPage = (props) => {
 
   const logout = async (evt) => {
     setError(false)
-    app.setToken(null)
+    app.setUserToken(null)
     app.setAdmin(null)
   }
 

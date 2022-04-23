@@ -24,7 +24,7 @@ const AdminUsersPage = (props) => {
     try {
       const result = await axios.get('/api/users', app.bearer())
       if (result.data) setUsers(result.data)
-      else setError({ warning: true, msg:  t('errors:unknownError') })
+      //else setError({ warning: true, msg:  t('errors:unknownError') })
     }
     catch (err) {
       setError({ 

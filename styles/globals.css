@@ -13,11 +13,16 @@
   h6 { @apply text-base-content text-base font-bold lg:text-lg }
   p { @apply text-base-content my-1 py-2 lg:text-xl }
   .text-link { @apply text-secondary underline decoration-2 hover:text-secondary-focus hover:decoration-4}
+  #footer-md,
+  #footer-md p { @apply text-neutral-content text-sm }
+  #footer-md a { @apply font-bold  underline }
 
   /* Dropdowns */
   .navdrop { max-height: 80vh; }
 
 }
+
+/* markdown in footer */
 
 /* Theme gradient */
 .theme-gradient {

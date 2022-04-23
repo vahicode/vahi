@@ -31,15 +31,14 @@ const AdminLoginPage = (props) => {
       if (err?.response?.data?.error === 'login_failed') setError({ warning: true, msg: t('loginFailed') })
     }
     if (result?.data?.token && result.data?.admin) {
-      app.setToken(result.data.token)
+      app.setAdminToken(result.data.token)
       app.setAdmin(result.data.admin)
-      app.setInvite(null)
     } else setError({ warning: true, msg: t('errors:unexpectedError') })
   }
 
   const logout = async (evt) => {
     setError(false)
-    app.setToken(null)
+    app.setAdminToken(null)
     app.setAdmin(null)
   }
 
