@@ -28,7 +28,7 @@ const InvitePage = (props) => {
     if (result?.data?.token && result.data?.user) {
       app.setUserToken(result.data.token)
       app.setUser(result.data.user)
-      router.push('/rate') // Go to rate page
+      router.push('/grade') // Go to grading page
     } 
     else setError({ warning: true, msg: t('errors:unexpectedError') })
     

@@ -9,4 +9,28 @@ inviteCode: Code d'invitation
 enterInviteCode: Veuillez donner votre code d'invitation
 invalidInviteCode: Code d'invitation invalide
 save: Sauver
+eyes: Yeux
+gradeIt: Classez {it}
+vascularity: Vascularisation
+haze: Trouble
+integrity: Intégrité
+progressOnThisEye: Progrès sur cet oeil
+overallProgress: Progrès général
+nextEye: Prochain oeil
+legend: Légende
+legend-h: Brume cornéene
+legend-h-0: Pas de brume cornéenne, cornée claire
+legend-h-1: Brume cornéenne minimale, details d''iris visible
+legend-h-2: Brume cornéene modéré, details d''iris visible avec difficulté
+legend-h-3: Brume cornéenne sévère, details d''iris pas visible
+legend-i: Intégrité cornéenne
+legend-i-0: Epithélium intact
+legend-i-1: Stippling fluorescein staining
+legend-i-2: Epithéliopathie comme une spire
+legend-i-3: Erosion épithélial
+legend-v: Vascularisation cornéenne superficielle
+legend-v-0: Pas de vaisseaux superficiels, cornée claire
+legend-v-1: Jusqu'à 30% de la zone est recouverte par des vaisseaux superficiels
+legend-v-2: 30 à 70% de la zone est recouverte par des vaisseaux superficiels
+legend-v-3: 70 à 100% de la zone est recouverte par des vaisseaux superficiels
 

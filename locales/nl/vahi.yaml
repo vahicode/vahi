@@ -9,4 +9,28 @@ inviteCode: Uitnodigingscode
 enterInviteCode: Gelieve je uitnodigingscode in te voeren
 invalidInviteCode: Ongeldige uitnodigingscode
 save: Opslaan
+eyes: Ogen
+gradeIt: Beoordeel {it}
+vascularity: Vasculariteit
+haze: Waas
+integrity: Integriteit
+progressOnThisEye: Vooruitgang van dit oog
+overallProgress: Algemene vooruitgang
+nextEye: Volgende oog
+legend: Legende
+legend-h: Corneale waas
+legend-h-0: Geen waas, heldere cornea
+legend-h-1: Milde waas, iris details zichtbaar
+legend-h-2: Matige waas, iris details met moeite zichtbaar
+legend-h-3: Ernstige waas, iris details niet zichtbaar
+legend-i: Corneale integriteit
+legend-i-0: Intact epitheel
+legend-i-1: Punctata
+legend-i-2: Kransvormige epitheliopathie/pooling
+legend-i-3: Epitheel defect(en)
+legend-v: Corneale superficiële bloedvaatjes
+legend-v-0: Geen corneale superficiële bloedvaatjes, heldere cornea
+legend-v-1: Tot 30% van de zone ingenomen door superficiële bloedvaatjes
+legend-v-2: 30-70% van de zone ingenomen door superficiële bloedvaatjes
+legend-v-3: 70-100% van de zone ingenomen door superficiële bloedvaatjes
 

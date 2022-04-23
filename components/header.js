@@ -7,6 +7,7 @@ import CloseIcon from 'components/icons/close.js'
 import MenuIcon from 'components/icons/menu.js'
 import LoginIcon from 'components/icons/login.js'
 import LogoutIcon from 'components/icons/logout.js'
+import EyeIcon from 'components/icons/eye.js'
 import { useTranslation } from 'next-i18next'
 import AdminMenu from 'components/admin/menu.js'
 import config from '../vahi.config.mjs'
@@ -114,12 +115,20 @@ const Header = ({ app }) => {
             {app.admin?.isActive && <AdminMenu app={app} />}
             {app.user?.id
               ? (
-                <Link href="/invite">
-                  <a className="btn btn-ghost text-neutral-content">
-                    <LogoutIcon />
-                    <span className="pl-4">{t('logout')}</span>
-                  </a>
-                </Link>
+                [
+                  <Link href="/invite">
+                    <a className="btn btn-ghost text-neutral-content">
+                      <LogoutIcon />
+                      <span className="pl-4">{t('logout')}</span>
+                    </a>
+                  </Link>,
+                  <Link href="/grade">
+                    <a className="btn btn-ghost text-neutral-content">
+                      <EyeIcon />
+                      <span className="pl-4">{t('gradeIt', { it: t('eyes') })}</span>
+                    </a>
+                  </Link>,
+                ]
               )
               : (
                 <Link href="/invite">
