@@ -48,11 +48,18 @@
 svg.eye path,
 svg.eye circle {
   fill: #fff; 
-  fill-opacity: 0.1;
+  fill-opacity: 0;
   stroke: #000; 
   stroke-opacity: 0.5;
-  stroke-width: 9px; 
-  transition: fill-opacity 0.4s;
+  stroke-width: 5px; 
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: fill-opacity 0s;
+}
+svg.eye.flash path,
+svg.eye.flash circle {
+  stroke-opacity: 1;
+  fill-opacity: 0.3;
 }
 svg.eye.bold path,
 svg.eye.bold circle {
@@ -69,36 +76,39 @@ svg.eye.bold.inactive circle {
 svg.eye path:hover,
 svg.eye circle:hover {
   cursor: pointer;
-  stroke-width: 9px;
-  stroke-opacity: 1;
+  stroke-width: 5px; 
 }
-svg.eye path.rated-0, 
-svg.eye circle.rated-0 {
+svg.eye path.graded-0, 
+svg.eye circle.graded-0 {
   stroke: #228B22; 
   fill: #228B22; 
 }
-svg.eye path.rated-1, 
-svg.eye circle.rated-1 {
+svg.eye path.graded-1, 
+svg.eye circle.graded-1 {
   stroke: #CDBB32; 
   fill: #CDBB32; 
 }
-svg.eye path.rated-2,
-svg.eye circle.rated-2 {
+svg.eye path.graded-2,
+svg.eye circle.graded-2 {
   stroke: #FF9000; 
   fill: #FF9000; 
 }
-svg.eye path.rated-3, 
-svg.eye circle.rated-3 {
+svg.eye path.graded-3, 
+svg.eye circle.graded-3 {
   stroke: #FF2D00; 
   fill: #FF2D00; 
 }
 svg.eye text {
   font-size: 120px; 
   fill: #fff;
+  fill-opacity: 0;
   stroke: none;
   text-anchor: middle;
-  transition: fill-opacity 0.4s;
+  transition: fill-opacity 0.2s;
 }
 svg.eye text:hover {
   cursor: pointer;
+}
+svg.eye.flash text {
+  fill-opacity: 1;
 }

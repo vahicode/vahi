@@ -13,6 +13,8 @@ for (const step of steps) {
   defaultGradings[step] = {}
   for (let i=1; i<14; i++) defaultGradings[step][i] = defaultGrading
 }
+const defaultClasses = {}
+for (let i=1; i<14; i++) defaultClasses[i] = 'graded-0'
 
 const Progress = ({ step, stats }) => {
   const { t } = useTranslation(['vahi'])
@@ -86,6 +88,7 @@ const Grade = ({ app }) => {
   const { t } = useTranslation(['vahi', 'errors'])
 
   const [grades, setGrades] = useState(defaultGradings)
+  const [flash, setFlash] = useState(false)
   const [step, setStep] = useState(0)
   const [error, setError] = useState(false)
   const [eye, setEye] = useState(false)
@@ -98,6 +101,7 @@ const Grade = ({ app }) => {
       if (result.data) {
         setStats(result.data.stats)
         setEye(result.data.eye)
+        setClasses(defaultClasses)
       }
       setLoading(false)
     }
@@ -105,6 +109,21 @@ const Grade = ({ app }) => {
       setLoading(false)
     }
   }, [])
+
+  const grade = zone => {
+    // Grades (stores the results)
+    const newGrades = {}
+    for (const s of steps) newGrades[s] = {...grades[s]}
+    const score = newGrades[steps[step]][zone]
+    if (score === 3) newGrades[steps[step]][zone] = 0
+    else newGrades[steps[step]][zone] = score+1
+    setGrades(newGrades)
+    // Flash (provides visual feedback)
+    setFlash(true)
+    if (window) window.setTimeout(function(){
+        setFlash(false)
+    }, 700);
+  }
 
   const submit = () => {
   }
@@ -130,10 +149,9 @@ const Grade = ({ app }) => {
     <div>
       <Continue step={step} stepDone={stepDone}/>
       <Progress step={step} stats={stats}/>
-      <Grid eye={eye} />
+      <Grid eye={eye} grades={grades[steps[step]]} grade={grade} className={flash ? 'flash' : ''}/>
       <Progress step={step} stats={stats}/>
       <Continue step={step} stepDone={stepDone}/>
-      <pre>{JSON.stringify(grades, null ,2)}</pre>
       <Legend step={step} />
     </div>
   )

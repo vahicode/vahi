@@ -29,7 +29,7 @@ const text = {
   13: { x:  600, y:  630 }
 }
 
-const Grid = ({ eye, inactive=false, bold=false}) => {
+const Grid = ({ eye, inactive=false, bold=false, grades, grade, className=''}) => {
 
   const { scale, width, height, id } = eye
   let { x=0, y=0 } = eye
@@ -45,21 +45,21 @@ const Grid = ({ eye, inactive=false, bold=false}) => {
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBox()} 
-      className={`eye shadow rounded-lg ${bold ? 'bold' : ''} ${eye.isActive ? 'active' : 'inactive'}`}
+      className={`eye shadow rounded-lg ${bold ? 'bold' : ''} ${eye.isActive ? 'active' : 'inactive'} ${className}`}
       style={{
         backgroundImage: `url('/api/img/${id}')`,
         backgroundSize: 'contain'
       }}
           >
-      {Object.keys(paths).map(pid => (
-        <path key={pid} d={paths[pid]} className="" />
-      ))}
-      <circle cx="600" cy="600" r="200" />
       {!inactive && Object.keys(text).map(tid => (
         <text key={tid} x={text[tid].x} y={text[tid].y}> 
-        {scale}
+          {grades[tid]}
         </text>
       ))}
+      {Object.keys(paths).map(pid => (
+        <path key={pid} d={paths[pid]} className={`graded-${grades[pid]}`} onClick={() => grade(pid)}/>
+      ))}
+      <circle cx="600" cy="600" r="200" className={`graded-${grades['13']}`} onClick={() => grade(13)}/>
     </svg>
   )
 }
