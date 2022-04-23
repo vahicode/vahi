@@ -18,7 +18,7 @@ model User {
   isActive   Boolean   @default(true)
   lastLogin  DateTime?
   notes      String
-  Rating     Rating[]
+  Grading     Grading[]
 }
 
 model Admin {
@@ -45,13 +45,12 @@ model Eye {
   width     Float
   height    Float
   mimetype  String
-  Rating    Rating[]
+  Grading    Grading[]
 }
 
-model Rating {
+model Grading {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  createdBy String
   eye       Eye      @relation(fields: [eyeId], references: [id])
   eyeId     Int
   user      User     @relation(fields: [userId], references: [id])

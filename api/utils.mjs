@@ -89,7 +89,8 @@ export const authenticate = {
     }
 
     return admin
-  }
+  },
+  user: (req) => jwt.verify(req.headers.authorization.slice(7), config.jwt.secret)
 }
 
 

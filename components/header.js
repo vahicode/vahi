@@ -116,12 +116,10 @@ const Header = ({ app }) => {
             {app.user?.id
               ? (
                 [
-                  <Link href="/invite">
-                    <a className="btn btn-ghost text-neutral-content">
-                      <LogoutIcon />
-                      <span className="pl-4">{t('logout')}</span>
-                    </a>
-                  </Link>,
+                  <button className="btn btn-ghost text-neutral-content" onClick={app.logout}>
+                    <LogoutIcon />
+                    <span className="pl-4">{t('logout')}</span>
+                  </button>,
                   <Link href="/grade">
                     <a className="btn btn-ghost text-neutral-content">
                       <EyeIcon />

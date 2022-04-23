@@ -7,7 +7,6 @@ const handler = async (req, res) => {
 
   // Admin authentication
   const admin = authenticate.admin(req, 'superadmin')
-  console.log({admin})
   if (!admin) return res.status(403)
     .send({ error: 'authentication_failed' })
 

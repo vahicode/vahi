@@ -1,18 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import RightIcon from 'components/icons/right.js'
+import axios from 'axios'
+import Spinner from 'components/spinner.js'
+import Grid from 'components/grid.js'
 
 // Some defaults
+const steps = ['vascularity', 'haze', 'integrity']
 const defaultGrading = 0
 const defaultGradings = {}
-for (let i=1; i<14; i++) defaultGradings[i] = defaultGrading
-const steps = ['vascularity', 'haze', 'integrity']
+for (const step of steps) {
+  defaultGradings[step] = {}
+  for (let i=1; i<14; i++) defaultGradings[step][i] = defaultGrading
+}
 
-const Progress = ({ step }) => {
+const Progress = ({ step, stats }) => {
   const { t } = useTranslation(['vahi'])
 
   return (
-    <div className="flex flex-row flex-wrap justify-around pt-4 border-t">
+    <div className="flex flex-row flex-wrap justify-around py-4">
       <div className="flex flex-col">
         <label>{t('progressOnThisEye')}</label>
         <ul className="steps">
@@ -26,14 +32,14 @@ const Progress = ({ step }) => {
       </div>
       <div className="flex flex-col items-start sm:w-full md:w-1/2">
         <label className="text-right w-full mb-4">{t('overallProgress')}</label>
-        <progress className="progress progress-primary w-full" value="20" max="100"></progress>
-        <label className="text-right w-full mt-4">12/34 {t('eyes')}</label>
+        <progress className="progress progress-primary w-full" value={stats.total/100 * stats.done +2} max="104"></progress>
+        <label className="text-right w-full mt-4">{stats?.done}/{stats?.todo} {t('eyes')}</label>
       </div>
     </div>
   )
 }
 
-const Continue = ({ step, done }) => {
+const Continue = ({ step, stepDone }) => {
   const { t } = useTranslation(['vahi'])
   let next = 'nextEye'
   if (step === 0) next = 'haze'
@@ -41,7 +47,7 @@ const Continue = ({ step, done }) => {
 
   return (
     <p className="text-right">
-       <button onClick={done}
+       <button onClick={stepDone}
         className={`btn btn-primary ${step < 2 ? 'btn-outline' : ''}`}
     >
          {t('gradeIt', { it: t(next) })}
@@ -82,19 +88,52 @@ const Grade = ({ app }) => {
   const [grades, setGrades] = useState(defaultGradings)
   const [step, setStep] = useState(0)
   const [error, setError] = useState(false)
+  const [eye, setEye] = useState(false)
+  const [stats, setStats] = useState({done: 0, todo: 0, total: 0})
+  const [loading, setLoading] = useState(true)
 
-  const done = () => {
+  useEffect(async () => {
+    try {
+      const result = await axios.get('/api/grading/load', app.bearer(false))
+      if (result.data) {
+        setStats(result.data.stats)
+        setEye(result.data.eye)
+      }
+      setLoading(false)
+    }
+    catch (err) {
+      setLoading(false)
+    }
+  }, [])
+
+  const submit = () => {
+  }
+
+  const stepDone = () => {
     if (step === 2) {
       setStep(0)
     }
     else setStep(step+1)
   }
 
+  if (stats.total < 1) {
+    if (stats.total === 0) { 
+      // no eyes
+      return <p>no eyes</p>
+    }
+    return <p>your done</p>
+  }
+
+  if (loading) return <Spinner />
+
   return (
     <div>
-      <Continue step={step} done={done}/>
-      <Progress step={step} />
-      <Continue step={step} done={done}/>
+      <Continue step={step} stepDone={stepDone}/>
+      <Progress step={step} stats={stats}/>
+      <Grid eye={eye} />
+      <Progress step={step} stats={stats}/>
+      <Continue step={step} stepDone={stepDone}/>
+      <pre>{JSON.stringify(grades, null ,2)}</pre>
       <Legend step={step} />
     </div>
   )

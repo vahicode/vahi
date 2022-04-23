@@ -19,7 +19,6 @@ const handler = async (req, res) => {
 
   // Create admin
   const [pwd, hash, salt] = generatePassword()
-  console.log('in add page', {pwd, hash, salt64: salt, field: `${hash}:${salt}`})
   const record = await prisma.admin.upsert({
     where: { email: req.body.email },
     update: {
@@ -33,7 +32,6 @@ const handler = async (req, res) => {
       createdBy: admin.email
     }
   })
-  console.log('post upsert', record)
 
   return res.send({...record, password: pwd})
 }
