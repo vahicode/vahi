@@ -1,3 +1,4 @@
 unknownError: There was an unexpected problem
 pleaseReportThis: Please help us by reporting this
-
+notFound: We could not find what you requested
+accessDenied: Your role does not permit access to this resource

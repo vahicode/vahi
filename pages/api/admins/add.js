@@ -18,18 +18,22 @@ const handler = async (req, res) => {
     .send({ error: 'email_is_required' })  
 
   // Create admin
-    const [pwd, hash, salt] = generatePassword()
-    const record = await prisma.admin.upsert({
-      where: { email: req.body.email },
-      update: {},
-      create: {
-        email: req.body.email,
-        notes: req.body?.notes || '',
-        isActive: false,
-        password: `${hash}:${salt}`,
-        createdBy: admin.email
-      }
-    })
+  const [pwd, hash, salt] = generatePassword()
+  console.log('in add page', {pwd, hash, salt64: salt, field: `${hash}:${salt}`})
+  const record = await prisma.admin.upsert({
+    where: { email: req.body.email },
+    update: {
+      password: `${hash}:${salt}`,
+    },
+    create: {
+      email: req.body.email,
+      notes: req.body?.notes || '',
+      isActive: false,
+      password: `${hash}:${salt}`,
+      createdBy: admin.email
+    }
+  })
+  console.log('post upsert', record)
 
   return res.send({...record, password: pwd})
 }

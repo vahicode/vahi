@@ -26,47 +26,55 @@ const AdminMenu = ({ app, list=false }) => {
       title: t('users'),
       icon: <UserIcon />,
       className: '',
+      only: ['admin', 'superadmin'],
     },
     {
       url: '/admin/eyes',
       title: t('eyes'),
       icon: <EyeIcon />,
       className: '',
+      only: ['dataentry', 'admin', 'superadmin'],
     },
-    'spacer',
+    { spacer: true },
     {
       url: '/admin/add/users',
       title: t(`add${capitalize('users')}`),
       icon: <UserIcon />,
       className: 'text-primary',
+      only: ['admin', 'superadmin'],
     },
     {
       url: '/admin/add/eyes',
       title: t(`add${capitalize('eyes')}`),
       icon: <EyeIcon />,
       className: 'text-primary',
+      only: ['dataentry', 'admin', 'superadmin'],
     },
-    'spacer',
+    { spacer: true, only: ['dataentry', 'admin', 'superadmin'] },
     {
       url: '/admin/export',
       title: t('exportData'),
       icon: <ExportIcon />,
       className: 'text-success',
+      only: ['analyst', 'admin', 'superadmin']
     },
-    'spacer',
+    { spacer: true, only: ['analyst', 'admin', 'superadmin'],
+    },
     {
       url: '/admin/admins',
       title: t('administrators'),
       icon: <AdminIcon />,
       className: 'text-warning',
+      only: ['superadmin'],
     },
     {
       url: '/admin/add/admins',
       title: t(`add${capitalize('administrators')}`),
       icon: <AdminIcon />,
       className: 'text-warning',
+      only: ['superadmin'],
     },
-    'spacer',
+    { spacer: true, only: ['superadmin'] },
     {
       onClick: app.logout,
       title: t('logout'),
@@ -75,29 +83,30 @@ const AdminMenu = ({ app, list=false }) => {
     },
   ]
 
-  const lis = links.map(item => item === 'spacer'
-    ? <li className="py-1"><hr className="p-0" /></li>
-    : (
-      <li key={item.url}>
-        {item.onClick
-          ? (
-            <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`} onClick={item.onClick}>
-              {item.icon}
-              <span className="text-base-content font-bold uppercase">{item.title}</span>
-            </button>
-          ) : (
-            <Link href={item.url}>
-              <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`}>
-                {item.icon}
-                <span className="text-base-content font-bold uppercase">{item.title}</span>
-              </button>
-            </Link>
-          )
-        }
-      </li>
-    )
+  const lis = links.map(item => (!item.only || item.only.indexOf(app.admin.role) !== -1)
+      ? item.spacer
+        ? <li className="py-1"><hr className="p-0" /></li>
+        : (
+          <li key={item.url}>
+            {item.onClick
+              ? (
+                <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`} onClick={item.onClick}>
+                  {item.icon}
+                  <span className="text-base-content font-bold uppercase">{item.title}</span>
+                </button>
+              ) : (
+                <Link href={item.url}>
+                  <button className={`btn-ghost hover:bg-base-200 text-base-content flex flex-row gap-4 ${item.className}`}>
+                    {item.icon}
+                    <span className="text-base-content font-bold uppercase">{item.title}</span>
+                  </button>
+                </Link>
+              )
+            }
+          </li>
+        )
+      : null
   )
-
   return list
   ?  <ul className="menu">{lis}</ul>
   : (

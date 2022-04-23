@@ -1,0 +1,5 @@
+dataentry: Ce rôle permet uniquement de gérer les (photos des) yeux
+analyst: Ce rôle permet uniquement d'exporter les données VaHI
+admin: Ce rôle permet tout sauf gérer d'autres administrateurs
+superadmin: Ce rôle permet tout, y compris la gestion des administrateurs
+

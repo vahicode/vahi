@@ -45,7 +45,7 @@ export const checkPassword = (pwd, hash, salt64) => {
   // Hash password + salt
   const hasher = createHash(config.passwords.algorithm)
   hasher.update(pwd+salt)
-
+  
   return (hasher.digest('hex') === hash)
 }
 
@@ -80,7 +80,13 @@ export const getJWT = data => jwt.sign(
 export const authenticate = {
   admin: (req, role=false) => {
     const admin = jwt.verify(req.headers.authorization.slice(7), config.jwt.secret)
-    if (role && admin.roleId !== role) return false
+    if (role && admin) {
+      if (Array.isArray(role)) {
+        if (role.indexOf(admin.role) === -1) return false
+      } else {
+        if (admin.role !== role) return false
+      }
+    }
 
     return admin
   }

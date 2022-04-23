@@ -7,10 +7,12 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
 import Logo from 'components/logos/vahi.js'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const InvitePage = (props) => {
   const app = useApp()
   const { t } = useTranslation()
+  const router = useRouter()
 
   const [code, setCode] = useState('')
   const [error, setError] = useState(false)
@@ -18,13 +20,18 @@ const InvitePage = (props) => {
   const login = async () => {
     let result = false
     try {
-      result = await axios.post('/api/login', { invite: code })
+      result = await axios.post('/api/user-login', { invite: code })
     }
     catch(err) {
-      console.log(err)
+      if (err?.response?.data?.error === 'login_failed') setError({ warning: true, msg: t('loginFailed') })
     }
+    if (result?.data?.token && result.data?.user) {
+      app.setUserToken(result.data.token)
+      app.setUser(result.data.user)
+      router.push('/rate') // Go to rate page
+    } 
+    else setError({ warning: true, msg: t('errors:unexpectedError') })
     
-    console.log(result)
   }
 
   return (

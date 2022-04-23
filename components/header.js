@@ -106,7 +106,7 @@ const Header = ({ app }) => {
             )}
           </button>
           <div className="hidden flex-row items-center sm:flex">
-            {app.admin?.active 
+            {app.admin?.isActive 
               ? <AdminMenu app={app} />
               : (
                 <Link href="/invite">

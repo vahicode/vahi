@@ -7,6 +7,7 @@ const colors = {
   note: 'primary',
   tip: 'accent',
   warning: 'warning',
+  error: 'error',
   none: '',
 }
 const icons = {

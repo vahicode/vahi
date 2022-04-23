@@ -8,10 +8,14 @@ import { useTranslation } from 'next-i18next'
 import Logo from 'components/logos/vahi.js'
 import axios from 'axios'
 import Popout from 'components/popout.js'
+import AdminMenu from 'components/admin/menu.js'
+import BreadCrumbs from 'components/breadcrumbs.js'
+import { useRouter } from 'next/router'
 
 const AdminLoginPage = (props) => {
   const app = useApp()
   const { t } = useTranslation(['admin', 'vahi', 'errors'])
+  const router = useRouter()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -29,14 +33,16 @@ const AdminLoginPage = (props) => {
       if (err?.response?.data?.error === 'login_failed') setError({ warning: true, msg: t('loginFailed') })
     }
     if (result?.data?.token && result.data?.admin) {
-      app.setAdminToken(result.data.token)
+      app.setToken(result.data.token)
       app.setAdmin(result.data.admin)
+      app.setInvite(null)
+      router.push('/rate') // Go to rate page
     } else setError({ warning: true, msg: t('errors:unexpectedError') })
   }
 
   const logout = async (evt) => {
     setError(false)
-    app.setAdminToken(null)
+    app.setToken(null)
     app.setAdmin(null)
   }
 
@@ -45,23 +51,13 @@ const AdminLoginPage = (props) => {
   return (
     <Page app={app}>
       <div className="form-control w-full max-w-md m-auto">
+        <BreadCrumbs title={t('administration')}/>
         <h1>
-          <span>{t('administration')}: </span>
-          {admin
-            ? <span>{t('vahi:logout')}</span>
-            : <span>{t('vahi:login')}</span>
-          }
+          <span>{t('administration')}</span>
         </h1>
         {error && <Popout compact {...error}>{error.msg}</Popout>}
-        {admin 
-          ? (
-            <>
-              <p>{t('logoutMessage')}</p>
-              <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={logout}>
-                {t('logout')}
-              </button>
-            </>
-          )
+        {app.admin 
+          ? <AdminMenu app={app} list />
           : (
             <form onSubmit={login}>
               <label className="label">

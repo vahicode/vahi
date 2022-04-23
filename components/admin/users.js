@@ -5,6 +5,7 @@ import AdminIcon from 'components/icons/database.js'
 import DisableIcon from 'components/icons/disable.js'
 import EnableIcon from 'components/icons/enable.js'
 import axios from 'axios'
+import RecordLink from 'components/admin/record-link.js'
 
 const updateSelected = (selected, setSelected, id) => {
   const newSelection = {...selected}
@@ -80,22 +81,23 @@ const Users = ({ users=[], app, setUpdate }) => {
   const refresh = () => setUpdate(Date.now())
 
   const handlers = {
-    activateUsers: users => {
-      axios.post(
-        '/api/users/activate',
-        { users: Object.keys(selected) },
-        app.bearer()
-      ).then(refresh)
+    activateUsers: (userIds=false) => {
+      const ids = Array.isArray(userIds) ? userIds : Object.keys(selected)
+      axios
+        .post('/api/users/activate', { users: ids }, app.bearer())
+        .then(refresh)
     },
-    deactivateUsers: users => {
-      axios.post(
-        '/api/users/deactivate',
-        { users: Object.keys(selected) },
-        app.bearer()
-      ).then(refresh)
+    deactivateUsers: (userIds=false) => {
+      const ids = Array.isArray(userIds) ? userIds : Object.keys(selected)
+      axios
+        .post('/api/users/deactivate', { users: ids }, app.bearer())
+        .then(refresh)
     }
   }
 
+  const toggleActive = user => user.isActive
+    ? handlers.deactivateUsers([user.id])
+    : handlers.activateUsers([user.id])
 
   const ToggleButton = ({ id, children }) => (
     <button className='w-full text-left' 
@@ -135,25 +137,25 @@ const Users = ({ users=[], app, setUpdate }) => {
         <tbody>
           {users.map((user,i) => (
             <tr key={user.id} className={`
-              ${user.isActive ? '' : 'text-error'}
+              ${user.isActive ? '' : 'text-error opacity-50'}
               ${user.isDemoUser ? 'text-success' : ''}
               ${selected[user.id] ? 'font-bold' : ''}
               hover:pointer
             `}>
               <td><CheckBox {...{id: user.id, selected, setSelected}}/></td>
               <td><ToggleButton id={user.id}>{(i + 1)}</ToggleButton></td>
-              <td><ToggleButton id={user.id}>{user.id}</ToggleButton></td>
+              <td><RecordLink id={user.id} type='users'/></td>
               <td><ToggleButton id={user.id}>{user.notes ? user.notes : '-'}</ToggleButton></td>
               <td><ToggleButton id={user.id}><TimeAgo date={user.createdAt} /></ToggleButton></td>
-              <td>{user.createdBy}</td>
-              <td>{user.lastLogin ? <TimeAgo date={user.lastLogin} /> : '-' }</td>
+              <td><RecordLink id={user.createdBy} type='admins' /></td>
+              <td><ToggleButton id={user.id}>{user.lastLogin ? <TimeAgo date={user.lastLogin} /> : '-' }</ToggleButton></td>
               <td>
-                <ToggleButton id={user.id}>
+                <button onClick={() => toggleActive(user)}>
                   {user.isActive 
                     ? <EnableIcon className="w-6 h-6 text-success" />
                     : <DisableIcon className="w-6 h-6 text-error" />
                   }
-                </ToggleButton>
+                </button>
               </td>
             </tr>
           ))}

@@ -7,26 +7,26 @@ import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import Popout from 'components/popout.js'
 import AdminsOnly from 'components/admin/admins-only.js'
-import Eye from 'components/admin/eye.js'
+import User from 'components/admin/user.js'
 import Spinner from 'components/spinner.js'
 import { useRouter } from 'next/router'
 import BreadCrumbs from 'components/breadcrumbs.js'
 
-const AdminEyePage = (props) => {
+const AdminUserPage = (props) => {
   const app = useApp()
   const { t } = useTranslation(['admin', 'vahi', 'errors'])
   const router = useRouter()
   const { id } = router.query
 
-  const [eye, setEye] = useState(false)
+  const [user, setUser] = useState(false)
   const [error, setError] = useState(false)
   const [update, setUpdate] = useState(0)
 
   useEffect(async () => {
     try {
-      const result = await axios.get(`/api/eyes/get/${id}`, app.bearer())
-      if (result.data) setEye(result.data)
-      else router.push('/admin/eyes') // deleted or not existing
+      const result = await axios.get(`/api/users/get/${id}`, app.bearer())
+      if (result.data) setUser(result.data)
+      else router.push('/admin/users') // deleted or not existing
     }
     catch (err) {
       setError({ warning: true, msg:  t('errors:unknownError') })
@@ -35,20 +35,24 @@ const AdminEyePage = (props) => {
 
   const crumbs = [
     { url: '/admin', title: t('administration') },
-    { url: '/admin/eyes', title: t('eyes') },
+    { url: '/admin/users', title: t('users') },
   ]
+
+  // Add short ID for display purposes
+  if (user) user.shortId = user.id.length > 6
+    ? user.id.slice(0,6)
+    : user.id
 
   return (
     <Page app={app}>
       <AdminsOnly app={app}>
-        <BreadCrumbs crumbs={crumbs} title={`#${id}`}/>
+        <BreadCrumbs crumbs={crumbs} title={`${user ? user.shortId : id}`}/>
         <div className="form-control w-full">
-          <h1>{t('eyes')}: #{id}</h1>
-          {error 
-            ? <Popout compact {...error}>{error.msg}</Popout>
-            : eye
-              ? <Eye eye={eye} app={app} setUpdate={setUpdate}/>
-              : <Spinner />
+          <h1>{t('users')}: {user ? user.shortId : id}</h1>
+          {error && <Popout compact {...error}>{error.msg}</Popout>}
+          {user
+            ? <User user={user} app={app} setUpdate={setUpdate} />
+            : <Spinner />
           }
         </div>
       </AdminsOnly>
@@ -56,7 +60,7 @@ const AdminEyePage = (props) => {
   )
 }
 
-export default AdminEyePage
+export default AdminUserPage
 
 export async function getStaticProps({ locale }) {
   return {

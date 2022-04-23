@@ -9,6 +9,7 @@ import Logo from 'components/logos/vahi.js'
 import axios from 'axios'
 import Popout from 'components/popout.js'
 import AdminMenu from 'components/admin/menu.js'
+import BreadCrumbs from 'components/breadcrumbs.js'
 
 const AdminLoginPage = (props) => {
   const app = useApp()
@@ -32,6 +33,7 @@ const AdminLoginPage = (props) => {
     if (result?.data?.token && result.data?.admin) {
       app.setToken(result.data.token)
       app.setAdmin(result.data.admin)
+      app.setInvite(null)
     } else setError({ warning: true, msg: t('errors:unexpectedError') })
   }
 
@@ -46,6 +48,7 @@ const AdminLoginPage = (props) => {
   return (
     <Page app={app}>
       <div className="form-control w-full max-w-md m-auto">
+        <BreadCrumbs title={t('administration')}/>
         <h1>
           <span>{t('administration')}</span>
         </h1>

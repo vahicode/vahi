@@ -32,7 +32,7 @@ const text = {
 const Grid = ({ eye, inactive=false, bold=false}) => {
 
   const { scale, width, height, id } = eye
-  let { x, y } = eye
+  let { x=0, y=0 } = eye
   x = x/width
   y = y/height
 

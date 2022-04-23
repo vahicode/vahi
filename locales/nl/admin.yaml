@@ -28,4 +28,10 @@ noHaraKiriMsg: Als je de account waar je momenteel mee bent aangemeld zou deacti
 noDowngrade: Je kan je eigen beheerdersaccount niet downgraden
 noDowngradeMsg: Je kan een andere (super) beheerder vragen om dit te doen. Maar we laten je jezelf niet in nesten werken.
 role: Rol
+created: Aangemaakt
+by: Door
+lastLogin: Meest recente login
+demoUser: Demo gebruiker
+yes: Ja
+no: Nee
 

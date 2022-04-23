@@ -10,6 +10,7 @@ import AdminsOnly from 'components/admin/admins-only.js'
 import Eyes from 'components/admin/eyes.js'
 import Spinner from 'components/spinner.js'
 import BreadCrumbs from 'components/breadcrumbs.js'
+import AccessDenied from 'components/access-denied.js'
 
 const AdminEyesPage = (props) => {
   const app = useApp()
@@ -30,7 +31,13 @@ const AdminEyesPage = (props) => {
       else setError({ warning: true, msg:  t('errors:unknownError') })
     }
     catch (err) {
-      setError({ warning: true, msg:  t('errors:unknownError') })
+      setError({ 
+        warning: true, 
+        msg: t('errors:unknownError'),
+        component: err.response?.data?.error === 'authentication_failed'
+          ? <AccessDenied />
+          : false
+      })
     }
   }, [update])
 
@@ -40,10 +47,15 @@ const AdminEyesPage = (props) => {
         <BreadCrumbs crumbs={crumbs} title={t('eyes')}/>
         <div className="form-control w-full">
           <h1>{t('eyes')}</h1>
-          {error && <Popout compact {...error}>{error.msg}</Popout>}
+          {error ?
+            error.component
+              ? error.component
+              : <Popout compact {...error}>{error.msg}</Popout>
+            : null
+          }
           {eyes
             ? <Eyes eyes={eyes} app={app} setUpdate={setUpdate}/>
-            : <Spinner />
+            : error ? null : <Spinner />
           }
         </div>
       </AdminsOnly>

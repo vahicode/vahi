@@ -16,9 +16,10 @@ function useApp(full = true) {
 
   // Persistent state
   const [theme, setTheme] = useLocalStorage('theme', prefersDarkMode ? 'dark' : 'light')
-  const [invite, setInvite] = useLocalStorage('invite', null)
+  const [user, setUser] = useLocalStorage('user', null)
+  const [userToken, setUserToken] = useLocalStorage('userToken', null)
   const [admin, setAdmin] = useLocalStorage('admin', null)
-  const [token, setToken] = useLocalStorage('token', null)
+  const [adminToken, setAdminToken] = useLocalStorage('token', null)
 
   // React State
   const [primaryMenu, setPrimaryMenu] = useState(false)
@@ -42,12 +43,10 @@ function useApp(full = true) {
     // State
     loading,
     primaryMenu,
-    invite,
 
     // State setters
     setLoading,
     setPrimaryMenu,
-    setInvite,
     startLoading: () => {
       setLoading(true)
       setPrimaryMenu(false)
@@ -59,15 +58,17 @@ function useApp(full = true) {
 
     //Persistent state
     theme,
-    invite,
+    user,
+    userToken,
     admin,
-    token,
+    adminToken,
 
     //Persistent state setters
     setTheme,
-    setInvite,
+    setUser,
+    setUserToken,
     setAdmin,
-    setToken,
+    setAdminToken,
 
     // Methods
     bearer,

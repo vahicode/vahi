@@ -10,6 +10,7 @@ import AdminsOnly from 'components/admin/admins-only.js'
 import Admins from 'components/admin/admins.js'
 import Spinner from 'components/spinner.js'
 import BreadCrumbs from 'components/breadcrumbs.js'
+import AccessDenied from 'components/access-denied.js'
 
 const AdminAdminsPage = (props) => {
   const app = useApp()
@@ -26,7 +27,13 @@ const AdminAdminsPage = (props) => {
       else setError({ warning: true, msg:  t('errors:unknownError') })
     }
     catch (err) {
-      setError({ warning: true, msg:  t('errors:unknownError') })
+      setError({ 
+        warning: true, 
+        msg: t('errors:unknownError'),
+        component: err.response?.data?.error === 'authentication_failed'
+          ? <AccessDenied />
+          : false
+      })
     }
   }, [update])
 
@@ -40,10 +47,15 @@ const AdminAdminsPage = (props) => {
         <BreadCrumbs crumbs={crumbs} title={t('administrators')}/>
         <div className="form-control w-full">
           <h1>{t('administrators')}</h1>
-          {error && <Popout compact {...error}>{error.msg}</Popout>}
+          {error ?
+            error.component
+              ? error.component
+              : <Popout compact {...error}>{error.msg}</Popout>
+            : null
+          }
           {admins
             ? <Admins admins={admins} app={app} setUpdate={setUpdate} setError={setError}/>
-            : <Spinner />
+            : error ? null : <Spinner />
           }
         </div>
       </AdminsOnly>

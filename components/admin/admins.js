@@ -6,6 +6,7 @@ import DisableIcon from 'components/icons/disable.js'
 import EnableIcon from 'components/icons/enable.js'
 import axios from 'axios'
 import Link from 'next/link'
+import Popout from 'components/popout.js'
 
 const updateSelected = (selected, setSelected, id) => {
   const newSelection = {...selected}
@@ -74,7 +75,7 @@ const roleClasses = {
   superadmin: 'bg-error text-error-content',
   admin: 'bg-secondary text-secondary-content',
   analyst: 'bg-success text-success-content',
-
+  dataentry: 'bg-info text-info-content',
 }
 
 const Admins = ({ admins=[], app, setUpdate, setError }) => {
@@ -158,7 +159,13 @@ const Admins = ({ admins=[], app, setUpdate, setError }) => {
               hover:pointer
             `}>
               <td><CheckBox {...{id: admin.email, selected, setSelected}}/></td>
-              <td><AdminLink id={admin.email}>{(i + 1)}</AdminLink></td>
+              <td>
+                <Link href={`/admin/admins/${admin.email}`}>
+                  <a className={`p-1 px-3 rounded-full
+                    ${admin.email === app.admin.email ? 'bg-success text-success-content' : ''}
+                  `}>{(i + 1)}</a>
+                </Link>
+              </td>
               <td><AdminLink id={admin.email}>{admin.email}</AdminLink></td>
               <td>
                 <AdminLink id={admin.email}>

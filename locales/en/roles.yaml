@@ -1,0 +1,5 @@
+dataentry: This role only allows managing (pictures of) eyes
+analyst: This roles only allows exporting the VaHI data
+admin: This role allows everything except managing other administrators
+superadmin: This role allows everything, including managing administrators
+

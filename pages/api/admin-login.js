@@ -34,6 +34,11 @@ const handler = async (req, res) => {
       _id: result.email,
       ...result
     })
+    // Update last login time
+    await prisma.Admin.update({
+      where: { email: result.email },
+      data: { lastLogin: new Date() }
+    })
 
     // Return token
     return res.send({ token, admin: result })

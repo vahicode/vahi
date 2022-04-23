@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next'
 import axios from 'axios'
 import Popout from 'components/popout.js'
 import AdminsOnly from 'components/admin/admins-only.js'
+import BreadCrumbs from 'components/breadcrumbs.js'
 
 const AdminAddUsersPage = (props) => {
   const app = useApp()
@@ -40,10 +41,16 @@ const AdminAddUsersPage = (props) => {
     else setError({ warning: true, msg: t('errors:unexpectedError') })
   }
 
+  const crumbs = [
+    { url: '/admin', title: t('administration') },
+    { url: '/admin/users', title: t('users') },
+  ]
+
   return (
     <Page app={app}>
       <AdminsOnly app={app}>
-      <div className="form-control w-full max-w-md m-auto">
+      <div className="form-control w-full max-w-lg m-auto">
+        <BreadCrumbs crumbs={crumbs} title={t('addUsers')}/>
         <h1>{t('addUsers')}</h1>
         {error && <Popout compact {...error}>{error.msg}</Popout>}
         {users

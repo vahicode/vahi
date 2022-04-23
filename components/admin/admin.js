@@ -66,11 +66,12 @@ const AdminRole = ({ admin, t, handlers }) => {
     <div>
       <h3 className="capitalize">{t('role')}</h3>
       <div className="form-control w-full">
-        {['analyst', 'admin', 'superadmin'].map(r => (
+        {['dataentry', 'analyst', 'admin', 'superadmin'].map(r => (
           <div className="form-control flex flex-row">
             <label className="label cursor-pointer">
               <input key={r} type="radio" name="role" className="radio" value={r} checked={r === role} onClick={() => setRole(r)}/>
               <span className="label-text ml-4 font-bold uppercase">{r}</span> 
+              <span className="label-text ml-4">{t(`roles:${r}`)}</span> 
             </label>
           </div>
         ))}
@@ -144,7 +145,7 @@ const AdminAdvanced = ({ admin, t, handlers, loggedIn }) => (
 
 
 const Admin = ({ admin, app, setUpdate }) => {
-  const { t } = useTranslation(['admin', 'vahi'])
+  const { t } = useTranslation(['admin', 'vahi', 'roles'])
 
   const [selected, setSelected ] = useState({})
 

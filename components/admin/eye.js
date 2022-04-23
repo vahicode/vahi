@@ -46,7 +46,7 @@ const EyeStats = ({ eye, t, handlers }) => (
 const EyeCalibration = ({ eye, t, handlers }) => {
   const [scale, setScale] = useState(eye.scale)
   const [x, setX] = useState(eye.x)
-  const [y, setY] = useState(eye.Y)
+  const [y, setY] = useState(eye.y)
 
   return (
     <div>
@@ -137,7 +137,7 @@ const EyeAdvanced = ({ eye, t, handlers }) => (
         <div className="flex flex-row flex-wrap gap-8 items-center">
           <Popout warning compact>{t('pleaseBeCareful')}</Popout>
           <Popout tip compact><span className="font-normal">{t('noWayBack')}</span></Popout>
-          <button className="btn btn-error" onClick={() => handlers.delete()}>
+          <button className="btn btn-error" onClick={() => handlers.delete(eye.id)}>
             <DisableIcon/>
             <span className="ml-4">{t('delete')}</span>
           </button>
@@ -181,6 +181,12 @@ const Eye = ({ eye, app, setUpdate }) => {
       axios.post(
         '/api/eyes/calibrate',
         { eye: [eye.id], ...vals },
+        app.bearer()
+      ).then(refresh)
+    },
+    delete: id => {
+      axios.delete(
+        `/api/eyes/delete/${id}`,
         app.bearer()
       ).then(refresh)
     },

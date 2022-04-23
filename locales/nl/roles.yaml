@@ -1,0 +1,5 @@
+dataentry: Deze rol laat uitsluitend het beheer van (foto's van) ogen toe
+analyst: Deze rol laat uitsluitend het exporteren van de VaHI data toe
+admin: Deze rol laat alles toe, met uitzondering van het beheer van beheerders
+superadmin: Deze rol laat alles toe, inclusief het beheer van beheerders
+

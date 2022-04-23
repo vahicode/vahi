@@ -26,4 +26,10 @@ calibration: Calibrage
 noHaraKiri: Vous ne pouvez pas désactiver votre propre compte
 noHaraKiriMsg: Si vous désactivez le compte avec lequel vous êtes actuellement connecté, vous vous serez verrouillé hors de l'interface d'administration. Ne faisons pas ça.
 role: Rôle
+created: Créé
+by: Par
+lastLogin: Dernière connexion
+demoUser: Utilisateur de démonstration
+yes: Oui
+no: Non
 

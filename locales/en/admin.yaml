@@ -28,3 +28,9 @@ noHaraKiriMsg: If you would deactivate the account you are currently logged in w
 noDowngrade: Vous ne pouvez pas rétrograder votre propre compte
 noDowngradeMsg: Vous pouvez demander à un autre (super) administrateur de le faire. Mais nous ne vous laisserons pas vous paralyser.
 role: Role
+created: Created
+by: By
+lastLogin: Last login
+demoUser: Demo user
+yes: "Yes" # Quoted to avoid this getting turned into a boolean
+no: "No" # Quoted to avoid this getting turned into a boolean

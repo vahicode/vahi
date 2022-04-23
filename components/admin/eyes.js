@@ -7,6 +7,7 @@ import EnableIcon from 'components/icons/enable.js'
 import axios from 'axios'
 import Link from 'next/link'
 import Grid from 'components/grid'
+import RecordLink from 'components/admin/record-link.js'
 
 const updateSelected = (selected, setSelected, id) => {
   const newSelection = {...selected}
@@ -82,22 +83,25 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
   const refresh = () => setUpdate(Date.now())
 
   const handlers = {
-    activateEyes: eyes => {
+    activateEyes: (eyes=false) => {
       axios.post(
         '/api/eyes/activate',
-        { eyes: Object.keys(selected) },
+        { eyes: eyes ? eyes : Object.keys(selected) },
         app.bearer()
       ).then(refresh)
     },
-    deactivateEyes: eyes => {
+    deactivateEyes: (eyes=false) => {
       axios.post(
         '/api/eyes/deactivate',
-        { eyes: Object.keys(selected) },
+        { eyes: eyes ? eyes : Object.keys(selected) },
         app.bearer()
       ).then(refresh)
     }
   }
 
+  const toggleActive = eye => eye.isActive
+    ? handlers.deactivateEyes([eye.id])
+    : handlers.activateEyes([eye.id])
 
   const ToggleButton = ({ id, children }) => (
     <button className='w-full text-left' 
@@ -137,7 +141,7 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
         <tbody>
           {eyes.map((eye,i) => (
             <tr key={eye.id} className={`
-              ${eye.isActive ? '' : 'text-error'}
+              ${eye.isActive ? '' : 'text-error opacity-50'}
               ${selected[eye.id] ? 'font-bold' : ''}
               hover:pointer
             `}>
@@ -150,17 +154,17 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
                   </a>
                 </Link>
               </td>
-              <td><ToggleButton id={eye.id}>{eye.id}</ToggleButton></td>
+              <td><RecordLink id={eye.id} type='eyes'/></td>
               <td><ToggleButton id={eye.id}>{eye.notes ? eye.notes : '-'}</ToggleButton></td>
               <td><ToggleButton id={eye.id}><TimeAgo date={eye.createdAt} /></ToggleButton></td>
-              <td>{eye.createdBy}</td>
+              <td><RecordLink id={eye.createdBy} type='admins'/></td>
               <td>
-                <ToggleButton id={eye.id}>
+                <button onClick={() => toggleActive(eye)}>
                   {eye.isActive 
                     ? <EnableIcon className="w-6 h-6 text-success" />
                     : <DisableIcon className="w-6 h-6 text-error" />
                   }
-                </ToggleButton>
+                </button>
               </td>
             </tr>
           ))}

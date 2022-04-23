@@ -20,13 +20,15 @@ handler.post(async (req, res) => {
   // Is this a multi-upload?
   const files = (Array.isArray(req.files))
     ? req.files
-    : [ req.files?.files ]
+    : req.files?.files
+      ? [ req.files.files ]
+      : [ req.files ]
+
+  if (!files) return res.status(400).send()
 
   // Create eye
   const eyes = []
   for (const file of files) {
-    if (typeof file === 'undefined') console.log('file is undefined', files)
-    console.log(file)
     const img = fs.readFileSync(file.filepath)
     const { width, height } = probe.sync(img)
     const eye = await prisma.eye.create({

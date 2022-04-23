@@ -6,14 +6,19 @@ const prisma = new PrismaClient()
 const handler = async (req, res) => {
 
   // Admin authentication
-  const admin = authenticate.admin(req, ['admin', 'superadmin'])
+  const admin = authenticate.admin(req)
   if (!admin) return res.status(403)
     .send({ error: 'authentication_failed' })
 
-  // Get users
-  const users = await prisma.user.findMany()
+  // Get ID from dynamic route
+  const { id } = req.query
 
-  return res.send(users)
+  // Remove eye
+  const eye = await prisma.eye.delete({
+    where: { id: parseInt(id) },
+  })
+
+  return res.send(eye)
 }
 
 export default handler

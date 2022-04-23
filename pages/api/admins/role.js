@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   // Update eye
   const record = await prisma.admin.update({
     where: { email: req.body.admin },
-    data: { roleId: req.body.role }
+    data: { role: req.body.role }
   })
   // Don't reveal (hashed) password
   delete record.password
