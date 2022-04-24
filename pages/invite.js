@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next'
 import Logo from 'components/logos/vahi.js'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Demo from 'components/demo.js'
 
 const InvitePage = (props) => {
   const app = useApp()
@@ -53,20 +54,7 @@ const InvitePage = (props) => {
         </div>
 
         <div className="max-w-sm lg:max-w-xs mt-4 lg:mt-5">
-          <div className="mt-4 max-w-prose rounded-lg bg-accent p-8 px-8 drop-shadow">
-            <h4 className="text-xl font-bold text-accent-content lg:text-2xl">
-              {t('tryVahiTitle')}
-            </h4>
-            <p
-              className="text-accent-content"
-              dangerouslySetInnerHTML={{ __html: t('tryVahiMsg') }}
-            />
-          </div>
-          <div className="mt-12">
-            <a href="https://www.arrestblindness.eu/">
-              <img src="/img/arrestblindness.png" />
-            </a>
-          </div>
+          <Demo app={app} />
         </div>
       </div>
     </Page>

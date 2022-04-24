@@ -45,10 +45,10 @@ const HomePage = (props) => {
         </section>
 
         <div className="m-auto flex max-w-7xl flex-row flex-wrap content-start justify-between">
-          <div className="max-w-prose px-8">
+          <div className="max-w-prose px-8 m-auto">
             <Markdown>{markdown[lang]}</Markdown>
           </div>
-          <div className="max-w-lg">
+          <div className="max-w-lg px-8 m-auto lg:px-0">
             <div className="mt-4 max-w-prose rounded-lg bg-primary p-8 px-8 drop-shadow">
               <h4 className="text-xl font-bold text-primary-content lg:text-2xl">
                 {t('takePartTitle')}

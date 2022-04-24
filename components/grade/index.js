@@ -154,7 +154,7 @@ const Grade = ({ app }) => {
         setStep(0)
         setEye(result.data.eye)
         setStats(result.data.stats)
-        setGrades(defaultGrades)
+        setGrades(defaultGradings)
       }
       setLoading(false)
     }

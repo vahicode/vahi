@@ -11,7 +11,7 @@ const RatingPage = (props) => {
 
   return (
     <Page app={app}>
-      <div className="w-full max-w-7xl m-auto">
+      <div className="w-full max-w-7xl m-auto px-4 lg:px-0">
         <BreadCrumbs title={t('gradeIt', { it: t('eyes') })}/>
         <h1>{t('gradeIt', { it: t('eyes') })}</h1>
         <Grade app={app} />
