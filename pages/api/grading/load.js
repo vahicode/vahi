@@ -3,30 +3,33 @@ import { generateInvite, authenticate } from 'api/utils.mjs'
 
 const prisma = new PrismaClient()
 
+const allEyes = async () => Object.fromEntries(
+  (await prisma.eye.findMany({ 
+    where: { isActive: true },
+    select: {
+      id: true,
+      scale: true,
+      x: true,
+      y: true,
+      width: true,
+      height: true
+    },
+    orderBy: { id: 'asc' }
+  }))
+  .map( eye => [eye.id, { ...eye }])
+)
+
 export const loadNextEye = async (user) => {
   // Get all active eyes
-  const eyes = Object.fromEntries(
-    (await prisma.eye.findMany({ 
-      where: { isActive: true },
-      select: {
-        id: true,
-        scale: true,
-        x: true,
-        y: true,
-        width: true,
-        height: true
-      }
-    }))
-    .map( eye => [eye.id, { ...eye }])
-  )
+  const eyes = await allEyes()
 
-  // Get all eyes that are already rated by this user
+  // Get submitted gradings
   const gradings = (await prisma.grading.findMany({ 
-    where: { userId: user.id },
-    select: { eyeId: true }
+    where:  { userId: user.id },
+    select: { eyeId: true },
   }))
 
-  // Stats
+  // Generate stats
   const stats = {
     total: Object.keys(eyes).length,
     done: gradings.length,
@@ -44,6 +47,27 @@ export const loadNextEye = async (user) => {
   }
 }
 
+export const loadNextDemoEye = async (eyeId=0) => {
+
+  // Get all active eyes
+  const eyes = await allEyes()
+
+  // Generate stats
+  const stats = {
+    total: Object.keys(eyes).length,
+  }
+  const todo = Object.values(eyes).filter(eye => eye.id > eyeId)
+  stats.todo = todo.length
+  stats.done = stats.total - stats.todo
+
+  return {
+     stats,
+     eye: todo.length > 0
+       ? todo.shift()
+       : false
+  }
+}
+
 const handler = async (req, res) => {
 
   // User authentication
@@ -55,7 +79,9 @@ const handler = async (req, res) => {
   if (!user.isActive) return res.status(403)
     .send({ error: 'invite_inactive' })
 
-  const data = await loadNextEye(user)
+  const data = user.isDemoUser
+    ? await loadNextDemoEye()
+    : await loadNextEye(user)
 
   return res.send(data)
 }

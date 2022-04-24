@@ -34,4 +34,6 @@ legend-v-0: 'No superficial vessels, clear cornea'
 legend-v-1: Up to 30% of the zone is covered by superficial vessels
 legend-v-2: 30-70% of the zone is covered by superficial vessels
 legend-v-3: 70-100% of the zone is covered by superficial vessels
+noEyesToGrade: No eye available
+noEyesToGradeMsg: There is currently no eye available for grading. 
 

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { generateInvite, authenticate } from 'api/utils.mjs'
-import { loadNextEye } from './load.js'
+import { loadNextEye, loadNextDemoEye } from './load.js'
 
 const prisma = new PrismaClient()
 
@@ -26,18 +26,23 @@ const handler = async (req, res) => {
     .send({ error: 'invite_inactive' })
 
   // First save the grades for this eye
-  const result = await prisma.grading.create({ 
-    data: {
-      eyeId: req.body.eye,
-      userId: user.id,
-      ...formatGrades('vascularity', req.body.grades),
-      ...formatGrades('haze', req.body.grades),
-      ...formatGrades('integrity', req.body.grades)
-    }
-  })
+  // But only if it's not a demo user!
+  if (!user.isDemoUser) {
+    const result = await prisma.grading.create({ 
+      data: {
+        eyeId: req.body.eye,
+        userId: user.id,
+        ...formatGrades('vascularity', req.body.grades),
+        ...formatGrades('haze', req.body.grades),
+        ...formatGrades('integrity', req.body.grades)
+      }
+    })
+  }
   
   // Then load the next eye
-  const next = await loadNextEye(user)
+  const next = user.isDemoUser
+    ? await loadNextDemoEye(req.body.eye)
+    : await loadNextEye(user)
 
   return res.send(next)
 }

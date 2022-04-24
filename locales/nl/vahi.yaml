@@ -34,4 +34,6 @@ legend-v-0: Geen corneale superficiële bloedvaatjes, heldere cornea
 legend-v-1: Tot 30% van de zone ingenomen door superficiële bloedvaatjes
 legend-v-2: 30-70% van de zone ingenomen door superficiële bloedvaatjes
 legend-v-3: 70-100% van de zone ingenomen door superficiële bloedvaatjes
+noEyesToGrade: Geen oog beschikbaar
+noEyesToGradeMsg: Er is momenteel geen oog beschikbaar voor beoordeling.
 

@@ -34,4 +34,6 @@ legend-v-0: Pas de vaisseaux superficiels, cornée claire
 legend-v-1: Jusqu'à 30% de la zone est recouverte par des vaisseaux superficiels
 legend-v-2: 30 à 70% de la zone est recouverte par des vaisseaux superficiels
 legend-v-3: 70 à 100% de la zone est recouverte par des vaisseaux superficiels
+noEyesToGrade: Aucun œil disponible
+noEyesToGradeMsg: Il n'y a actuellement aucun œil disponible pour le classement.
 

@@ -8,6 +8,7 @@ import Grid from 'components/grid.js'
 import markdown from 'markdown/finish.mjs'
 import Markdown from 'react-markdown'
 import { useRouter } from 'next/router'
+import Popout from 'components/popout'
 
 // Some defaults
 const steps = ['vascularity', 'haze', 'integrity']
@@ -18,13 +19,13 @@ for (const step of steps) {
   for (let i=1; i<14; i++) defaultGradings[step][i] = defaultGrading
 }
 
-const Progress = ({ step, stats }) => {
+const Progress = ({ step, stats, eye }) => {
   const { t } = useTranslation(['vahi'])
 
   return (
     <div className="flex flex-row flex-wrap justify-around py-4">
       <div className="flex flex-col">
-        <label>{t('progressOnThisEye')}</label>
+        <label>{t('progressOnThisEye')} (#{eye.id})</label>
         <ul className="steps">
           {steps.map((s,i) => <li 
             key={s}
@@ -36,7 +37,7 @@ const Progress = ({ step, stats }) => {
       </div>
       <div className="flex flex-col items-start sm:w-full md:w-1/2">
         <label className="text-right w-full mb-4">{t('overallProgress')}</label>
-        <progress className="progress progress-primary w-full" value={stats.total/100 * stats.done +2} max="104"></progress>
+        <progress className="progress progress-primary w-full" value={(100 / stats.total) * stats.done +2} max="104"></progress>
         <label className="text-right w-full mt-4">{stats?.done}/{stats?.total} {t('eyes')}</label>
       </div>
     </div>
@@ -150,17 +151,16 @@ const Grade = ({ app }) => {
         app.bearer(false)
       )
       if (result.data) {
-        setGrades(defaultGrades)
+        setStep(0)
         setEye(result.data.eye)
-        setLoading(false)
+        setStats(result.data.stats)
+        setGrades(defaultGrades)
       }
       setLoading(false)
     }
     catch (err) {
       setLoading(false)
     }
-
-    console.log('submitting this')
   }
 
   const clear = () => {
@@ -175,13 +175,12 @@ const Grade = ({ app }) => {
     else setStep(step+1)
   }
 
-  if (stats.total < 1) {
-    if (stats.total === 0) { 
-      // no eyes
-      return <p>no eyes</p>
-    }
-    return <p>your done</p>
-  }
+  if (stats.total === 0) return (
+    <Popout note>
+      <h2 className="m-0">{t('noEyesToGrade')}</h2>
+      <p className="m-0">{t('noEyesToGradeMsg')}</p>
+    </Popout>
+  )
 
   if (loading) return <Spinner />
 
@@ -196,9 +195,9 @@ const Grade = ({ app }) => {
   return (
     <div>
       <Continue step={step} stepDone={stepDone} clear={clear}/>
-      <Progress step={step} stats={stats}/>
+      <Progress step={step} stats={stats} eye={eye}/>
       <Grid eye={eye} grades={grades[steps[step]]} grade={grade} className={flash ? 'flash' : ''}/>
-      <Progress step={step} stats={stats}/>
+      <Progress step={step} stats={stats} eye={eye}/>
       <Continue step={step} stepDone={stepDone} clear={clear}/>
       <Legend step={step} />
     </div>

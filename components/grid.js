@@ -64,9 +64,20 @@ const Grid = ({
         </text>
       ))}
       {Object.keys(paths).map(pid => (
-        <path key={pid} d={paths[pid]} className={inactive ? '' : `graded-${grades[pid]}`} onClick={() => grade(pid)}/>
+        <path 
+          key={pid} 
+          d={paths[pid]} 
+          className={inactive ? '' : `graded-${grades[pid]}`} 
+          onClick={inactive ? null : () => grade(pid)}
+        />
       ))}
-      <circle cx="600" cy="600" r="200" className={inactive ? '' : `graded-${grades['13']}`} onClick={() => grade(13)}/>
+      <circle 
+        cx="600" 
+        cy="600" 
+        r="200" 
+        className={inactive ? '' : `graded-${grades['13']}`} 
+        onClick={inactive ? null : () => grade(13)}
+      />
     </svg>
   )
 }
