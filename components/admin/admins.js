@@ -160,7 +160,7 @@ const Admins = ({ admins=[], app, setUpdate, setError }) => {
             `}>
               <td><CheckBox {...{id: admin.email, selected, setSelected}}/></td>
               <td>
-                <Link href={`/admin/admins/${admin.email}`}>
+                <Link href={`/admin/admins/${admin.email}`.replace('@', '%40')}>
                   <a className={`p-1 px-3 rounded-full
                     ${admin.email === app.admin.email ? 'bg-success text-success-content' : ''}
                   `}>{(i + 1)}</a>

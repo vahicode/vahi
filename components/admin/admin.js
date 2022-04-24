@@ -8,6 +8,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import Popout from 'components/popout'
 import Grid from 'components/grid'
+import { useRouter } from 'next/router'
 
 const AdminStats = ({ admin, t, handlers }) => (
   <div className="stats stats-vertical lg:stats-horizontal shadow">
@@ -146,6 +147,7 @@ const AdminAdvanced = ({ admin, t, handlers, loggedIn }) => (
 
 const Admin = ({ admin, app, setUpdate }) => {
   const { t } = useTranslation(['admin', 'vahi', 'roles'])
+  const router = useRouter()
 
   const [selected, setSelected ] = useState({})
 
@@ -179,6 +181,12 @@ const Admin = ({ admin, app, setUpdate }) => {
         { admins: [admin.email] },
         app.bearer()
       ).then(refresh)
+    },
+    delete: () => {
+      axios.delete(
+        `/api/admins/delete/${admin.email}`,
+        app.bearer()
+      ).then(router.push(`/admin/admins`))
     },
   }
 
