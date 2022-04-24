@@ -46,7 +46,7 @@ const AdminLoginPage = (props) => {
 
   return (
     <Page app={app}>
-      <div className="form-control w-full max-w-md m-auto">
+      <div className="form-control w-full max-w-md m-auto px-8 xl:px-0">
         <BreadCrumbs title={t('administration')}/>
         <h1>
           <span>{t('administration')}</span>

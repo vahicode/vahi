@@ -10,12 +10,12 @@ const languages = {
   fr: 'Français',
 }
 
-const LocalePicker = ({ app }) => {
+const LocalePicker = ({ app, className='' }) => {
   const { t } = useTranslation(['vahi'])
   const router = useRouter()
 
   return (
-    <div className="dropdown">
+    <div className={`dropdown ${className}`}>
       <div
         tabIndex="0"
         className={`
