@@ -29,7 +29,14 @@ const text = {
   13: { x:  600, y:  630 }
 }
 
-const Grid = ({ eye, inactive=false, bold=false, grades, grade, className=''}) => {
+const Grid = ({ 
+  eye, 
+  inactive=false, 
+  bold=false, 
+  grades, 
+  grade, 
+  className=''
+}) => {
 
   const { scale, width, height, id } = eye
   let { x=0, y=0 } = eye
@@ -57,9 +64,9 @@ const Grid = ({ eye, inactive=false, bold=false, grades, grade, className=''}) =
         </text>
       ))}
       {Object.keys(paths).map(pid => (
-        <path key={pid} d={paths[pid]} className={`graded-${grades[pid]}`} onClick={() => grade(pid)}/>
+        <path key={pid} d={paths[pid]} className={inactive ? '' : `graded-${grades[pid]}`} onClick={() => grade(pid)}/>
       ))}
-      <circle cx="600" cy="600" r="200" className={`graded-${grades['13']}`} onClick={() => grade(13)}/>
+      <circle cx="600" cy="600" r="200" className={inactive ? '' : `graded-${grades['13']}`} onClick={() => grade(13)}/>
     </svg>
   )
 }

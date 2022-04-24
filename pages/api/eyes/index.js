@@ -25,8 +25,15 @@ const handler = async (req, res) => {
       mimetype: true,
       width: true,
       height: true,
+      Grading: true
     }
   })
+
+  // Only keep a count of graded eyes
+  for (const eye of eyes) {
+    eye.graded = eye.Grading.length
+    delete eye.Grading
+  }
 
   return res.send(eyes)
 }

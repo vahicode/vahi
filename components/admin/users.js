@@ -127,6 +127,7 @@ const Users = ({ users=[], app, setUpdate }) => {
             </th>
             <th>#</th>
             <th>{t('vahi:inviteCode')}</th>
+            <th>{t('graded')}</th>
             <th>{t('notes')}</th>
             <th>{t('created')}</th>
             <th>{t('by')}</th>
@@ -145,6 +146,7 @@ const Users = ({ users=[], app, setUpdate }) => {
               <td><CheckBox {...{id: user.id, selected, setSelected}}/></td>
               <td><ToggleButton id={user.id}>{(i + 1)}</ToggleButton></td>
               <td><RecordLink id={user.id} type='users'/></td>
+              <td><ToggleButton id={user.id}>{user.graded}</ToggleButton></td>
               <td><ToggleButton id={user.id}>{user.notes ? user.notes : '-'}</ToggleButton></td>
               <td><ToggleButton id={user.id}><TimeAgo date={user.createdAt} /></ToggleButton></td>
               <td><RecordLink id={user.createdBy} type='admins' /></td>

@@ -25,6 +25,8 @@ createdBy: Créé par
 calibration: Calibrage
 noHaraKiri: Vous ne pouvez pas désactiver votre propre compte
 noHaraKiriMsg: Si vous désactivez le compte avec lequel vous êtes actuellement connecté, vous vous serez verrouillé hors de l'interface d'administration. Ne faisons pas ça.
+noDowngrade: Vous ne pouvez pas rétrograder votre propre compte
+noDowngradeMsg: Vous pouvez demander à un autre (super) administrateur de le faire. Mais nous ne vous laisserons pas vous paralyser.
 role: Rôle
 created: Créé
 by: Par
@@ -32,4 +34,4 @@ lastLogin: Dernière connexion
 demoUser: Utilisateur de démonstration
 yes: Oui
 no: Non
-
+graded: Classé

@@ -132,6 +132,7 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
             <th>#</th>
             <th className="w-36">-</th>
             <th>ID</th>
+            <th>{t('graded')}</th>
             <th>{t('notes')}</th>
             <th>{t('created')}</th>
             <th>{t('by')}</th>
@@ -155,6 +156,7 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
                 </Link>
               </td>
               <td><RecordLink id={eye.id} type='eyes'/></td>
+              <td><ToggleButton id={eye.id}>{eye?.graded}</ToggleButton></td>
               <td><ToggleButton id={eye.id}>{eye.notes ? eye.notes : '-'}</ToggleButton></td>
               <td><ToggleButton id={eye.id}><TimeAgo date={eye.createdAt} /></ToggleButton></td>
               <td><RecordLink id={eye.createdBy} type='admins'/></td>

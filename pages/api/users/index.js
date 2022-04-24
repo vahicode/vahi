@@ -11,7 +11,17 @@ const handler = async (req, res) => {
     .send({ error: 'authentication_failed' })
 
   // Get users
-  const users = await prisma.user.findMany()
+  const users = await prisma.user.findMany({ 
+    include: { 
+      Grading: true
+    }
+  })
+
+  // Only keep a count of graded eyes
+  for (const user of users) {
+    user.graded = user.Grading.length
+    delete user.Grading
+  }
 
   return res.send(users)
 }
