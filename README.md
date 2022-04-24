@@ -2,7 +2,7 @@
 
 ## What am I looking at? :thinking:
 
-This is a work-in-progress to build version 2 of VaHI
+This is **a work-in-progress** to build version 2 of VaHI
 
 After the initial work in the spring of 2018, VaHI has been running for 4 years now.
 There's new interest in the system, but four years is a lifetime in frontend development.
@@ -43,6 +43,8 @@ Enter the repo, and install dependencies:
 cd vahi
 npm install
 ```
+
+Copy the `example.env` file to `.env`.
 
 Now you can initialize (create and seed) the database.
 To do so, run the following command:
