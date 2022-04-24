@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import UserIcon from 'components/icons/user.js'
 import EyeIcon from 'components/icons/eye.js'
+import ScaleIcon from 'components/icons/scale.js'
 import { capitalize } from 'components/utils.js'
 import LogoutIcon from 'components/icons/logout.js'
 import ExportIcon from 'components/icons/export.js'
@@ -51,6 +52,13 @@ const AdminMenu = ({ app, list=false }) => {
       only: ['dataentry', 'admin', 'superadmin'],
     },
     { spacer: true, only: ['dataentry', 'admin', 'superadmin'] },
+    {
+      url: '/admin/grades',
+      title: t('grades'),
+      icon: <ScaleIcon />,
+      className: 'text-success',
+      only: ['admin', 'superadmin']
+    },
     {
       url: '/admin/export',
       title: t('exportData'),

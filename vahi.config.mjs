@@ -10,7 +10,7 @@ const config = {
     themes: [
       'light',
       'dark',
-      'haxor',
+      'hax0r',
       'lgbtq',
       'trans',
     ],

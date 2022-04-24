@@ -7,7 +7,7 @@ import CloseIcon from 'components/icons/close.js'
 import MenuIcon from 'components/icons/menu.js'
 import LoginIcon from 'components/icons/login.js'
 import LogoutIcon from 'components/icons/logout.js'
-import EyeIcon from 'components/icons/eye.js'
+import ScaleIcon from 'components/icons/scale.js'
 import { useTranslation } from 'next-i18next'
 import AdminMenu from 'components/admin/menu.js'
 import config from '../vahi.config.mjs'
@@ -122,7 +122,7 @@ const Header = ({ app }) => {
                   </button>,
                   <Link href="/grade">
                     <a className="btn btn-ghost text-neutral-content">
-                      <EyeIcon />
+                      <ScaleIcon />
                       <span className="pl-4">{t('gradeIt', { it: t('eyes') })}</span>
                     </a>
                   </Link>,

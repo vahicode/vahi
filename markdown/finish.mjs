@@ -14,16 +14,24 @@ Limbal stem cell deficiency.
 
 `,
   nl: `
-${sorcha} is de drijvende kracht achter VaHI${'  '}  
-${joost} is de ontwikkelaar van VaHI
+## Proficiat 🎉
 
-[Broncode](https://github.com/vahicode/vahi)
+Je hebt met success alle ogen in onze database beoordeeld.
+
+### Hartelijk dank voor je deelname
+
+We waarderen enorm dat je wat van je tijd hebt geinvesteeds om ons te helpen om 
+samen te vechten tegen limbale stamceldeficiëntie.
 `,
   fr: `
-${sorcha} est la force motrice de VaHI${'  '}  
-${joost} est le développeur de VaHI
+## Félicitations 🎉
 
-[Code Source](https://github.com/vahicode/vahi)
+Vous avez noté avec succès toutes les images dans notre base de données.
+
+### Merci pour votre participation
+
+Nous apprécions vraiment que vous ayez pris le temps de nous aider dans notre 
+lutte contre le déficit en cellules souches limbiques.
 `
 }
 

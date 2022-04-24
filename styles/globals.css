@@ -61,6 +61,14 @@ svg.eye.flash circle {
   stroke-opacity: 1;
   fill-opacity: 0.3;
 }
+svg.eye.scores path,
+svg.eye.scores circle {
+  fill-opacity: 0.3;
+}
+svg.eye.scores:hover path,
+svg.eye.scores:hover circle {
+  fill-opacity: 0;
+}
 svg.eye.bold path,
 svg.eye.bold circle {
   stroke-width: 35px; 
@@ -109,6 +117,11 @@ svg.eye text {
 svg.eye text:hover {
   cursor: pointer;
 }
+svg.eye.scores text,
 svg.eye.flash text {
   fill-opacity: 1;
 }
+svg.eye.scores:hover text {
+  fill-opacity: 0;
+}
+

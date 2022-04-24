@@ -35,3 +35,5 @@ demoUser: Demo user
 yes: "Yes" # Quoted to avoid this getting turned into a boolean
 no: "No" # Quoted to avoid this getting turned into a boolean
 graded: Graded
+grades: Grades
+hoverReveals: Hover to reveal
