@@ -54,7 +54,7 @@ svg.eye circle {
   stroke-width: 5px; 
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: fill-opacity 0s;
+  transition: fill-opacity 0.4s;
 }
 svg.eye.flash path,
 svg.eye.flash circle {
@@ -104,7 +104,7 @@ svg.eye text {
   fill-opacity: 0;
   stroke: none;
   text-anchor: middle;
-  transition: fill-opacity 0.2s;
+  transition: fill-opacity 0.4s;
 }
 svg.eye text:hover {
   cursor: pointer;

@@ -11,6 +11,7 @@ invalidInviteCode: Ongeldige uitnodigingscode
 save: Opslaan
 eyes: Ogen
 gradeIt: Beoordeel {it}
+clearIt: Reset {it}
 vascularity: Vasculariteit
 haze: Waas
 integrity: Integriteit

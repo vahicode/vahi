@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import RightIcon from 'components/icons/right.js'
+import ClearIcon from 'components/icons/close.js'
 import axios from 'axios'
 import Spinner from 'components/spinner.js'
 import Grid from 'components/grid.js'
+import markdown from 'markdown/finish.mjs'
+import Markdown from 'react-markdown'
+import { useRouter } from 'next/router'
 
 // Some defaults
 const steps = ['vascularity', 'haze', 'integrity']
@@ -13,8 +17,6 @@ for (const step of steps) {
   defaultGradings[step] = {}
   for (let i=1; i<14; i++) defaultGradings[step][i] = defaultGrading
 }
-const defaultClasses = {}
-for (let i=1; i<14; i++) defaultClasses[i] = 'graded-0'
 
 const Progress = ({ step, stats }) => {
   const { t } = useTranslation(['vahi'])
@@ -35,27 +37,40 @@ const Progress = ({ step, stats }) => {
       <div className="flex flex-col items-start sm:w-full md:w-1/2">
         <label className="text-right w-full mb-4">{t('overallProgress')}</label>
         <progress className="progress progress-primary w-full" value={stats.total/100 * stats.done +2} max="104"></progress>
-        <label className="text-right w-full mt-4">{stats?.done}/{stats?.todo} {t('eyes')}</label>
+        <label className="text-right w-full mt-4">{stats?.done}/{stats?.total} {t('eyes')}</label>
       </div>
     </div>
   )
 }
 
-const Continue = ({ step, stepDone }) => {
+const Continue = ({ step, stepDone, clear }) => {
   const { t } = useTranslation(['vahi'])
+  let cur = 'integrity'
   let next = 'nextEye'
-  if (step === 0) next = 'haze'
-  else if (step === 1) next = 'integrity'
+  if (step === 0) {
+    cur = 'vascularity'
+    next = 'haze'
+  }
+  else if (step === 1) {
+    cur = 'haze'
+    next = 'integrity'
+  }
 
   return (
-    <p className="text-right">
+    <div className="text-right flex flex-row items-center justify-end gap-4">
+       <button onClick={clear}
+        className={`btn btn-primary btn-ghost`}
+    >
+         <ClearIcon className="w-4 h-4 mr-4" />
+         {t('clearIt', { it: t(cur) })}
+       </button>
        <button onClick={stepDone}
         className={`btn btn-primary ${step < 2 ? 'btn-outline' : ''}`}
     >
          {t('gradeIt', { it: t(next) })}
          <RightIcon className="w-4 h-4 ml-4" />
        </button>
-    </p>
+    </div>
   )
 }
 
@@ -86,6 +101,8 @@ const Legend = ({ step }) => {
 
 const Grade = ({ app }) => {
   const { t } = useTranslation(['vahi', 'errors'])
+  const router = useRouter()
+  const lang = router.locale || 'en'
 
   const [grades, setGrades] = useState(defaultGradings)
   const [flash, setFlash] = useState(false)
@@ -101,7 +118,6 @@ const Grade = ({ app }) => {
       if (result.data) {
         setStats(result.data.stats)
         setEye(result.data.eye)
-        setClasses(defaultClasses)
       }
       setLoading(false)
     }
@@ -125,13 +141,37 @@ const Grade = ({ app }) => {
     }, 700);
   }
 
-  const submit = () => {
+  const submit = async () => {
+    setLoading(true)
+    try {
+      const result = await axios.post(
+        '/api/grading/save', 
+        { eye: eye.id, grades },
+        app.bearer(false)
+      )
+      if (result.data) {
+        setGrades(defaultGrades)
+        setEye(result.data.eye)
+        setLoading(false)
+      }
+      setLoading(false)
+    }
+    catch (err) {
+      setLoading(false)
+    }
+
+    console.log('submitting this')
+  }
+
+  const clear = () => {
+    const newGrades = {}
+    for (const s of steps) newGrades[s] = {...grades[s]}
+    for (const i=1;i<14;i++) newGrades[steps[step]][i] = 0
+    setGrades(newGrades)
   }
 
   const stepDone = () => {
-    if (step === 2) {
-      setStep(0)
-    }
+    if (step === 2) submit()
     else setStep(step+1)
   }
 
@@ -145,13 +185,21 @@ const Grade = ({ app }) => {
 
   if (loading) return <Spinner />
 
+  if (stats.total > 0 && stats.total === stats.done) {
+    return (
+      <div className="max-w-prose px-8">
+        <Markdown>{markdown[lang]}</Markdown>
+      </div>
+    )
+  }
+
   return (
     <div>
-      <Continue step={step} stepDone={stepDone}/>
+      <Continue step={step} stepDone={stepDone} clear={clear}/>
       <Progress step={step} stats={stats}/>
       <Grid eye={eye} grades={grades[steps[step]]} grade={grade} className={flash ? 'flash' : ''}/>
       <Progress step={step} stats={stats}/>
-      <Continue step={step} stepDone={stepDone}/>
+      <Continue step={step} stepDone={stepDone} clear={clear}/>
       <Legend step={step} />
     </div>
   )

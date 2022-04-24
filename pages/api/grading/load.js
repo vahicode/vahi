@@ -3,17 +3,7 @@ import { generateInvite, authenticate } from 'api/utils.mjs'
 
 const prisma = new PrismaClient()
 
-const handler = async (req, res) => {
-
-  // User authentication
-  const user = authenticate.user(req)
-  if (!user) return res.status(403)
-    .send({ error: 'authentication_failed' })
-
-  // Is this user active?
-  if (!user.isActive) return res.status(403)
-    .send({ error: 'invite_inactive' })
-
+export const loadNextEye = async (user) => {
   // Get all active eyes
   const eyes = Object.fromEntries(
     (await prisma.eye.findMany({ 
@@ -45,13 +35,29 @@ const handler = async (req, res) => {
 
   // Remove previously graded eyes
   for (const grading of gradings) delete eyes[grading.eyeId]
- 
-  return res.send({
+
+  return {
     stats,
     eye: stats.todo > 0
       ? Object.values(eyes).pop()
       : false
-  })
+  }
+}
+
+const handler = async (req, res) => {
+
+  // User authentication
+  const user = authenticate.user(req)
+  if (!user) return res.status(403)
+    .send({ error: 'authentication_failed' })
+
+  // Is this user active?
+  if (!user.isActive) return res.status(403)
+    .send({ error: 'invite_inactive' })
+
+  const data = await loadNextEye(user)
+
+  return res.send(data)
 }
 
 export default handler

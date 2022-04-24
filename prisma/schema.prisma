@@ -58,6 +58,7 @@ model Grading {
   v1        Int
   v2        Int
   v3        Int
+  v4        Int
   v5        Int
   v6        Int
   v7        Int
@@ -70,6 +71,7 @@ model Grading {
   h1        Int
   h2        Int
   h3        Int
+  h4        Int
   h5        Int
   h6        Int
   h7        Int
@@ -82,6 +84,7 @@ model Grading {
   i1        Int
   i2        Int
   i3        Int
+  i4        Int
   i5        Int
   i6        Int
   i7        Int
