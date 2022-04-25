@@ -68,6 +68,56 @@ After which you can initialize it again.
 Check the configuration file `vahi.config.mjs` and the Prisma schema in `prisma/prisma.schema`
 for ways to configure VaHI.
 
+## Deployment 🔧
+
+### With NodeJS
+
+You can deploy Vahi by building the project, and then running it:
+
+```sh
+yarn build
+yarn start
+```
+
+This will spin up the NextJS instance, listening on port 3000.
+
+> You will probably want to put this behind a reverse proxy (like Nginx) 
+> to terminate the SSL connection and forward to port 3000.
+
+### With PM2
+
+You can improve on running the bare NodeJS version by running it 
+inside [PM2](https://pm2.keymetrics.io/) which is a process manager
+for NodeJS.
+
+To do so, install PM2 globally:
+
+```sh
+npm install pm2 -g
+```
+
+Then rather than `yarn start` run:
+
+```
+pm2 start "yarn dev" --name vahi
+```
+
+Refer to [the PM2 documentation](https://pm2.keymetrics.io/) for more details.
+
+### With Docker
+
+#### Building the image
+
+If you'd like to build your own image, you can do so with:
+
+```sh
+docker build .
+```
+
+#### Run the image
+
+> FIXME: Todo
+
 ## Where to get help 🤯
 
 If you want to report a problem, please [create an issue](https://github.com/vahicode/vahi/issues/new).

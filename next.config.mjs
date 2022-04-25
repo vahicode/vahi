@@ -5,6 +5,7 @@ const config = {
   experimental: {
     externalDir: true,
     topLevelAwait: true,
+    outputStandalone: true,
   },
   i18n: i18nConfig.i18n,
   pageExtensions: [ 'js' ],
