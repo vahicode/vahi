@@ -13,6 +13,9 @@ const handler = async (req, res) => {
   // Get users
   const admins = await prisma.admin.findMany()
 
+  // Keep passwords out of it
+  for (const admin of admins) delete admin.password
+
   return res.send(admins)
 }
 
