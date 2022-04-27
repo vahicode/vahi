@@ -628,6 +628,220 @@ Return body example:
 ]
 ```
 
+### POST /api/eyes/upload
+
+Adds a new eye record.
+
+> **Note**: The upload should be of type `multipart/form-data`, in other words a 
+traditional file upload.
+> 
+> The response body will be an array with the IDs of the created eye records.
+
+Request body example:
+
+```
+-----------------------------333988702615980472783693361375
+Content-Disposition: form-data; name="files"
+
+{"color":null}
+-----------------------------333988702615980472783693361375
+Content-Disposition: form-data; name="files"; filename="eye.jpg"
+Content-Type: image/jpeg
+
+ÿØÿà
+[truncated]
+```
+
+Return body example:
+
+```json
+[ 1 ]
+```
+
+### GET /api/eyes/get/{id}
+
+Retrieves the record of the eye of which the `id` was passed in the URL.
+
+> **Note**: This will not return the (binary) image data. See [image 
+URLs](fixme) for info on how to retrieve the image itself.
+
+Return body example:
+
+```
+{
+  "id": 1,
+  "createdAt": "2022-04-24T12:00:17.731Z",
+  "createdBy": "root@vahi.eu",
+  "isActive": false,
+  "notes": "eye1.jpg",
+  "scale": 0,
+  "x": 0,
+  "y": 0,
+  "mimetype": "image/jpeg",
+  "width":1200,
+  "height":921
+}
+```
+
+### DELETE /api/eyes/delete/{id}
+
+Removes the record of the eye of which the `id` was passed in the URL.
+
+Return body example:
+
+```json
+{
+  "removed": 1
+}
+```
+
+### POST /api/eyes/activate
+
+Activates (enables) one or more (pictures of) eyes.
+
+Request body example:
+
+```json
+{
+  "eyes": [ 1 ]
+}
+```
+
+> **Tip**: You can supply multiple eye IDs in the request body.
+
+Return body example:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+### POST /api/eyes/deactivate
+
+Deactivates (disables) one or more (pictures of) eyes.
+
+Request body example:
+
+```json
+{
+  "eyes": [ 1 ]
+}
+```
+
+> **Tip**: You can supply multiple emails in the request body.
+
+Return body example:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+### POST /api/eyes/calibrate
+
+Updates the **calibration data** of an eye (picture) which controls the
+position of the grid on the picture.
+
+> **Tip**: The calibration data consists of:
+>
+> - `scale`: The scale of the grid
+> - `x`: The anchor of the grid on the X-axis
+> - `y`: The anchor of the grid on the Y-axis
+
+Request body example:
+
+```json
+{
+  "eye": 1,
+  "scale": 0.73,
+  "x": 144,
+  "y": 2.75
+}
+```
+
+Return body example:
+
+```json
+{
+  "id": 1,
+  "createdAt": "2022-04-24T12:00:17.731Z",
+  "createdBy": "root@vahi.eu",
+  "isActive": false,
+  "notes": "eye1.jpg",
+  "scale": 0.73,
+  "x": 144,
+  "y": 2.75,
+  "mimetype": "image/jpeg",
+  "width":1200,
+  "height":921
+}
+```
+
+### POST /users/eyes/notes
+
+Updates the **notes** of an eye record.
+
+Request body example:
+
+```json
+{
+  "eye": 1,
+  "notes": "These are the notes"
+}
+```
+
+Return body example:
+
+```json
+{
+  "id": 1,
+  "createdAt": "2022-04-24T12:00:17.731Z",
+  "createdBy": "root@vahi.eu",
+  "isActive": false,
+  "notes": "These are the notes",
+  "scale": 0.73,
+  "x": 144,
+  "y": 2.75,
+  "mimetype": "image/jpeg",
+  "width":1200,
+  "height":921
+}
+```
+
+### GET /api/eyes
+
+Returns a list of eyes.
+
+Return body example:
+
+```json
+[
+  {
+    "id": 1,
+    "createdAt": "2022-04-24T12:00:17.731Z",
+    "createdBy": "root@vahi.eu",
+    "isActive": false,
+    "notes": "These are the notes",
+    "scale": 0.73,
+    "x": 144,
+    "y": 2.75,
+    "mimetype": "image/jpeg",
+    "width":1200,
+    "height":921
+  }
+]
+```
+
+### GET /api/img/eyes/{id}
+
+Returns the picture of the eye of which the `id` was passed in the URL.
+
+> **Tip**: This does not return JSON but the raw binary image data.
+> In other words, you can use this as the `src` in an `img` tag.
+
+
 
 
 
