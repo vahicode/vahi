@@ -180,7 +180,7 @@ const Eye = ({ eye, app, setUpdate }) => {
     calibrate: vals => {
       axios.post(
         '/api/eyes/calibrate',
-        { eye: [eye.id], ...vals },
+        { eye: eye.id, ...vals },
         app.bearer()
       ).then(refresh)
     },
