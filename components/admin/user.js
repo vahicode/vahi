@@ -62,6 +62,37 @@ const UserNotes = ({ user, t, handlers }) => {
   )
 }
 
+const UserType = ({ user, t, handlers }) => {
+  const [demo, setDemo] = useState(user.usDemoUser)
+
+  return (
+    <div>
+      <h3 className="capitalize">{t('demoUser')}?</h3>
+      <div className="form-control w-full">
+        <div className="form-control flex flex-row">
+          <label className="label cursor-pointer">
+            <input type="radio" name="demo" className="radio" value={false} checked={!demo} onClick={() => setDemo(false)}/>
+            <span className="label-text ml-4 font-bold uppercase">{t('no')}</span> 
+            <span className={`label-text ml-4 ${!demo ? 'font-bold' : 'line-through'}`}>{t('vahi:inviteCode')}</span> 
+          </label>
+        </div>
+        <div className="form-control flex flex-row">
+          <label className="label cursor-pointer">
+            <input type="radio" name="demo" className="radio" value={true} checked={demo} onClick={() => setDemo(true)}/>
+            <span className={`label-text ml-4 font-bold uppercase`}>{t('yes')}</span> 
+            <span className={`label-text ml-4 ${demo ? 'font-bold' : 'line-through'}`}>{t('demoUser')}</span> 
+          </label>
+        </div>
+        <p className="text-center">
+          <button className="btn btn-primary w-32" onClick={() => handlers.saveDemo(demo)}>
+            {t('save')}
+          </button>
+        </p>
+      </div>
+
+    </div>
+  )
+}
 const UserAdvanced = ({ user, t, handlers, loggedIn }) => (
   <>
     <h3 className="capitalize">{t(user.isActive ? 'disable' : 'enable')}</h3>
@@ -119,10 +150,10 @@ const User = ({ user, app, setUpdate }) => {
         app.bearer()
       ).then(refresh)
     },
-    saveRole: role => {
+    saveDemo: demo => {
       axios.post(
-        '/api/users/role',
-        { user: user.id, role },
+        '/api/users/demo',
+        { user: user.id, demo },
         app.bearer()
       ).then(refresh)
     },
@@ -154,6 +185,7 @@ const User = ({ user, app, setUpdate }) => {
     <div>
       <UserStats {...pass} />
       <UserNotes {...pass} />
+      <UserType {...pass} />
       <UserAdvanced {...pass}/>
     </div>
   )
