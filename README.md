@@ -4,32 +4,36 @@
 
 This is **a work-in-progress** to build version 2 of VaHI
 
-After the initial work in the spring of 2018, VaHI has been running for 4 years now.
-There's new interest in the system, but four years is a lifetime in frontend development.
-So I felt it was best to build a new major version and port this to a more modern stack.
+After the initial work in the spring of 2018, VaHI has been running for 4 years
+now. There's new interest in the system, but four years is a lifetime in 
+frontend development. So I felt it was best to build a new major version and 
+port this to a more modern stack.
 
 ## About VaHI 
 
-For more information on what VaHI does/is, please visit [vahi.eu](https://vahi.eu/).
+For more information on what VaHI does/is, please 
+visit [vahi.eu](https://vahi.eu/).
 
 ## Get involved with VaHI v2 :rocket:
 
-Check out [the v2 roadmap](https://github.com/vahicode/vahi/discussions/1) to see what I'm working on.
-I am open to ideas/suggestions for what you would like to see in our mext major release.
+Check out [the v2 roadmap](https://github.com/vahicode/vahi/discussions/1) to 
+see what I'm working on. I am open to ideas/suggestions for what you would like
+to see in our mext major release.
 
 ## Technology stack 🤓
 
 VaHI 2 is a [NextJS](https://nextjs.org/) app using 
-a [SQLite database](https://www.sqlite.org/) through [prisma](https://www.prisma.io/).
+a [SQLite database](https://www.sqlite.org/) through [
+prisma](https://www.prisma.io/).
 
-To run it, you will need [NodeJS](https://nodejs.org/en/) on your system (I recommend 
-using [nvm](https://github.com/nvm-sh/nvm) for installing NodeJS).
+To run it, you will need [NodeJS](https://nodejs.org/en/) on your system 
+(I recommend using [nvm](https://github.com/nvm-sh/nvm) for installing NodeJS).
 
 ## Getting started 🚀
 
-> Version 2 of VaHI is **a work in progress**. In other words, if you're curious or are interested
-in contributing, feel free to kick the tires. But if you expect something that *just works* it's
-too early for that.
+> Version 2 of VaHI is **a work in progress**. In other words, if you're 
+curious or are interested in contributing, feel free to kick the tires. But if 
+you expect something that *just works* it's too early for that.
 
 To get started, clone the repo:
 
@@ -61,12 +65,13 @@ npm run rmdb
 
 After which you can initialize it again.
 
-> Note that you can also just remove the database file (by default that file is `db/vahi.db`)
+> Note that you can also just remove the database file (by default that file 
+is `db/vahi.db`)
 
 ## Configuration 🔧
 
-Check the configuration file `vahi.config.mjs` and the Prisma schema in `prisma/prisma.schema`
-for ways to configure VaHI.
+Check the configuration file `vahi.config.mjs` and the Prisma schema 
+in `prisma/prisma.schema` for ways to configure VaHI.
 
 ## Deployment 🔧
 
@@ -120,21 +125,46 @@ docker build .
 
 ## Where to get help 🤯
 
-If you want to report a problem, please [create an issue](https://github.com/vahicode/vahi/issues/new).
+If you want to report a problem, please [create an 
+issue](https://github.com/vahicode/vahi/issues/new).
 
 ## API Routes
 
-VaHI v1 had a seperate frontend and backend REST API. In v2, I have merged both into a single NextJS
-instace. In combination with switching from mongodb to sqlite, this makes it much easier to deploy.
+VaHI v1 had a seperate frontend and backend REST API. In v2, I have merged both
+into a single NextJS instace. In combination with switching from mongodb to 
+sqlite, this makes it much easier to deploy.
 
-As such, there is no dedicated REST API, but there are API routes in the application which might
-be useful for people trying to automate certain things. For this reason, they are documented below:
+As such, there is no dedicated REST API, but there are API routes in the 
+application which might be useful for people trying to automate certain things.
+For this reason, they are documented below.
 
-### Authentication
+> ##### This API is not 'restful'
+>
+> Please note that these API routes are not strictly restful. By which I mean
+> that they don't respect the proper methods to indicate the purpose/role of
+> and API route. For example, the `DELETE` verb is not used to delete and so 
+> on.
+>
+> Implementing different methods for the same API endpoint is not as trivial
+> in NextJS as it is in a pure API framework like Express. For this reason,
+> and to make it easier for aspiring contributors what API routes are 
+> available, rather than having the same API route behave differently based
+> on the method/verb, things are split up into different routers and we use
+> GET/POST everywhere.
+
+### API Authentication
 
 Authentication on API routes is based on [JSON web tokens](https://jwt.io) (JWT).
 This is the case for both regular users (with an invite code) as for 
 administrators (with username and password).
+
+Any of the login routes (for users or admins, see below) will return a JWT.
+For subsequent API calles, pass it prefixed by `Bearer ` in the 
+`Authorization` header, like this:
+
+```
+Authorization Bearer eyJhbGci...
+```
 
 ### POST /api/user-login
 
@@ -198,6 +228,131 @@ Return body example:
     "lastLogin": "2022-04-24T15:28:29.829Z",
     "role": "superadmin"
   }
+}
+```
+
+### GET /api/admins
+
+Returns a list of admin accounts. 
+
+Return body example:
+
+```json
+[
+  {
+    "email": "root@vahi.eu",
+    "createdAt": "2022-04-24T11:52:33.829Z",
+    "createdBy": "root@vahi.eu",
+    "notes": "Superadmin generated by the initial datbase seed script",
+    "isActive": true,
+    "lastLogin": "2022-04-24T15:55:51.368Z",
+    "role": "superadmin"
+  },
+  { 
+    "email": "test@vahi.eu",
+    "createdAt": "2022-04-24T16:20:37.723Z",
+    "createdBy": "root@vahi.eu",
+    "notes": "tyest",
+    "isActive": false,
+    "lastLogin": null,
+    "role": "analyst"
+  }
+]
+```
+
+### GET /api/admins/get/{email}
+
+Retrieves the record of the admin account of which the `email` was passed in the URL.
+
+Return body example:
+
+```
+{
+  "email": "root@vahi.eu",
+  "createdAt": "2022-04-24T11:52:33.829Z",
+  "createdBy": "root@vahi.eu",
+  "isActive": true,
+  "notes": "Superadmin generated by the initial datbase seed script",
+  "role": "superadmin",
+  "lastLogin ":"2022-04-24T15:55:51.368Z"
+}
+```
+
+### DELETE /api/admins/delete/{email}
+
+Removes the record of the admin account of which the `email` was passed in the URL.
+
+Return body example:
+
+```json
+{
+  "removed": "joost@joost.at"
+}
+```
+
+### POST /api/admins/activate
+
+Activates (enables) one or more admin accounts.
+
+Request body example:
+
+```json
+{
+  "admins": [
+    "joost@joost.at"
+  ]
+}
+```
+
+> **Tip**: You can supply multiple emails in the request body.
+
+Return body example:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+### POST /api/admins/deactivate
+
+Deactivates (disables) one or more admin accounts.
+
+Request body example:
+
+```json
+{
+  "admins": [
+    "joost@joost.at"
+  ]
+}
+```
+
+> **Tip**: You can supply multiple emails in the request body.
+
+Return body example:
+
+```json
+{
+  "status": "ok",
+  "removed": [
+    "joost@joost.at"
+  ],
+  "danger": false
+}
+```
+
+The **danger** return parameter will be `true` only if you try to disable the
+admin account that was used to authenticate the API call (in other words,
+your own account).
+
+In such a case the return body will look like this:
+
+```json
+{
+  "status": "ok",
+  "removed": [],
+  "danger": true
 }
 ```
 
