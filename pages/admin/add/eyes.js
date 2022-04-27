@@ -43,7 +43,7 @@ const AdminAddEyesPage = (props) => {
             allowMultiple={true}
             maxFiles={10}
             server={{
-              url: "/api/upload",
+              url: "/api/eyes/upload",
               process: { headers }
             }}
             name="files"
