@@ -13,14 +13,14 @@ const handler = async (req, res) => {
   // Get grades/gradings
   const grades = await prisma.grading.findMany({ 
     include: { 
-      user: true,
+      //user: true,
       eye: true,
     }
   })
 
   // Only keep some info of included user/eye
   for (const grade of grades) {
-    grade.user = grade.user.id
+    //grade.user = grade.user.id
     grade.eye = grade.eye.id
   }
 
