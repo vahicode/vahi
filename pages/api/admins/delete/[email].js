@@ -18,7 +18,7 @@ const handler = async (req, res) => {
     where: { email },
   })
 
-  return res.send(result)
+  return res.send({ removed: email })
 }
 
 export default handler

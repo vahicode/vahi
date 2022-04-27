@@ -17,20 +17,24 @@ const handler = async (req, res) => {
 
   // Update admins
   let danger = false
+  const removed = []
   const promises = []
   for (const email of req.body.admins) {
-    if (email.toLowerCase() !== admin.email.toLowerCase()) promises.push(
-      await prisma.admin.update({
-        where: { email },
-        data: { isActive: false }
-      })
-    )
+    if (email.toLowerCase() !== admin.email.toLowerCase()) {
+      promises.push(
+        await prisma.admin.update({
+          where: { email },
+          data: { isActive: false }
+        })
+      ) 
+      removed.push(email.toLowerCase())
+    }
     else danger = true
   }
 
   await Promise.all(promises)
 
-  return res.send({ status: 'ok', danger })
+  return res.send({ status: 'ok', removed, danger })
 }
 
 export default handler
