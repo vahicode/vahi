@@ -18,7 +18,7 @@ const handler = async (req, res) => {
     where: { id: parseInt(id) },
   })
 
-  return res.send(eye)
+  return res.send({ removed: id })
 }
 
 export default handler
