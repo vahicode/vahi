@@ -22,6 +22,54 @@ to see in our mext major release.
 
 ## Table of contents
 
+- [What am I looking at?](#what-am-i-looking-at-thinking)
+- [About VaHI](#about-vahi)
+- [Get involved with VaHI v2](#get-involved-with-vahi-v2-rocket)
+- [Technology stack](#technology-stack)
+- [Getting started](#getting-started)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+  - [With NodeJS](#with-nodejs)
+  - [With PM2](#with-pm2)
+  - [With Docker](#with-docker)
+- [Where to get help](#where-to-get-help)
+- [API Routes](#api-routes)
+  - [API Authentication](#api-authentication)
+  - [POST /api/user-login](#post-apiuser-login)
+  - [POST /api/admin-login](#post-apiadmin-login)
+  - [POST /api/admins/add](#post-apiadminsadd)
+  - [GET /api/admins/get/{email}](#get-apiadminsgetemail)
+  - [DELETE /api/admins/delete/{email}](#delete-apiadminsdeleteemail)
+  - [PUT /api/admins/activate](#put-apiadminsactivate)
+  - [PUT /api/admins/deactivate](#put-apiadminsdeactivate)
+  - [PUT /api/admins/notes](#put--apiadminsnotes)
+  - [PUT /api/admins/role](#put-apiadminsrole)
+  - [GET /api/admins](#get-apiadmins)
+  - [POST /api/users/add](#post-apiusersadd)
+  - [GET /api/users/get/{invite}](#get-apiusersgetinvite)
+  - [DELETE /api/users/delete/{invite}](#delete-apiusersdeleteinvite)
+  - [PUT /api/users/activate](#put-apiusersactivate)
+  - [PUT /api/users/deactivate](#put-apiusersdeactivate)
+  - [PUT /api/users/demo](#put-apiusersdemo)
+  - [PUT /api/users/notes](#put-apiusersnotes)
+  - [GET /api/users](#get-apiusers)
+  - [POST /api/eyes/upload](#post-apieyesupload)
+  - [GET /api/eyes/get/{id}](#get-apieyesgetid)
+  - [DELETE /api/eyes/delete/{id}](#delete-apieyesdeleteid)
+  - [PUT /api/eyes/activate](#put-apieyesactivate)
+  - [PUT /api/eyes/deactivate](#put-apieyesdeactivate)
+  - [PUT /api/eyes/calibrate](#put-apieyescalibrate)
+  - [PUT /users/eyes/notes](#put-userseyesnotes)
+  - [GET /api/eyes](#get-apieyes)
+  - [GET /api/img/eyes/{id}](#get-apiimgeyesid)
+  - [GET /api/grading/load](#get-apigradingload)
+  - [POST /api/grading/save](#post-apigradingsave)
+  - [GET /api/grades/get/{id}](#get-apigradesgetid)
+  - [GET /api/grades](#get-apigrades)
+- [Contribute](#)
+- [License](#)
+
+
 
 ## Technology stack 🤓
 
@@ -292,7 +340,7 @@ Return body example:
 }
 ```
 
-### POST /api/admins/activate
+### PUT /api/admins/activate
 
 Activates (enables) one or more admin accounts.
 
@@ -316,7 +364,7 @@ Return body example:
 }
 ```
 
-### POST /api/admins/deactivate
+### PUT /api/admins/deactivate
 
 Deactivates (disables) one or more admin accounts.
 
@@ -358,7 +406,7 @@ In such a case the return body will look like this:
 }
 ```
 
-### POST /api/admins/notes
+### PUT /api/admins/notes
 
 Updates the **notes** of an admin account.
 
@@ -385,7 +433,7 @@ Return body example:
 }
 ```
 
-### POST /api/admins/role
+### PUT /api/admins/role
 
 Updates the **role** of an admin account.
 
@@ -495,7 +543,7 @@ Return body example:
 }
 ```
 
-### POST /api/users/activate
+### PUT /api/users/activate
 
 Activates (enables) one or more user accounts.
 
@@ -519,7 +567,7 @@ Return body example:
 }
 ```
 
-### POST /api/admins/deactivate
+### PUT /api/admins/deactivate
 
 Deactivates (disables) one or more user accounts.
 
@@ -543,7 +591,7 @@ Return body example:
 }
 ```
 
-### POST /api/users/demo
+### PUT /api/users/demo
 
 Updates the **isDemoUser** field of a user account.
 
@@ -572,7 +620,7 @@ Return body example:
 }
 ```
 
-### POST /users/admins/notes
+### PUT /users/admins/notes
 
 Updates the **notes** of a user account.
 
@@ -698,7 +746,7 @@ Return body example:
 }
 ```
 
-### POST /api/eyes/activate
+### PUT /api/eyes/activate
 
 Activates (enables) one or more (pictures of) eyes.
 
@@ -720,7 +768,7 @@ Return body example:
 }
 ```
 
-### POST /api/eyes/deactivate
+### PUT /api/eyes/deactivate
 
 Deactivates (disables) one or more (pictures of) eyes.
 
@@ -742,7 +790,7 @@ Return body example:
 }
 ```
 
-### POST /api/eyes/calibrate
+### PUT /api/eyes/calibrate
 
 Updates the **calibration data** of an eye (picture) which controls the
 position of the grid on the picture.
@@ -782,7 +830,7 @@ Return body example:
 }
 ```
 
-### POST /users/eyes/notes
+### PUT /users/eyes/notes
 
 Updates the **notes** of an eye record.
 
@@ -1145,6 +1193,7 @@ Return body example:
     "eye":4
   }
 ]
+```
 
 ## Contribute
 
