@@ -20,6 +20,9 @@ Check out [the v2 roadmap](https://github.com/vahicode/vahi/discussions/1) to
 see what I'm working on. I am open to ideas/suggestions for what you would like
 to see in our mext major release.
 
+## Table of contents
+
+
 ## Technology stack 🤓
 
 VaHI 2 is a [NextJS](https://nextjs.org/) app using 
@@ -841,12 +844,307 @@ Returns the picture of the eye of which the `id` was passed in the URL.
 > **Tip**: This does not return JSON but the raw binary image data.
 > In other words, you can use this as the `src` in an `img` tag.
 
+### GET /api/grading/load
 
+Loads the next eye to grade, as well as some data about the grading progress.
 
+Return body example:
 
+```json
+{
+  "stats": {
+    "total": 5,
+    "todo": 5,
+    "done": 0
+  },
+  "eye": {
+    "id": 1,
+    "scale": 0.77,
+    "x": 99,
+    "y": 21.25,
+    "width": 1200,
+    "height": 921
+  }
+}
+```
 
+If the user has graded all eyes, the return will not include an eye record:
 
-> FIXME: This documentation is under construction
+```json
+{
+  "stats": {
+    "total": 5,
+    "todo": 0,
+    "done": 5
+  },
+  "eye": false
+}
+```
+
+### POST /api/grading/save
+
+Stores a user's grading for a particular eye.
+
+Request body example:
+
+```json
+{
+  "eye": 5,
+  "grades": {
+    "vascularity": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 1,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 2,
+      "10": 2,
+      "11": 1,
+      "12": 0,
+      "13": 0
+    },
+    "haze": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 1,
+      "5": 0,
+      "6": 1,
+      "7": 0,
+      "8": 1,
+      "9": 2,
+      "10": 1,
+      "11": 0,
+      "12": 0,
+      "13": 0
+    },
+    "integrity": {
+      "1": 1,
+      "2": 1,
+      "3": 0,
+      "4": 1,
+      "5": 2,
+      "6": 1,
+      "7": 2,
+      "8": 3,
+      "9": 2,
+      "10": 2,
+      "11": 1,
+      "12": 0,
+      "13": 0
+    }
+  }
+}
+```
+
+This API route will have the same return as `/api/grading/load`; In other words
+the next eye to grade. Returning it here saves us an round-trip.
+
+See above for an example.
+
+If the user has graded all eyes, the return will not include an eye record:
+
+```json
+{
+  "stats": {
+    "total": 5,
+    "todo": 4,
+    "done": 1
+  },
+  "eye": {
+    "id": 2,
+    "scale": 0.77,
+    "x": 99,
+    "y": 21.25,
+    "width": 1200,
+    "height": 921
+  }
+}
+```
+
+### GET /api/grades/get/{id}
+
+Retrieves the record of grades of which the `id` was passed in the URL.
+
+> **Note**: This will not return the (binary) image data. See [image 
+URLs](fixme) for info on how to retrieve the image itself.
+
+Return body example:
+
+```
+{
+  "id":6,
+  "createdAt":"2022-04-27T19:39:41.467Z",
+  "eyeId":5,
+  "userId":"58LayUh5ssakPPYTHMUC6hzvks6XEMqL",
+  "v1":0,
+  "v2":0,
+  "v3":0,
+  "v4":0,
+  "v5":0,
+  "v6":0,
+  "v7":0,
+  "v8":0,
+  "v9":0,
+  "v10":0,
+  "v11":0,
+  "v12":0,
+  "v13":0,
+  "h1":0,
+  "h2":0,
+  "h3":0,
+  "h4":0,
+  "h5":0,
+  "h6":0,
+  "h7":0,
+  "h8":0,
+  "h9":0,
+  "h10":0,
+  "h11":0,
+  "h12":0,
+  "h13":0,
+  "i1":0,
+  "i2":0,
+  "i3":0,
+  "i4":0,
+  "i5":0,
+  "i6":0,
+  "i7":0,
+  "i8":0,
+  "i9":0,
+  "i10":0,
+  "i11":0,
+  "i12":0,
+  "i13":0,
+  "user":{
+    "id":"58LayUh5ssakPPYTHMUC6hzvks6XEMqL",
+    "createdAt":"2022-04-27T18:21:58.421Z",
+    "createdBy":"root@vahi.eu",
+    "isDemoUser":false,
+    "isActive":true,
+    "lastLogin":"2022-04-27T19:39:37.429Z",
+    "notes":"test"
+  },
+  "eye":{
+    "id":5,
+    "createdAt":"2022-04-24T12:00:22.239Z",
+    "createdBy":"root@vahi.eu",
+    "isActive":true,
+    "notes":"eye1.jpg",
+    "scale":0.73,
+    "x":144,
+    "y":2.75,
+    "width":1200,
+    "height":907,
+    "mimetype":"image/jpeg"
+  }
+}
+```
+
+### GET /api/grades
+
+Retrieves the list of gradings.
+
+Return body example:
+
+```json
+[
+  {
+    "id":1,
+    "createdAt":"2022-04-24T13:19:36.515Z",
+    "eyeId":5,
+    "userId":"PFSV6czxgXYzbakwdwtpj5spYLUkT25n",
+    "v1":1,
+    "v2":0,
+    "v3":0,
+    "v4":0,
+    "v5":0,
+    "v6":0,
+    "v7":0,
+    "v8":1,
+    "v9":1,
+    "v10":0,
+    "v11":0,
+    "v12":0,
+    "v13":0,
+    "h1":0,
+    "h2":0,
+    "h3":0,
+    "h4":0,
+    "h5":0,
+    "h6":0,
+    "h7":0,
+    "h8":1,
+    "h9":2,
+    "h10":0,
+    "h11":0,
+    "h12":0,
+    "h13":2,
+    "i1":1,
+    "i2":2,
+    "i3":0,
+    "i4":0,
+    "i5":0,
+    "i6":0,
+    "i7":0,
+    "i8":1,
+    "i9":1,
+    "i10":1,
+    "i11":0,
+    "i12":0,
+    "i13":0,
+    "eye":5
+  },
+  {
+    "id":2,
+    "createdAt":"2022-04-24T13:19:46.824Z",
+    "eyeId":4,
+    "userId":"PFSV6czxgXYzbakwdwtpj5spYLUkT25n",
+    "v1":1,
+    "v2":0,
+    "v3":0,
+    "v4":0,
+    "v5":0,
+    "v6":0,
+    "v7":1,
+    "v8":2,
+    "v9":2,
+    "v10":0,
+    "v11":0,
+    "v12":1,
+    "v13":3,
+    "h1":0,
+    "h2":0,
+    "h3":0,
+    "h4":0,
+    "h5":0,
+    "h6":0,
+    "h7":0,
+    "h8":1,
+    "h9":2,
+    "h10":1,
+    "h11":0,
+    "h12":0,
+    "h13":1,
+    "i1":2,
+    "i2":2,
+    "i3":0,
+    "i4":0,
+    "i5":0,
+    "i6":0,
+    "i7":0,
+    "i8":1,
+    "i9":2,
+    "i10":1,
+    "i11":0,
+    "i12":0,
+    "i13":0,
+    "eye":4
+  }
+]
 
 ## Contribute
 
