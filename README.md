@@ -142,8 +142,8 @@ in `prisma/prisma.schema` for ways to configure VaHI.
 You can deploy Vahi by building the project, and then running it:
 
 ```sh
-yarn build
-yarn start
+npm run build
+npm run start
 ```
 
 This will spin up the NextJS instance, listening on port 3000.
