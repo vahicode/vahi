@@ -163,10 +163,10 @@ To do so, install PM2 globally:
 npm install pm2 -g
 ```
 
-Then rather than `yarn start` run:
+Then rather than `npm run start` run:
 
 ```
-pm2 start "yarn dev" --name vahi
+pm2 start "npm run start" --name vahi
 ```
 
 Refer to [the PM2 documentation](https://pm2.keymetrics.io/) for more details.
