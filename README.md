@@ -1,30 +1,36 @@
-# VaHI v2
+> This is **a work-in-progress** to build version 2 of VaHI
+>
+> Check out [the v2 roadmap](https://github.com/vahicode/vahi/discussions/1) to 
+> see what I'm working on. I am open to ideas/suggestions for what you would like
+> to see in our mext major release.
 
-## What am I looking at? :thinking:
+# VaHI - A standardized grading system for limbal stem cell deficiency
 
-This is **a work-in-progress** to build version 2 of VaHI
+[VaHI](https://vahi.eu/) is a standardized grading system 
+for limbal stem cell deficiency.
 
-After the initial work in the spring of 2018, VaHI has been running for 4 years
-now. There's new interest in the system, but four years is a lifetime in 
-frontend development. So I felt it was best to build a new major version and 
-port this to a more modern stack.
+Limbal stem cell deficiency (LSCD) results from a range of pathologies such as
+chemical burns and aniridia. While the repertoire of treatment techniques
+expands and the number of limbal cell therapies grows, there is still a lack of
+objective outcome measures in grading this pathology. The different assessment
+techniques and subjective parameters challenge the grading of LSCD severity and
+impede objective comparison of treatment outcomes.
 
-## About VaHI 
+VaHI stands for Vascularisation, Haze and Integrity; 3 key clinical signs of 
+LSCD. Grading different clinical signs related to LSCD allows a simple way of
+documenting the severity of the condition and in evaluating outcomes after
+treatment.
+
+The VaHI software provides a new, improved and easy grading system for
+assessing and grading LSCD eyes. Feel welcome to discover this tool and join us
+for some simple and straightforward grading.
 
 For more information on what VaHI does/is, please 
 visit [vahi.eu](https://vahi.eu/).
 
-## Get involved with VaHI v2 :rocket:
-
-Check out [the v2 roadmap](https://github.com/vahicode/vahi/discussions/1) to 
-see what I'm working on. I am open to ideas/suggestions for what you would like
-to see in our mext major release.
-
 ## Table of contents
 
-- [What am I looking at?](#what-am-i-looking-at-thinking)
 - [About VaHI](#about-vahi)
-- [Get involved with VaHI v2](#get-involved-with-vahi-v2-rocket)
 - [Technology stack](#technology-stack)
 - [Getting started](#getting-started)
 - [Configuration](#configuration)
