@@ -157,28 +157,28 @@ const Eye = ({ eye, app, setUpdate }) => {
 
   const handlers = {
     saveNotes: notes => {
-      axios.post(
+      axios.put(
         '/api/eyes/notes',
         { eye: eye.id, notes },
         app.bearer()
       ).then(refresh)
     },
     enable: () => {
-      axios.post(
+      axios.put(
         '/api/eyes/activate',
         { eyes: [eye.id] },
         app.bearer()
       ).then(refresh)
     },
     disable: () => {
-      axios.post(
+      axios.put(
         '/api/eyes/deactivate',
         { eyes: [eye.id] },
         app.bearer()
       ).then(refresh)
     },
     calibrate: vals => {
-      axios.post(
+      axios.put(
         '/api/eyes/calibrate',
         { eye: eye.id, ...vals },
         app.bearer()

@@ -34,38 +34,43 @@ to see in our mext major release.
   - [With Docker](#with-docker)
 - [Where to get help](#where-to-get-help)
 - [API Routes](#api-routes)
-  - [API Authentication](#api-authentication)
-  - [POST /api/user-login](#post-apiuser-login)
-  - [POST /api/admin-login](#post-apiadmin-login)
-  - [POST /api/admins/add](#post-apiadminsadd)
-  - [GET /api/admins/get/{email}](#get-apiadminsgetemail)
-  - [DELETE /api/admins/delete/{email}](#delete-apiadminsdeleteemail)
-  - [PUT /api/admins/activate](#put-apiadminsactivate)
-  - [PUT /api/admins/deactivate](#put-apiadminsdeactivate)
-  - [PUT /api/admins/notes](#put--apiadminsnotes)
-  - [PUT /api/admins/role](#put-apiadminsrole)
-  - [GET /api/admins](#get-apiadmins)
-  - [POST /api/users/add](#post-apiusersadd)
-  - [GET /api/users/get/{invite}](#get-apiusersgetinvite)
-  - [DELETE /api/users/delete/{invite}](#delete-apiusersdeleteinvite)
-  - [PUT /api/users/activate](#put-apiusersactivate)
-  - [PUT /api/users/deactivate](#put-apiusersdeactivate)
-  - [PUT /api/users/demo](#put-apiusersdemo)
-  - [PUT /api/users/notes](#put-apiusersnotes)
-  - [GET /api/users](#get-apiusers)
-  - [POST /api/eyes/upload](#post-apieyesupload)
-  - [GET /api/eyes/get/{id}](#get-apieyesgetid)
-  - [DELETE /api/eyes/delete/{id}](#delete-apieyesdeleteid)
-  - [PUT /api/eyes/activate](#put-apieyesactivate)
-  - [PUT /api/eyes/deactivate](#put-apieyesdeactivate)
-  - [PUT /api/eyes/calibrate](#put-apieyescalibrate)
-  - [PUT /users/eyes/notes](#put-userseyesnotes)
-  - [GET /api/eyes](#get-apieyes)
-  - [GET /api/img/eyes/{id}](#get-apiimgeyesid)
-  - [GET /api/grading/load](#get-apigradingload)
-  - [POST /api/grading/save](#post-apigradingsave)
-  - [GET /api/grades/get/{id}](#get-apigradesgetid)
-  - [GET /api/grades](#get-apigrades)
+  - [Authentication](#authentication)
+    - [API Authentication](#api-authentication)
+    - [POST /api/user-login](#post-apiuser-login)
+    - [POST /api/admin-login](#post-apiadmin-login)
+  - [Admins](#admins)
+    - [POST /api/admins/add](#post-apiadminsadd)
+    - [GET /api/admins/get/{email}](#get-apiadminsgetemail)
+    - [DELETE /api/admins/delete/{email}](#delete-apiadminsdeleteemail)
+    - [PUT /api/admins/activate](#put-apiadminsactivate)
+    - [PUT /api/admins/deactivate](#put-apiadminsdeactivate)
+    - [PUT /api/admins/notes](#put--apiadminsnotes)
+    - [PUT /api/admins/role](#put-apiadminsrole)
+    - [GET /api/admins](#get-apiadmins)
+  - [Users](#users)
+    - [POST /api/users/add](#post-apiusersadd)
+    - [GET /api/users/get/{invite}](#get-apiusersgetinvite)
+    - [DELETE /api/users/delete/{invite}](#delete-apiusersdeleteinvite)
+    - [PUT /api/users/activate](#put-apiusersactivate)
+    - [PUT /api/users/deactivate](#put-apiusersdeactivate)
+    - [PUT /api/users/demo](#put-apiusersdemo)
+    - [PUT /api/users/notes](#put-apiusersnotes)
+    - [GET /api/users](#get-apiusers)
+  - [Eyes](#eyes)
+    - [POST /api/eyes/upload](#post-apieyesupload)
+    - [GET /api/eyes/get/{id}](#get-apieyesgetid)
+    - [DELETE /api/eyes/delete/{id}](#delete-apieyesdeleteid)
+    - [PUT /api/eyes/activate](#put-apieyesactivate)
+    - [PUT /api/eyes/deactivate](#put-apieyesdeactivate)
+    - [PUT /api/eyes/calibrate](#put-apieyescalibrate)
+    - [PUT /users/eyes/notes](#put-userseyesnotes)
+    - [GET /api/eyes](#get-apieyes)
+    - [GET /api/img/eyes/{id}](#get-apiimgeyesid)
+  - [Grades](#grades)
+    - [GET /api/grading/load](#get-apigradingload)
+    - [POST /api/grading/save](#post-apigradingsave)
+    - [GET /api/grades/get/{id}](#get-apigradesgetid)
+    - [GET /api/grades](#get-apigrades)
 - [Contribute](#)
 - [License](#)
 
@@ -189,21 +194,7 @@ As such, there is no dedicated REST API, but there are API routes in the
 application which might be useful for people trying to automate certain things.
 For this reason, they are documented below.
 
-> ##### This API is not 'restful'
->
-> Please note that these API routes are not strictly restful. By which I mean
-> that they don't respect the proper methods to indicate the purpose/role of
-> and API route. For example, the `DELETE` verb is not used to delete and so 
-> on.
->
-> Implementing different methods for the same API endpoint is not as trivial
-> in NextJS as it is in a pure API framework like Express. For this reason,
-> and to make it easier for aspiring contributors what API routes are 
-> available, rather than having the same API route behave differently based
-> on the method/verb, things are split up into different routers and we use
-> GET/POST everywhere.
-
-### API Authentication
+### Authentication
 
 Authentication on API routes is based on [JSON web tokens](https://jwt.io) (JWT).
 This is the case for both regular users (with an invite code) as for 
@@ -217,7 +208,7 @@ For subsequent API calles, pass it prefixed by `Bearer ` in the
 Authorization Bearer eyJhbGci...
 ```
 
-### POST /api/user-login
+#### POST /api/user-login
 
 Allows users (people with an invite code) to login.
 Returns a JWT token for subsequent calls to API routes.
@@ -249,7 +240,7 @@ Return body example:
 }
 ```
 
-### POST /api/admin-login
+#### POST /api/admin-login
 
 Allows admins (people with a username and password) to login.
 Returns a JWT token for subsequent calls to API routes.
@@ -282,7 +273,18 @@ Return body example:
 }
 ```
 
-### POST /api/admins/add
+### Admins
+
+An admin is a person who has access to the administrative pages.
+Admins have a username and password, unlike regular users who only
+have an invite code to authenticate.
+
+> **Note**: The username of an admin is stored in a field named `email`.
+> Strictly speaking, there is no need for this to be an actual email address
+> (in other words, `joost` works just as well) since VaHI does not send out
+> any emails.
+
+#### POST /api/admins/add
 
 Adds a new admin account.
 
@@ -310,7 +312,7 @@ Return body example:
 }
 ```
 
-### GET /api/admins/get/{email}
+#### GET /api/admins/get/{email}
 
 Retrieves the record of the admin account of which the `email` was passed in the URL.
 
@@ -328,7 +330,7 @@ Return body example:
 }
 ```
 
-### DELETE /api/admins/delete/{email}
+#### DELETE /api/admins/delete/{email}
 
 Removes the record of the admin account of which the `email` was passed in the URL.
 
@@ -340,7 +342,7 @@ Return body example:
 }
 ```
 
-### PUT /api/admins/activate
+#### PUT /api/admins/activate
 
 Activates (enables) one or more admin accounts.
 
@@ -364,7 +366,7 @@ Return body example:
 }
 ```
 
-### PUT /api/admins/deactivate
+#### PUT /api/admins/deactivate
 
 Deactivates (disables) one or more admin accounts.
 
@@ -406,7 +408,7 @@ In such a case the return body will look like this:
 }
 ```
 
-### PUT /api/admins/notes
+#### PUT /api/admins/notes
 
 Updates the **notes** of an admin account.
 
@@ -433,7 +435,7 @@ Return body example:
 }
 ```
 
-### PUT /api/admins/role
+#### PUT /api/admins/role
 
 Updates the **role** of an admin account.
 
@@ -460,7 +462,7 @@ Return body example:
 }
 ```
 
-### GET /api/admins
+#### GET /api/admins
 
 Returns a list of admin accounts. 
 
@@ -489,7 +491,14 @@ Return body example:
 ]
 ```
 
-### POST /api/users/add
+### Users
+
+A user is a person with an invite code who can grage eyes. 
+
+> **Note**: Users that have `isDemoUser` set to
+> `true` can grade eyes but their grades will not be stored in the database.
+
+#### POST /api/users/add
 
 Adds one or more new user account.
 
@@ -513,7 +522,7 @@ Return body example:
 ]
 ```
 
-### GET /api/users/get/{invite}
+#### GET /api/users/get/{invite}
 
 Retrieves the record of the user account of which the `id` (the invite code) was passed in the URL.
 
@@ -531,7 +540,7 @@ Return body example:
 }
 ```
 
-### DELETE /api/users/delete/{invite}
+#### DELETE /api/users/delete/{invite}
 
 Removes the record of the user account of which the `id` (the invite code) was passed in the URL.
 
@@ -543,7 +552,7 @@ Return body example:
 }
 ```
 
-### PUT /api/users/activate
+#### PUT /api/users/activate
 
 Activates (enables) one or more user accounts.
 
@@ -567,7 +576,7 @@ Return body example:
 }
 ```
 
-### PUT /api/admins/deactivate
+#### PUT /api/admins/deactivate
 
 Deactivates (disables) one or more user accounts.
 
@@ -591,7 +600,7 @@ Return body example:
 }
 ```
 
-### PUT /api/users/demo
+#### PUT /api/users/demo
 
 Updates the **isDemoUser** field of a user account.
 
@@ -620,7 +629,7 @@ Return body example:
 }
 ```
 
-### PUT /users/admins/notes
+#### PUT /users/admins/notes
 
 Updates the **notes** of a user account.
 
@@ -647,7 +656,7 @@ Return body example:
 }
 ```
 
-### GET /api/users
+#### GET /api/users
 
 Returns a list of user accounts. 
 
@@ -679,7 +688,14 @@ Return body example:
 ]
 ```
 
-### POST /api/eyes/upload
+### Eyes
+
+An eye is what users grade. 
+
+> **Note**: The pictures of eyes are stored in the database as a binary blob
+> This makes backing up VaHI trivial as you only need copy a single file.
+
+#### POST /api/eyes/upload
 
 Adds a new eye record.
 
@@ -709,7 +725,7 @@ Return body example:
 [ 1 ]
 ```
 
-### GET /api/eyes/get/{id}
+#### GET /api/eyes/get/{id}
 
 Retrieves the record of the eye of which the `id` was passed in the URL.
 
@@ -734,7 +750,7 @@ Return body example:
 }
 ```
 
-### DELETE /api/eyes/delete/{id}
+#### DELETE /api/eyes/delete/{id}
 
 Removes the record of the eye of which the `id` was passed in the URL.
 
@@ -746,7 +762,7 @@ Return body example:
 }
 ```
 
-### PUT /api/eyes/activate
+#### PUT /api/eyes/activate
 
 Activates (enables) one or more (pictures of) eyes.
 
@@ -768,7 +784,7 @@ Return body example:
 }
 ```
 
-### PUT /api/eyes/deactivate
+#### PUT /api/eyes/deactivate
 
 Deactivates (disables) one or more (pictures of) eyes.
 
@@ -790,7 +806,7 @@ Return body example:
 }
 ```
 
-### PUT /api/eyes/calibrate
+#### PUT /api/eyes/calibrate
 
 Updates the **calibration data** of an eye (picture) which controls the
 position of the grid on the picture.
@@ -830,7 +846,7 @@ Return body example:
 }
 ```
 
-### PUT /users/eyes/notes
+#### PUT /users/eyes/notes
 
 Updates the **notes** of an eye record.
 
@@ -861,7 +877,7 @@ Return body example:
 }
 ```
 
-### GET /api/eyes
+#### GET /api/eyes
 
 Returns a list of eyes.
 
@@ -885,14 +901,20 @@ Return body example:
 ]
 ```
 
-### GET /api/img/eyes/{id}
+#### GET /api/img/eyes/{id}
 
 Returns the picture of the eye of which the `id` was passed in the URL.
 
 > **Tip**: This does not return JSON but the raw binary image data.
 > In other words, you can use this as the `src` in an `img` tag.
 
-### GET /api/grading/load
+### Grades
+
+The grades are (a set of) scores assigned to an eye by a user.
+Each eye has 13 zones, and for each zone we store a score beteen 0 and 3
+for vascularity, haze, and integrity.
+
+#### GET /api/grading/load
 
 Loads the next eye to grade, as well as some data about the grading progress.
 
@@ -929,7 +951,7 @@ If the user has graded all eyes, the return will not include an eye record:
 }
 ```
 
-### POST /api/grading/save
+#### POST /api/grading/save
 
 Stores a user's grading for a particular eye.
 
@@ -1013,7 +1035,7 @@ If the user has graded all eyes, the return will not include an eye record:
 }
 ```
 
-### GET /api/grades/get/{id}
+#### GET /api/grades/get/{id}
 
 Retrieves the record of grades of which the `id` was passed in the URL.
 
@@ -1092,7 +1114,7 @@ Return body example:
 }
 ```
 
-### GET /api/grades
+#### GET /api/grades
 
 Retrieves the list of gradings.
 

@@ -155,28 +155,28 @@ const Admin = ({ admin, app, setUpdate }) => {
 
   const handlers = {
     saveNotes: notes => {
-      axios.post(
+      axios.put(
         '/api/admins/notes',
         { admin: admin.email, notes },
         app.bearer()
       ).then(refresh)
     },
     saveRole: role => {
-      axios.post(
+      axios.put(
         '/api/admins/role',
         { admin: admin.email, role },
         app.bearer()
       ).then(refresh)
     },
     enable: () => {
-      axios.post(
+      axios.put(
         '/api/admins/activate',
         { admins: [admin.email] },
         app.bearer()
       ).then(refresh)
     },
     disable: () => {
-      axios.post(
+      axios.put(
         '/api/admins/deactivate',
         { admins: [admin.email] },
         app.bearer()

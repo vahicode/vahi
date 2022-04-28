@@ -84,14 +84,14 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
 
   const handlers = {
     activateEyes: (eyes=false) => {
-      axios.post(
+      axios.put(
         '/api/eyes/activate',
         { eyes: eyes ? eyes : Object.keys(selected) },
         app.bearer()
       ).then(refresh)
     },
     deactivateEyes: (eyes=false) => {
-      axios.post(
+      axios.put(
         '/api/eyes/deactivate',
         { eyes: eyes ? eyes : Object.keys(selected) },
         app.bearer()

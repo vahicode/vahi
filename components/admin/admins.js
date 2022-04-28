@@ -90,7 +90,7 @@ const Admins = ({ admins=[], app, setUpdate, setError }) => {
 
   const handlers = {
     activateAdmins: admins => {
-      axios.post(
+      axios.put(
         '/api/admins/activate',
         { admins: Object.keys(selected) },
         app.bearer()
@@ -100,7 +100,7 @@ const Admins = ({ admins=[], app, setUpdate, setError }) => {
       })
     },
     deactivateAdmins: admins => {
-      axios.post(
+      axios.put(
         '/api/admins/deactivate',
         { admins: Object.keys(selected) },
         app.bearer()

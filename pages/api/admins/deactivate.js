@@ -5,6 +5,10 @@ const prisma = new PrismaClient()
 
 const handler = async (req, res) => {
 
+  if (req.method !== 'PUT') return res.status(400).send({ 
+    error: 'method_invalid', invalid: req.method, valid: 'PUT' 
+  })
+
   // Admin authentication
   const admin = authenticate.admin(req)
   if (!admin) return res.status(403)

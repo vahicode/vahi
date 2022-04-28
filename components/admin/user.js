@@ -144,28 +144,28 @@ const User = ({ user, app, setUpdate }) => {
 
   const handlers = {
     saveNotes: notes => {
-      axios.post(
+      axios.put(
         '/api/users/notes',
         { user: user.id, notes },
         app.bearer()
       ).then(refresh)
     },
     saveDemo: demo => {
-      axios.post(
+      axios.put(
         '/api/users/demo',
         { user: user.id, demo },
         app.bearer()
       ).then(refresh)
     },
     enable: () => {
-      axios.post(
+      axios.put(
         '/api/users/activate',
         { users: [user.id] },
         app.bearer()
       ).then(refresh)
     },
     disable: () => {
-      axios.post(
+      axios.put(
         '/api/users/deactivate',
         { users: [user.id] },
         app.bearer()
