@@ -1,7 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-import { checkPassword, getJWT } from 'api/utils.mjs'
-
-const prisma = new PrismaClient()
+import { prisma, getJWT } from 'api/utils.mjs'
 
 const handler = async (req, res) => {
   // Load user account from database

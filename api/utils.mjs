@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client'
 import config from '../vahi.config.mjs'
 import sqlite3 from 'sqlite3'
 import path from 'path'
@@ -5,6 +6,8 @@ import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 
 const { createHash } = crypto
+
+export const prisma = new PrismaClient()
 
 export const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
@@ -25,9 +28,11 @@ export const randomString = (len, set='passwords') => {
 export const generateInvite = () => randomString(config.invites.length, 'invites')
 
 // Returns an array containing the password, hash, and salt
-export const generatePassword = () => {
+export const generatePassword = (password=false) => {
   // Generate random password
-  const pwd = randomString(config.passwords.length)
+  const pwd = password
+    ? password
+    : randomString(config.passwords.length)
   // Generate random salt
   const salt = randomString(config.passwords.length)
   // Base-64 encode salt to avoid confusion over ':' delimiters

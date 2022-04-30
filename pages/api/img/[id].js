@@ -1,7 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-import { generateInvite, authenticate } from 'api/utils.mjs'
-
-const prisma = new PrismaClient()
+import { prisma } from 'api/utils.mjs'
 
 const handler = async (req, res) => {
 

@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "dockerbuild": "docker build . --tag docker.io/vahicode/vahi",
     "start": "next start",
     "initdb": "npx prisma db push && node ./prisma/seed.mjs",
     "rmdb": "node ./scripts/rmdb.mjs",

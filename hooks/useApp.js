@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // Stores state in local storage
 import useLocalStorage from 'hooks/useLocalStorage.js'
 // Locale and translation
 import { useTranslation } from 'next-i18next'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 function useApp(full = true) {
   // Locale (aka language)
   const { t } = useTranslation(['vahi'])
+  const router = useRouter()
 
   // User color scheme preference
   const prefersDarkMode =

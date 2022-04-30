@@ -39,13 +39,11 @@ const DefaultLayout = ({ app, children = [] }) => {
   const slug = router.asPath.slice(1)
 
   return (
-    <div
-      className={`
-    flex min-h-screen flex-col
-    justify-between
-    bg-base-100
-    `}
-    >
+    <div className={`
+      flex min-h-screen flex-col
+      justify-between
+      bg-base-100
+    `}>
       <Header app={app} />
       <main
         className={`

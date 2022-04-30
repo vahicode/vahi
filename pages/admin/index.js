@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Page from 'components/page.js'
 import useApp from 'hooks/useApp.js'
 import Link from 'next/link'

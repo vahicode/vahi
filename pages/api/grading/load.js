@@ -1,7 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-import { generateInvite, authenticate } from 'api/utils.mjs'
-
-const prisma = new PrismaClient()
+import { prisma, authenticate } from 'api/utils.mjs'
 
 const allEyes = async () => Object.fromEntries(
   (await prisma.eye.findMany({ 

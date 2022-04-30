@@ -1,11 +1,8 @@
-import { PrismaClient } from '@prisma/client'
-import { generateInvite, authenticate } from 'api/utils.mjs'
+import { prisma, authenticate } from 'api/utils.mjs'
 import middleware from 'middleware/index.js'
 import nextConnect from 'next-connect'
 import fs from 'fs'
 import probe from 'probe-image-size'
-
-const prisma = new PrismaClient()
 
 const handler = nextConnect()
 handler.use(middleware)

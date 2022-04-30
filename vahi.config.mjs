@@ -1,5 +1,5 @@
 /* 
- * This is the VaHI confifguration file
+ * This is the VaHI configuration file
  *
  * Check the inline comments for details on what is what
  */
@@ -51,8 +51,8 @@ const config = {
   // JSON Web Token settings
   jwt: {
     secret: process.env.VAHI_SECRET,
-    issuer: process.env.VAHI_JWT_ISSUER || 'vahi.eu',
-    audience: process.env.VAHI_JWT_ISSUER || 'vahi.eu',
+    issuer: 'vahi.eu',
+    audience: 'vahi.eu',
     expiresIn: '6 days',
   },
   // Controls the length and complexity of the auto-generated passwords for admins
@@ -64,8 +64,10 @@ const config = {
     // Hashing algorithm to use. Run `openssl list -digest-algorithms` to see what's available
     algorithm: 'sha512',
   },
-  // Root admin email - Not actually used to send email, just as the address for the root account
-  rootemail: 'root@vahi.eu',
+  // Root admin account
+  root: {
+    email: 'root@vahi.eu',
+  },
   session: {
     // Localstorage prefix
     prefix: 'VaHI_',

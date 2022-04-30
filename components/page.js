@@ -23,7 +23,7 @@ const PageWrapper = (props) => {
       ref={swipeHandlers.ref}
       onMouseDown={swipeHandlers.onMouseDown}
       data-theme={props.app.theme}
-      key={props.app.theme} // Thiis forces the data-theme update
+      key={props.app.theme} // This forces the data-theme update
     >
       <Head>
         <meta property="og:title" content="VaHI" key="title" />
