@@ -13,7 +13,7 @@
     "build": "next build",
     "dockerbuild": "docker build . --tag docker.io/vahicode/vahi",
     "start": "next start",
-    "initdb": "npx prisma db push && node ./prisma/seed.mjs",
+    "initdb": "npx prisma db push",
     "rmdb": "node ./scripts/rmdb.mjs",
     "secret": "node ./scripts/secret.mjs",
     "rootpasswordreset": "node ./prisma/rootpwdreset.mjs",

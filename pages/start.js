@@ -67,35 +67,37 @@ const HomePage = (props) => {
             </h2>
           </div>
 
-          <div className="max-w-prose px-8 my-16 rounded-lg pb-8 bg-blend-darken backdrop-blur-3xl" style={{background: '#ffffffbb'}}>
-            <h3>VaHI needs to be initialized</h3>
-            <p>
-              Before we start, we need to setup your database.  
-              <br />
-              To do so, we need the following:
-            </p>
-            <table className="my-4 w-full">
-              <tbody>
-              {status?.valid
-                ? Object.keys(status.valid).map(name => (
-                  <tr key={name}>
-                    <td className="pr-4 py-4 border-y"><span role="img" className='text-xl'>{status.valid[name][0] ? '✅' : '❌'}</span></td>
-                    <td className='pr-4 py-4 font-bold text-xl border-y'>{name}</td>
-                    <td className="pr-4 py-4 border-y"><span>{status.valid[name][1]}</span></td>
-                  </tr>
-                ))
-                : null
+          {status.status !== 'green' && (
+            <div className="max-w-prose px-8 my-16 rounded-lg pb-8 bg-blend-darken backdrop-blur-3xl" style={{background: '#ffffffbb'}}>
+              <h3>VaHI needs to be initialized</h3>
+              <p>
+                Before we start, we need to setup your database.  
+                <br />
+                To do so, we need the following:
+              </p>
+              <table className="my-4 w-full">
+                <tbody>
+                {status?.valid
+                  ? Object.keys(status.valid).map(name => (
+                    <tr key={name}>
+                      <td className="pr-4 py-4 border-y"><span role="img" className='text-xl'>{status.valid[name][0] ? '✅' : '❌'}</span></td>
+                      <td className='pr-4 py-4 font-bold text-xl border-y'>{name}</td>
+                      <td className="pr-4 py-4 border-y"><span>{status.valid[name][1]}</span></td>
+                    </tr>
+                  ))
+                  : null
+                }
+                </tbody>
+              </table>
+              {happy 
+                ? (
+                  <button className="btn btn-primary btn-lg w-full mt-8" onClick={start}>Let's gooooo</button>
+                ) : (
+                  <p>You need to resolve the issues marked with <span role="img" className='text-xl'>❌</span> before we can continue</p>
+                )
               }
-              </tbody>
-            </table>
-            {happy 
-              ? (
-                <button className="btn btn-primary btn-lg w-full mt-8" onClick={start}>Let's gooooo</button>
-              ) : (
-                <p>You need to resolve the issues marked with <span role="img" className='text-xl'>❌</span> before we can continue</p>
-              )
-            }
           </div>
+          )}
         </div>
       </div>
   )

@@ -26,9 +26,14 @@ const handler = async (req, res) => {
     result = await prisma.Admin.findUnique({ 
       where: { email: config.root.email }
     })
+    if (!result) {
+      status.status = 'yellow'
+      status.initialized = false
+    }
   }
   catch (err) {
     // See: https://www.prisma.io/docs/reference/api-reference/error-reference#error-codes
+    console.log(err)
     if (err.code === 'P2021') {
       status.initialized = false
       status.error = 'VaHI is not (yet) initialized',
