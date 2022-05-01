@@ -1,4 +1,5 @@
-import { prisma, checkPassword, getJWT } from 'api/utils.mjs'
+import prisma from 'api/prisma.mjs'
+import { checkPassword, getJWT } from 'api/utils.mjs'
 
 const handler = async (req, res) => {
   // Load admin account from database

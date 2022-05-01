@@ -1,4 +1,5 @@
-import { prisma, generatePassword, authenticate } from 'api/utils.mjs'
+import prisma from 'api/prisma.mjs'
+import { generatePassword, authenticate } from 'api/utils.mjs'
 import config from '../../../vahi.config.mjs'
 
 const handler = async (req, res) => {

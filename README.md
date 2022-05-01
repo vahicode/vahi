@@ -31,9 +31,9 @@ visit [vahi.eu](https://vahi.eu/).
 ## Table of contents
 
 - [About VaHI](#about-vahi)
-- [Technology stack](#technology-stack)
 - [Getting started](#getting-started)
 - [Configuration](#configuration)
+- [Technology stack](#technology-stack)
 - [Deployment](#deployment)
   - [With NodeJS](#with-nodejs)
   - [With PM2](#with-pm2)
@@ -81,61 +81,65 @@ visit [vahi.eu](https://vahi.eu/).
 - [License](#)
 
 
+## Getting started
 
-## Technology stack 🤓
+### Running the VaHI Docker image
+
+The fastest way to try VaHI is to spin it up as a Docker container:
+
+```bash
+docker run -e VAHI_SECRET=insertRandomStringHere -p 3000:3000 vahicode/vahi
+```
+
+Now open your browser at [http://localhost:3000/start](http://localhost:3000/start)
+
+> **Tip**: In this docker command, we set the `VAHI_SECRET` environment variable 
+> and expose port 3000 so it becomes accessible
+
+### Running VaHI from source code
+
+To run VaHI from source code, you will need [NodeJS](https://nodejs.org/en/) on
+your system.  
+
+> I recommend using [nvm](https://github.com/nvm-sh/nvm) for installing NodeJS).
+
+Then you can clone the repository and install dependencies:
+
+```bash
+git clone git@github.com:vahicode/vahi.git
+cd vahi
+npm install
+```
+
+Now copy the `example.env.local` file to `.env.local` and change the `VAHI_SECRET`
+variable in it to some randome string only you know.
+
+Now you can start VaHi in development mode by running:
+
+```
+npm run dev
+```
+
+Now open your browser at [http://localhost:3000/start](http://localhost:3000/start)
+
+## Configuration
+
+Check the configuration file `vahi.config.mjs` for ways to configure VaHI.
+
+The only thing you **MUST** configure is setting the `VAHI_SECRET` environment
+variable. Either in an `.env.local` file, or through other means.
+
+## Technology stack
 
 VaHI 2 is a [NextJS](https://nextjs.org/) app using 
 a [SQLite database](https://www.sqlite.org/) through [
 prisma](https://www.prisma.io/).
 
-To run it, you will need [NodeJS](https://nodejs.org/en/) on your system 
-(I recommend using [nvm](https://github.com/nvm-sh/nvm) for installing NodeJS).
+The VaHI container is built on top of [Alpine 
+Linux](https://www.alpinelinux.org/) and used 
+the [PM2](https://pm2.keymetrics.io/) process manager.
 
-## Getting started 🚀
-
-> Version 2 of VaHI is **a work in progress**. In other words, if you're 
-curious or are interested in contributing, feel free to kick the tires. But if 
-you expect something that *just works* it's too early for that.
-
-To get started, clone the repo:
-
-```bash
-git clone git@github.com:vahicode/vahi.git
-```
-
-Enter the repo, and install dependencies:
-
-```bash
-cd vahi
-npm install
-```
-
-Copy the `example.env` file to `.env`.
-
-Now you can initialize (create and seed) the database.
-To do so, run the following command:
-
-```bash
-npm run initdb
-```
-
-If at any moment you want to remove the database, you can run this command:
-
-```bash
-npm run rmdb
-```
-
-After which you can initialize it again.
-
-> Note that you can also just remove the database file (by default that file 
-is `db/vahi.db`)
-
-## Configuration 🔧
-
-Check the configuration file `vahi.config.mjs` and the Prisma schema 
-in `prisma/prisma.schema` for ways to configure VaHI.
-
-## Deployment 🔧
+## Deployment
 
 ### With NodeJS
 
@@ -173,22 +177,22 @@ Refer to [the PM2 documentation](https://pm2.keymetrics.io/) for more details.
 
 ### With Docker
 
-#### Building the image
+We publish [a VaHI container on the Docker 
+registry](https://hub.docker.com/r/vahicode/vahi). To run it, expose port 3000
+and set the `VAHI_SECRET` environment variable.
 
-If you'd like to build your own image, you can do so with:
+You may also want to volume-mount the `/vahi/db/vahi.db` file to keep your database
+out of the docker image.
 
-```sh
-docker build .
+All of that in one command:
+
+```bash
+docker run \
+  -e VAHI_SECRET=insertRandomStringHere \
+  -p 3000:3000 vahicode/vahi \
+  -v /path/to/your.db:/vahi/db/vahi.db \
+  vahicode/vahi
 ```
-
-#### Run the image
-
-> FIXME: Todo
-
-## Where to get help 🤯
-
-If you want to report a problem, please [create an 
-issue](https://github.com/vahicode/vahi/issues/new).
 
 ## API Routes
 
@@ -1223,11 +1227,7 @@ Return body example:
 ]
 ```
 
-## Contribute
-
-Your pull request are welcome here. If you have any questions, please [create an issue](https://github.com/vahicode/website/issues/new).
-
-## License: MIT 🤓
+## License: MIT
 
 © [Joost De Cock](https://github.com/joostdecock).
 

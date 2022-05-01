@@ -71,28 +71,6 @@ const config = {
   session: {
     // Localstorage prefix
     prefix: 'VaHI_',
-  },
-  // The seed database script (npm run seed) will populate the database with the records you define below
-  seed: {
-    // Admin users to create
-    admin: [
-      { 
-        email: 'root@vahi.eu', 
-        role: 'superadmin',
-        notes: 'Superadmin role as defined in the configuration file',
-      },
-    ],
-    // Users to create 
-    // Note that 'id' holds the invite code
-    user: [
-      {
-        id: 'demo',
-        createdBy: 'root@vahi.eu',
-        isDemoUser: true,
-        isActive: true,
-        notes: 'Demo user as defined in the configuration file'
-      }
-    ]
   }
 }
 

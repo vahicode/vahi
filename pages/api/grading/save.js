@@ -1,4 +1,5 @@
-import { prisma, authenticate } from 'api/utils.mjs'
+import prisma from 'api/prisma.mjs'
+import { authenticate } from 'api/utils.mjs'
 import { loadNextEye, loadNextDemoEye } from './load.js'
 
 const formatGrades = (type, grades) => Object.fromEntries(Object.values(grades[type]).map((v,i) => [ `${type.slice(0,1)}${i+1}`, parseInt(v)]))

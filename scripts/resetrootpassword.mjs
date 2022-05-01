@@ -23,16 +23,16 @@ const reset = () => {
     else {
       // Update admin user
       const [pwd, hash, salt] = generatePassword()
-      db.exec(`UPDATE Admin SET password = "${hash}:${salt}" WHERE email = "${config.seed.admin[0].email}";`, err => {
+      db.exec(`UPDATE Admin SET password = "${hash}:${salt}" WHERE email = "${config.root.email}";`, err => {
         if (err) console.log(`WARNING: Failed to update root admin user password. The error was:`, err)
         else console.log(`
   You can now login with the root admin account:
 
-    username: ${kleur.yellow(config.seed.admin[0].email)}
+    username: ${kleur.yellow(config.root.email)}
     password: ${kleur.yellow(pwd)}
 
   Please write this password down. 
-  You can restore it by running ${kleur.cyan('npm run rootpasswordreset')}
+  You can restore it by running ${kleur.cyan('npm run resetrootpassword')}
         `)
       })
     }

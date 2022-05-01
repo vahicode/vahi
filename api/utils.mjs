@@ -1,18 +1,12 @@
-import { PrismaClient } from '@prisma/client'
 import config from '../vahi.config.mjs'
-import sqlite3 from 'sqlite3'
 import path from 'path'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
+import fs from 'fs'
 
 const { createHash } = crypto
 
-export const prisma = new PrismaClient()
-
 export const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
-
-// Returns database instance
-export const getDb = () => new sqlite3.Database(path.resolve(path.join(config.db.folder, config.db.file)))
 
 // Returns random string of len length
 export const randomString = (len, set='passwords') => {
@@ -96,6 +90,28 @@ export const authenticate = {
     return admin
   },
   user: (req) => jwt.verify(req.headers.authorization.slice(7), config.jwt.secret)
+}
+
+export const schemaDbFileIsPresent = () => {
+  try {
+    if (fs.existsSync(path.resolve(path.join('db', 'schema.db')))) return true
+    else return false
+  } catch (err) {
+    return false
+  }
+}
+
+export const copySchemaDbToRealDb = () => {
+  try {
+    console.log(fs.copyFileSync(
+      path.resolve(path.join('db', 'schema.db')),
+      path.resolve(config.db.path),
+    ) )
+    return true
+  } catch (err) {
+    console.log(err)
+    return false
+  }
 }
 
 

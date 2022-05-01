@@ -1,4 +1,5 @@
-import { prisma, getJWT } from 'api/utils.mjs'
+import prisma from 'api/prisma.mjs'
+import { getJWT } from 'api/utils.mjs'
 
 const handler = async (req, res) => {
   // Load user account from database

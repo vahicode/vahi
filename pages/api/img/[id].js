@@ -1,4 +1,4 @@
-import { prisma } from 'api/utils.mjs'
+import prisma from 'api/prisma.mjs'
 
 const handler = async (req, res) => {
 

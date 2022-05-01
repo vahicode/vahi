@@ -16,7 +16,7 @@
     "initdb": "npx prisma db push",
     "rmdb": "node ./scripts/rmdb.mjs",
     "secret": "node ./scripts/secret.mjs",
-    "rootpasswordreset": "node ./prisma/rootpwdreset.mjs",
+    "resetrootpassword": "node ./scripts/resetrootpassword.mjs",
     "prettier": "npx prettier --write '*.js' 'components/*.js' 'pages/*.js' 'hooks/*.js' 'scripts/*.mjs' 'themes/*.js'",
     "prebuild": "node scripts/prebuild.mjs"
   },

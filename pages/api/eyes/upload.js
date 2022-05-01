@@ -1,4 +1,5 @@
-import { prisma, authenticate } from 'api/utils.mjs'
+import prisma from 'api/prisma.mjs'
+import { authenticate } from 'api/utils.mjs'
 import middleware from 'middleware/index.js'
 import nextConnect from 'next-connect'
 import fs from 'fs'
