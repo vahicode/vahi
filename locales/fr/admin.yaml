@@ -6,7 +6,7 @@ loginFailed: Connexion échouée
 users: Utilisateurs
 eyes: Yeux
 addUsers: Ajouter des Utilisateurs
-addEyes: Ajouter des Yeux
+addEye: Ajouter un oeil
 administrators: Administrateurs
 addAdministrators: Ajouter des Administrateurs
 exportData: Exporter des données
@@ -37,4 +37,9 @@ no: Non
 graded: Classé
 grades: Classements
 hoverReveals: Survolez pour révéler
+imgForThing: Image pour {thing}
+vimgDesc: Typiquement une image régulière de l'œil
+himgDesc: Typiquement une image régulière de l'œil
+iimgDesc: Généralement une image de l'œil avec un filtre bleu
+filedrop: 'Faites glisser et déposez votre image ici ou <span class="filepond--label-action">Parcourez</span>'
 

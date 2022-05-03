@@ -30,7 +30,6 @@ visit [vahi.eu](https://vahi.eu/).
 
 ## Table of contents
 
-- [About VaHI](#about-vahi)
 - [Getting started](#getting-started)
 - [Configuration](#configuration)
 - [Technology stack](#technology-stack)

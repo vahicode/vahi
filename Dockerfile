@@ -27,15 +27,15 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN addgroup --system --gid 1001 vahi
 RUN adduser --system --uid 1001 vahi
 
-COPY --from=builder /vahi/api ./api
-COPY --from=builder /vahi/db ./db
-COPY --from=builder /vahi/markdown ./markdown
-COPY --from=builder /vahi/prisma ./prisma
-COPY --from=builder /vahi/public ./public
-COPY --from=builder /vahi/scripts ./scripts
-COPY --from=builder /vahi/next.config.mjs ./
-COPY --from=builder /vahi/package.json ./package.json
-COPY --from=builder /vahi/vahi.config.mjs ./vahi.config.mjs
+COPY --from=builder --chown=vahi:vahi /vahi/api ./api
+COPY --from=builder --chown=vahi:vahi /vahi/db ./db
+COPY --from=builder --chown=vahi:vahi /vahi/markdown ./markdown
+COPY --from=builder --chown=vahi:vahi /vahi/prisma ./prisma
+COPY --from=builder --chown=vahi:vahi /vahi/public ./public
+COPY --from=builder --chown=vahi:vahi /vahi/scripts ./scripts
+COPY --from=builder --chown=vahi:vahi /vahi/next.config.mjs ./
+COPY --from=builder --chown=vahi:vahi /vahi/package.json ./package.json
+COPY --from=builder --chown=vahi:vahi /vahi/vahi.config.mjs ./vahi.config.mjs
 
 # Automatically leverage output traces to reduce image size 
 # https://nextjs.org/docs/advanced-features/output-file-tracing

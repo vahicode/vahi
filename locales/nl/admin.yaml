@@ -6,7 +6,7 @@ loginFailed: Aanmelden mislukt
 users: Gebruikers
 eyes: Ogen
 addUsers: Gebruikers Toevoegen
-addEyes: Ogen Toevoegen
+addEye: Oog Toevoegen
 administrators: Beheerders
 addAdministrators: Beheerders Toevoegen
 exportData: Data Exporteren
@@ -37,4 +37,9 @@ no: Nee
 graded: Beoordeeld 
 grades: Beoordelingen
 hoverReveals: Zweven om te onthullen
+imgForThing: Afbeelding voor {thing}
+vimgDesc: Typisch een gewone foto van het oog
+himgDesc: Typisch een gewone foto van het oog
+iimgDesc: Typisch een foto van het oog met een blauwe filter
+filedrop: 'Sleep uw afbeelding hierheen of <span class="filepond--label-action">Blader</span>'
 

@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
@@ -18,7 +19,7 @@ model User {
   isActive   Boolean   @default(true)
   lastLogin  DateTime?
   notes      String
-  Grading     Grading[]
+  Grading    Grading[]
 }
 
 model Admin {
@@ -33,11 +34,21 @@ model Admin {
 }
 
 model Eye {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  createdBy String
+  isActive  Boolean   @default(false)
+  notes     String
+  vImg      Image?    @relation("vimg")
+  iImg      Image?    @relation("iimg")
+  Grading   Grading[]
+}
+
+model Image {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   createdBy String
-  isActive  Boolean  @default(false)
-  notes     String
+  integrity Boolean  @default(false)
   img       Bytes
   scale     Float    @default(1)
   x         Float    @default(0)
@@ -45,7 +56,10 @@ model Eye {
   width     Float
   height    Float
   mimetype  String
-  Grading    Grading[]
+  vEye      Eye?     @relation("vimg", fields: [vEyeId], references: [id])
+  vEyeId    Int?     @unique
+  iEye      Eye?     @relation("iimg", fields: [iEyeId], references: [id])
+  iEyeId    Int?     @unique
 }
 
 model Grading {

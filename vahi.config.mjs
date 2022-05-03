@@ -4,6 +4,12 @@
  * Check the inline comments for details on what is what
  */
 const config = {
+  // You can choose to disable some types of grading here
+  grade: {
+    v: true, // Vascularisation
+    h: true, // Haze
+    i: true // Integrity
+  },
   // Controls the look and feel
   branding: {
     // List of enabled themes

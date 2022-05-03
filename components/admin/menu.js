@@ -46,7 +46,7 @@ const AdminMenu = ({ app, list=false }) => {
     },
     {
       url: '/admin/add/eyes',
-      title: t(`add${capitalize('eyes')}`),
+      title: t(`add${capitalize('eye')}`),
       icon: <EyeIcon />,
       className: 'text-primary',
       only: ['dataentry', 'admin', 'superadmin'],
