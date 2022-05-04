@@ -14,6 +14,7 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import config from '../../../vahi.config.mjs'
+import { useRouter } from 'next/router'
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
@@ -21,6 +22,7 @@ const AdminAddEyesPage = (props) => {
   const app = useApp()
   const { headers } = app.bearer()
   const { t } = useTranslation(['admin', 'vahi', 'errors'])
+  const router = useRouter()
 
   const [vimg, setVimg] = useState([])
   const [iimg, setIimg] = useState([])
@@ -28,6 +30,7 @@ const AdminAddEyesPage = (props) => {
   const [iimgId, setIimgId] = useState(false)
   const [error, setError] = useState(false)
   const [notes, setNotes] = useState('')
+  const [added, setAdded] = useState(false)
   
   const crumbs = [
     { url: '/admin', title: t('administration') },
@@ -42,7 +45,7 @@ const AdminAddEyesPage = (props) => {
       if (config.grade.v || config.grade.h) data.vimg = vimgId
       if (config.grade.i) data.iimg = iimgId
       result = await axios.post('/api/eyes/add', data, app.bearer())
-      if (result.data) console.log(data)
+      if (result.data) router.push(`/admin/eyes/${result.data.id}`)
     }
     catch (err) {
     }
@@ -87,7 +90,7 @@ const AdminAddEyesPage = (props) => {
           )}
           {config.grade.i && (
             <>
-              <h4>{t('iimg')}</h4>
+              <h4>{t('imgForThing', { thing: t('vahi:integrity')})}</h4>
               <p className="text-sm p-0 m-0 -mt-2 mb-2">{t('iimgDesc')}</p>
               <FilePond
                 {...pondProps}

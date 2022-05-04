@@ -1,7 +1,16 @@
 import prisma from 'api/prisma.mjs'
 import { authenticate } from 'api/utils.mjs'
 
-const onlyId = { select: { id: true } }
+const imgFields = { 
+  select: { 
+    id: true,
+    scale: true,
+    x: true,
+    y: true,
+    width: true,
+    height: true,
+  } 
+}
 
 const handler = async (req, res) => {
 
@@ -18,18 +27,32 @@ const handler = async (req, res) => {
       createdBy: true,
       isActive: true,
       notes: true,
-      vImg: onlyId,
-      iImg: onlyId,
-      Grading: true
+      Grading: {
+        select: { id: true },
+      },
+      vImg: {
+        select: {
+          id: true,
+          scale: true,
+          x: true,
+          y: true,
+          mimetype: true,
+          width: true,
+          height: true,
+        },
+      },
+      iImg: {
+        select: {
+          id: true
+        }
+      }
     }
   })
 
-  // Only keep a count of graded eyes, an move ID so it's a scalar
+  // Replace grading with a count of grades
   for (const eye of eyes) {
-    eye.graded = eye.Grading.length
+    eye.grades = eye.Grading.length
     delete eye.Grading
-    if (eye.vimg?.id) eye.vimg = eye.vimg.id
-    if (eye.iimg?.id) eye.iimg = eye.iimg.id
   }
 
   return res.send(eyes)

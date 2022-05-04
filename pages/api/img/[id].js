@@ -8,11 +8,14 @@ const handler = async (req, res) => {
   // Get img
   const img = await prisma.image.findUnique({
     where: { id: parseInt(id) },
-    select: { img: true }
+    select: { 
+      img: true,
+      mimetype: true
+    }
   })
 
   return res
-    .setHeader('Content-Type', 'image/jpeg')
+    .setHeader('Content-Type', img.mimetype)
     .send(img.img, 'binary')
 }
 

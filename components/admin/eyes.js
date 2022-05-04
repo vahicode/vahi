@@ -131,6 +131,7 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
             </th>
             <th>#</th>
             <th className="w-36">-</th>
+            <th className="w-36">-</th>
             <th>ID</th>
             <th>{t('graded')}</th>
             <th>{t('notes')}</th>
@@ -155,8 +156,17 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
                   </a>
                 </Link>
               </td>
+              <td className="w-36">
+                {eye.iImg ? (
+                  <Link href={`/admin/eyes/${eye.id}`}>
+                    <a> 
+                      <img src={`/api/img/${eye.iImg.id}`} className="w-36 rounded-lg"/>
+                    </a>
+                  </Link>
+                ) : null}
+              </td>
               <td><RecordLink id={eye.id} type='eyes'/></td>
-              <td><ToggleButton id={eye.id}>{eye?.graded}</ToggleButton></td>
+              <td><ToggleButton id={eye.id}>{eye?.grades}</ToggleButton></td>
               <td><ToggleButton id={eye.id}>{eye.notes ? eye.notes : '-'}</ToggleButton></td>
               <td><ToggleButton id={eye.id}><TimeAgo date={eye.createdAt} /></ToggleButton></td>
               <td><RecordLink id={eye.createdBy} type='admins'/></td>
@@ -172,7 +182,7 @@ const Eyes = ({ eyes=[], app, setUpdate }) => {
           ))}
         </tbody>
       </table>
-  </div>
+    </div>
   )
 }
 

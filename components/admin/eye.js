@@ -6,6 +6,7 @@ import DisableIcon from 'components/icons/disable.js'
 import EnableIcon from 'components/icons/enable.js'
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import Popout from 'components/popout'
 import Grid from 'components/grid'
 
@@ -23,15 +24,25 @@ const EyeStats = ({ eye, t, handlers }) => (
       </div>
       <div className="stat-value">{eye.createdBy}</div>
     </div>
-    {['scale', 'x', 'y', 'width', 'height'].map(field => (
-      <div className="stat" key={field}>
-        <div className="stat-title capitalize">{t(field)}</div>
-        <div className="stat-value">{eye[field]}</div>
-      </div>
-    ))}
     <div className="stat">
-      <div className="stat-title">Type</div>
-      <div className="stat-value">{eye.mimetype}</div>
+      <div className="stat-title">
+        {t('vahi:vascularity')} / {t('vahi:haze')}
+      </div>
+      <div className="stat-value">
+        {eye.vImg && <img src={`/api/img/${eye.vImg.id}`} className="w-36 rounded-lg"/>}
+      </div>
+    </div>
+    <div className="stat">
+      <div className="stat-title">
+        {t('vahi:integrity')}
+      </div>
+      <div className="stat-value">
+        {eye.iImg && <img src={`/api/img/${eye.iImg.id}`} className="w-36 rounded-lg"/>}
+      </div>
+    </div>
+    <div className="stat">
+      <div className="stat-title">{t('grades')}</div>
+      <div className="stat-value">{eye.grades}</div>
     </div>
     <div className="stat">
       <div className="stat-title">{t('enabled')}</div>
@@ -44,9 +55,10 @@ const EyeStats = ({ eye, t, handlers }) => (
 )
 
 const EyeCalibration = ({ eye, t, handlers }) => {
-  const [scale, setScale] = useState(eye.scale)
-  const [x, setX] = useState(eye.x)
-  const [y, setY] = useState(eye.y)
+  if (!eye.vImg) return null
+  const [scale, setScale] = useState(eye.vImg.scale)
+  const [x, setX] = useState(eye.vImg.x)
+  const [y, setY] = useState(eye.vImg.y)
 
   return (
     <div>
@@ -63,17 +75,25 @@ const EyeCalibration = ({ eye, t, handlers }) => {
           <span className="label-text">X</span>
           <span className="label-text">{x}</span>
         </label>
-        <input type="range" min={eye.width * -0.75} max={eye.width * 0.75} value={x} 
+        <input type="range" min={eye.vImg.width * -0.75} max={eye.vImg.width * 0.75} value={x} 
           className="range range-sm range-primary" onChange={evt => setX(evt.target.value)}/>
 
         <label className="label">
           <span className="label-text">Y</span>
           <span className="label-text">{y}</span>
         </label>
-        <input type="range" min={eye.height * -0.75} max={eye.height * 0.75} value={y} 
+        <input type="range" min={eye.vImg.height * -0.75} max={eye.vImg.height * 0.75} value={y} 
           className="range range-sm range-primary" onChange={evt => setY(evt.target.value)}/>
         <div className="my-4" />
-        <Grid eye={{ ...eye, scale, x, y }} inactive />
+        <Grid eye={{ 
+          ...eye, 
+          vImg: {
+            ...eye.vImg, 
+            scale, 
+            x, 
+            y 
+          }
+        }} inactive />
         <p className="text-center">
           <button className="btn btn-primary w-32" onClick={() => handlers.calibrate({scale, x, y})}>
             {t('save')}
@@ -86,7 +106,7 @@ const EyeCalibration = ({ eye, t, handlers }) => {
 
 const EyeNotes = ({ eye, t, handlers }) => {
   const [notes, setNotes] = useState(eye.notes)
-
+  
   return (
     <div>
       <h3 className="capitalize">{t('notes')}</h3>
@@ -150,6 +170,7 @@ const EyeAdvanced = ({ eye, t, handlers }) => (
 
 const Eye = ({ eye, app, setUpdate }) => {
   const { t } = useTranslation(['admin', 'vahi'])
+  const router = useRouter()
 
   const [selected, setSelected ] = useState({})
 
@@ -179,8 +200,8 @@ const Eye = ({ eye, app, setUpdate }) => {
     },
     calibrate: vals => {
       axios.put(
-        '/api/eyes/calibrate',
-        { eye: eye.id, ...vals },
+        '/api/img/calibrate',
+        { image: eye.vImg.id, ...vals },
         app.bearer()
       ).then(refresh)
     },
@@ -188,7 +209,10 @@ const Eye = ({ eye, app, setUpdate }) => {
       axios.delete(
         `/api/eyes/delete/${id}`,
         app.bearer()
-      ).then(refresh)
+      ).then(() => {
+        router.push('/admin/eyes')
+        refresh()
+      })
     },
   }
 

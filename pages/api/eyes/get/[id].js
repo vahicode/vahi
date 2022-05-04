@@ -20,15 +20,31 @@ const handler = async (req, res) => {
       createdBy: true,
       isActive: true,
       notes: true,
-      img: false,
-      scale: true,
-      x: true,
-      y: true,
-      mimetype: true,
-      width: true,
-      height: true,
+      Grading: {
+        select: { id: true },
+      },
+      vImg: {
+        select: {
+          id: true,
+          scale: true,
+          x: true,
+          y: true,
+          mimetype: true,
+          width: true,
+          height: true,
+        },
+      },
+      iImg: {
+        select: {
+          id: true
+        }
+      }
     }
   })
+
+  // Replace grading with a count of grades
+  eye.grades = eye.Grading.length
+  delete eye.Grading
 
   return res.send(eye)
 }

@@ -13,15 +13,15 @@ const handler = async (req, res) => {
     .send({ error: 'authentication_failed' })
 
   // Check that eye and x,y,scale is set
-  if (!req.body.eye 
+  if (!req.body.image 
     || !req.body.x
     || !req.body.y
     || !req.body.scale) return res.status(400)
     .send({ error: 'no_eye_specified' })  
 
-  // Update eye
-  const eye = await prisma.eye.update({
-    where: { id: parseInt(req.body.eye) },
+  // Update image
+  const image = await prisma.image.update({
+    where: { id: parseInt(req.body.image) },
     data: { 
       x: parseFloat(req.body.x),
       y: parseFloat(req.body.y),
@@ -29,7 +29,7 @@ const handler = async (req, res) => {
     }
   })
 
-  return res.send(eye)
+  return res.send(image)
 }
 
 export default handler

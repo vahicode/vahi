@@ -37,9 +37,11 @@ const Grid = ({
   grade, 
   className=''
 }) => {
+  // Don't fall over on missing input
+  if (!eye.vImg) return null
 
-  const { scale, width, height, id } = eye
-  let { x=0, y=0 } = eye
+  const { scale, width, height, id } = eye.vImg
+  let { x=0, y=0 } = eye.vImg
   x = x/width
   y = y/height
 
