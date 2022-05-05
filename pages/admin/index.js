@@ -46,7 +46,7 @@ const AdminLoginPage = (props) => {
 
   return (
     <Page app={app}>
-      <div className="form-control w-full max-w-md m-auto px-8 xl:px-0">
+      <div className="form-control w-full max-w-7xl m-auto px-8 xl:px-0">
         <BreadCrumbs title={t('administration')}/>
         <h1>
           <span>{t('administration')}</span>
@@ -55,7 +55,7 @@ const AdminLoginPage = (props) => {
         {app.admin 
           ? <AdminMenu app={app} list />
           : (
-            <form onSubmit={login}>
+            <form onSubmit={login} className="max-w-96 sm:w-96 m-auto">
               <label className="label">
                 <span className="label-text">{t('adminUsername')}</span>
               </label>
