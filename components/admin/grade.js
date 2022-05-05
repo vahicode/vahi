@@ -31,7 +31,7 @@ const GradeStats = ({ grade, t }) => (
       <div className="stat-desc">{grade.userId}</div>
     </div>
     <div className="stat">
-      <div className="stat-title">{t('vahi:vascularity')}</div>
+      <div className="stat-title">{t('vahi:vascularisation')}</div>
       <div className="stat-value">{score(grade, 'v')}/39</div>
       <div className="stat-desc">{scores(grade, 'v')}</div>
     </div>
@@ -59,7 +59,7 @@ const Grade = ({ grade, app, setUpdate }) => {
     <div>
       <GradeStats {...pass} />
       <div className="form-control w-full my-8">
-        {['vascularity', 'haze', 'integrity'].map(tp => (
+        {['vascularisation', 'haze', 'integrity'].map(tp => (
           <div className="form-control flex flex-row" key={tp}>
             <label className="label cursor-pointer">
               <input 

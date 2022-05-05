@@ -5,19 +5,25 @@ import ClearIcon from 'components/icons/close.js'
 import axios from 'axios'
 import Spinner from 'components/spinner.js'
 import Grid from 'components/grid.js'
+import Integrity from 'components/integrity.js'
 import markdown from 'markdown/finish.mjs'
 import Markdown from 'react-markdown'
 import { useRouter } from 'next/router'
 import Popout from 'components/popout'
+import config from '../../vahi.config.mjs'
 
 // Some defaults
-const steps = ['vascularity', 'haze', 'integrity']
+const steps = []
+if (config.grade.v) steps.push('vascularisation')
+if (config.grade.h) steps.push('haze')
 const defaultGrading = 0
 const defaultGradings = {}
 for (const step of steps) {
   defaultGradings[step] = {}
   for (let i=1; i<14; i++) defaultGradings[step][i] = defaultGrading
 }
+if (config.grade.i) steps.push('integrity')
+defaultGradings.integrity = 0
 
 const Progress = ({ step, stats, eye }) => {
   const { t } = useTranslation(['vahi'])
@@ -49,7 +55,7 @@ const Continue = ({ step, stepDone, clear }) => {
   let cur = 'integrity'
   let next = 'nextEye'
   if (step === 0) {
-    cur = 'vascularity'
+    cur = 'vascularisation'
     next = 'haze'
   }
   else if (step === 1) {
@@ -95,10 +101,11 @@ const Legend = ({ step }) => {
           </li>
         ))}
       </ul>
+      <h3 className="inline-block">{t('example')}</h3>
+      <img src={`/img/legend/${steps[step][0]}.png`} className="w-full" />
     </div>
   )
 }
-
 
 const Grade = ({ app }) => {
   const { t } = useTranslation(['vahi', 'errors'])
@@ -127,14 +134,20 @@ const Grade = ({ app }) => {
     }
   }, [])
 
-  const grade = zone => {
-    // Grades (stores the results)
-    const newGrades = {}
-    for (const s of steps) newGrades[s] = {...grades[s]}
-    const score = newGrades[steps[step]][zone]
-    if (score === 3) newGrades[steps[step]][zone] = 0
-    else newGrades[steps[step]][zone] = score+1
-    setGrades(newGrades)
+  const grade = (zone=false) => {
+    if (steps[step] === 'integrity') {
+      let newGrade = grades.integrity + 1
+      if (newGrade > 3) newGrade = 0
+      setGrades({...grades, integrity: newGrade })
+    } else {
+      // Grades (stores the results)
+      const newGrades = {}
+      for (const s of steps) newGrades[s] = {...grades[s]}
+      const score = newGrades[steps[step]][zone]
+      if (score === 3) newGrades[steps[step]][zone] = 0
+      else newGrades[steps[step]][zone] = score+1
+      setGrades(newGrades)
+    }
     // Flash (provides visual feedback)
     setFlash(true)
     if (window) window.setTimeout(function(){
@@ -193,13 +206,20 @@ const Grade = ({ app }) => {
   }
 
   return (
-    <div>
-      <Continue step={step} stepDone={stepDone} clear={clear}/>
-      <Progress step={step} stats={stats} eye={eye}/>
-      <Grid eye={eye} grades={grades[steps[step]]} grade={grade} className={flash ? 'flash' : ''}/>
-      <Progress step={step} stats={stats} eye={eye}/>
-      <Continue step={step} stepDone={stepDone} clear={clear}/>
-      <Legend step={step} />
+    <div className="flex flex-row row-wrap">
+      <div className="w-2/3 px-0 lg:px-4">
+        <Continue step={step} stepDone={stepDone} clear={clear}/>
+        <Progress step={step} stats={stats} eye={eye}/>
+        {steps[step][0] === 'i'
+          ? <Integrity eye={eye} igrade={grades[steps[step]]} grade={grade} className={flash ? 'flash' : ''}/>
+          : <Grid eye={eye} grades={grades[steps[step]]} grade={grade} className={flash ? 'flash' : ''}/>
+        }
+        <Progress step={step} stats={stats} eye={eye}/>
+        <Continue step={step} stepDone={stepDone} clear={clear}/>
+      </div>
+      <div className="w-1/3 px-0 lg:px-4 pt-4 lg:pt-36">
+        <Legend step={step} />
+      </div>
     </div>
   )
 }

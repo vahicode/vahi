@@ -6,11 +6,24 @@ const allEyes = async () => Object.fromEntries(
     where: { isActive: true },
     select: {
       id: true,
-      scale: true,
-      x: true,
-      y: true,
-      width: true,
-      height: true
+      vImg: {
+        select: {
+          id: true,
+          scale: true,
+          x: true,
+          y: true,
+          mimetype: true,
+          width: true,
+          height: true,
+        },
+      },
+      iImg: {
+        select: {
+          id: true,
+          width: true,
+          height: true,
+        }
+      }
     },
     orderBy: { id: 'asc' }
   }))

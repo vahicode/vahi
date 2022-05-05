@@ -16,7 +16,7 @@ const handler = async (req, res) => {
     }
   })
 
-  // Update image for vascularity/haze
+  // Update image for vascularisation/haze
   if (req.body.vimg) await prisma.image.update({
     where: { id: parseInt(req.body.vimg) },
     data: { vEyeId: eye.id }

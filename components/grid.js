@@ -35,7 +35,7 @@ const Grid = ({
   bold=false, 
   grades, 
   grade, 
-  className=''
+  className='',
 }) => {
   // Don't fall over on missing input
   if (!eye.vImg) return null

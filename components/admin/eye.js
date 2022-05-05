@@ -26,7 +26,7 @@ const EyeStats = ({ eye, t, handlers }) => (
     </div>
     <div className="stat">
       <div className="stat-title">
-        {t('vahi:vascularity')} / {t('vahi:haze')}
+        {t('vahi:vascularisation')} / {t('vahi:haze')}
       </div>
       <div className="stat-value">
         {eye.vImg && <img src={`/api/img/${eye.vImg.id}`} className="w-36 rounded-lg"/>}

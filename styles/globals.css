@@ -114,6 +114,9 @@ svg.eye text {
   text-anchor: middle;
   transition: fill-opacity 0.4s;
 }
+svg.eye text.integrity {
+  font-size: 360px; 
+}
 svg.eye text:hover {
   cursor: pointer;
 }

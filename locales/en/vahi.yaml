@@ -12,7 +12,7 @@ save: Save
 eyes: Eyes
 gradeIt: Grade {it}
 clearIt: Clear {it}
-vascularity: Vascularity
+vascularisation: Vascularisation
 haze: Haze
 integrity: Integrity
 progressOnThisEye: Progress on this eye
@@ -36,4 +36,4 @@ legend-v-2: 30-70% of the zone is covered by superficial vessels
 legend-v-3: 70-100% of the zone is covered by superficial vessels
 noEyesToGrade: No eye available
 noEyesToGradeMsg: There is currently no eye available for grading. 
-
+example: Example

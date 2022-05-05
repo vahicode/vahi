@@ -9,7 +9,7 @@ const handler = async (req, res) => {
   // Is this a valid request
   if (!req.body?.eye 
     || !req.body?.grades 
-    || !req.body.grades?.vascularity
+    || !req.body.grades?.vascularisation
     || !req.body.grades?.haze
     || !req.body.grades?.integrity
   ) return res.status(400).send({error: 'invalid_data'})
@@ -30,7 +30,7 @@ const handler = async (req, res) => {
       data: {
         eyeId: req.body.eye,
         userId: user.id,
-        ...formatGrades('vascularity', req.body.grades),
+        ...formatGrades('vascularisation', req.body.grades),
         ...formatGrades('haze', req.body.grades),
         ...formatGrades('integrity', req.body.grades)
       }

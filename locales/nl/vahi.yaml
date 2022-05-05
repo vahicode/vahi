@@ -12,7 +12,7 @@ save: Opslaan
 eyes: Ogen
 gradeIt: Beoordeel {it}
 clearIt: Reset {it}
-vascularity: Vasculariteit
+vascularisation: Vascularisatie
 haze: Waas
 integrity: Integriteit
 progressOnThisEye: Vooruitgang van dit oog
@@ -36,4 +36,4 @@ legend-v-2: 30-70% van de zone ingenomen door superficiële bloedvaatjes
 legend-v-3: 70-100% van de zone ingenomen door superficiële bloedvaatjes
 noEyesToGrade: Geen oog beschikbaar
 noEyesToGradeMsg: Er is momenteel geen oog beschikbaar voor beoordeling.
-
+example: Voorbeeld

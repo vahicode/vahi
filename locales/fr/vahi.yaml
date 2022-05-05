@@ -12,7 +12,7 @@ save: Sauver
 eyes: Yeux
 gradeIt: Classez {it}
 clearIt: Effacer {it}
-vascularity: Vascularisation
+vascularisation: Vascularisation
 haze: Trouble
 integrity: Intégrité
 progressOnThisEye: Progrès sur cet oeil
@@ -36,4 +36,4 @@ legend-v-2: 30 à 70% de la zone est recouverte par des vaisseaux superficiels
 legend-v-3: 70 à 100% de la zone est recouverte par des vaisseaux superficiels
 noEyesToGrade: Aucun œil disponible
 noEyesToGradeMsg: Il n'y a actuellement aucun œil disponible pour le classement.
-
+example: Exemple
