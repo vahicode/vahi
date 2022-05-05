@@ -15,13 +15,20 @@ const handler = async (req, res) => {
   const grade = await prisma.grading.findUnique({
     where: { id: parseInt(id) },
     include: { 
+
       user: true,
-      eye: true,
+      eye: {
+        include: {
+          vImg: true,
+          iImg: true,
+        }
+      }
     }
   })
 
-  // Keep image out of it
-  delete grade.eye.img
+  // Keep images out of it
+  delete grade.eye.vImg.img
+  delete grade.eye.iImg.img
   
   return res.send(grade)
 }

@@ -142,7 +142,10 @@ const Grade = ({ app }) => {
     } else {
       // Grades (stores the results)
       const newGrades = {}
-      for (const s of steps) newGrades[s] = {...grades[s]}
+      for (const s of steps) {
+        if (steps[s] !== 'integrity') newGrades[s] = {...grades[s]}
+      }
+      newGrades.integrity = grades.integrity
       const score = newGrades[steps[step]][zone]
       if (score === 3) newGrades[steps[step]][zone] = 0
       else newGrades[steps[step]][zone] = score+1
@@ -177,9 +180,11 @@ const Grade = ({ app }) => {
   }
 
   const clear = () => {
-    const newGrades = {}
-    for (const s of steps) newGrades[s] = {...grades[s]}
-    for (const i=1;i<14;i++) newGrades[steps[step]][i] = 0
+    const newGrades = {...grades}
+    if (steps[step] === 'integrity') newGrades.integrity = 0
+    else {
+      for (const i=1;i<14;i++) newGrades[steps[step]][i] = 0
+    }
     setGrades(newGrades)
   }
 

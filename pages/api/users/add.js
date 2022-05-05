@@ -1,5 +1,5 @@
 import prisma from 'api/prisma.mjs'
-import { authenticate } from 'api/utils.mjs'
+import { authenticate, generateInvite } from 'api/utils.mjs'
 
 const handler = async (req, res) => {
 

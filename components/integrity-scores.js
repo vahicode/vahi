@@ -1,16 +1,9 @@
-export const svgSize = 1200
+import { svgSize, paths, text } from './grid.js'
 
-const Integrity = ({ 
-  eye, 
-  igrade, 
-  grade, 
-  className='',
-}) => {
-  // Don't fall over on missing input
-  if (!eye.iImg) return null
+const IntegrityScores = ({ grade }) => {
 
-  const { width, height, id } = eye.iImg
-  let { x=0, y=0 } = eye.iImg
+  const { width, height, id } = grade.eye.iImg
+  let { x=0, y=0 } = grade.eye.vImg
   x = x/width
   y = y/height
 
@@ -18,23 +11,21 @@ const Integrity = ({
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox={svgViewBox()} 
-      className={`eye shadow rounded-lg ${className}`}
+      className={`eye shadow rounded-lg scores`}
       style={{
         backgroundImage: `url('/api/img/${id}')`,
         backgroundSize: 'contain'
       }}
     >
       <text x={width/2} y={height/2+130} className="integrity"> 
-        {igrade}
+        {grade.i}
       </text>
       <path 
         d={`M 2.5,2.5 L ${width-2.5},2.5 L ${width-2.5},${height-5} L 2.5,${height-2.5} z`}
-        className={`graded-${igrade}`} 
-        onClick={grade}
+        className={`graded-${grade.i}`} 
       />
-      ))}
     </svg>
   )
 }
 
-export default Integrity
+export default IntegrityScores

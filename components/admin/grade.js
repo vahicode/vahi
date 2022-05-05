@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import TimeAgo from 'react-timeago'
 import GridScores from 'components/grid-scores'
+import IntegrityScores from 'components/integrity-scores'
 import Popout from 'components/popout'
 
 const zones = [1,2,3,4,5,6,7,8,9,10,11,12,13]
@@ -73,7 +74,10 @@ const Grade = ({ grade, app, setUpdate }) => {
           </div>
         ))}
       </div>
-      <GridScores grade={grade} type={type}/>
+      {type === 'i'
+        ? <IntegrityScores grade={grade} />
+        : <GridScores grade={grade} type={type}/>
+      }
       <div className="mt-8">
         <Popout tip compact>{t('hoverReveals')}</Popout>
       </div>

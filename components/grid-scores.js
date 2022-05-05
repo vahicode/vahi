@@ -2,8 +2,8 @@ import { svgSize, paths, text } from './grid.js'
 
 const GridScores = ({ grade, type='v' }) => {
 
-  const { scale, width, height, id } = grade.eye
-  let { x=0, y=0 } = grade.eye
+  const { scale, width, height, id } = grade.eye.vImg
+  let { x=0, y=0 } = grade.eye.vImg
   x = x/width
   y = y/height
 
