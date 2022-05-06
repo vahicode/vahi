@@ -12,9 +12,17 @@ const handler = async (req, res) => {
   const { id } = req.query
 
   // Remove eye
-  const eye = await prisma.eye.delete({
-    where: { id: parseInt(id) },
-  })
+  let eye
+  try {
+    eye = await prisma.eye.delete({
+      where: { id: parseInt(id) },
+    })
+  } 
+  catch (err) {
+    // Can't remove an eye with active ratings
+    if (err.code === 'P2003') return res.status(403).send({error: 'Cannot remove an eye with gradings' })
+    else res.status(500).send()
+  }
 
   return res.send({ removed: id })
 }

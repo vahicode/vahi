@@ -21,6 +21,7 @@ const AdminUserPage = (props) => {
   const [user, setUser] = useState(false)
   const [error, setError] = useState(false)
   const [update, setUpdate] = useState(0)
+  const [bail, setBail] = useState(false)
 
   useEffect(async () => {
     try {
@@ -29,7 +30,11 @@ const AdminUserPage = (props) => {
       else router.push('/admin/users') // deleted or not existing
     }
     catch (err) {
-      setError({ warning: true, msg:  t('errors:unknownError') })
+      if (err.response.status === 404) {
+        setError({ note: true, msg: t('errors:notFound') })
+        setBail(true)
+      }
+      else setError({ warning: true, msg:  t('errors:unknownError') })
     }
   }, [update, id])
 
@@ -52,7 +57,9 @@ const AdminUserPage = (props) => {
           {error && <Popout compact {...error}>{error.msg}</Popout>}
           {user
             ? <User user={user} app={app} setUpdate={setUpdate} />
-            : <Spinner />
+            : bail
+              ? null
+              : <Spinner />
           }
         </div>
       </AdminsOnly>

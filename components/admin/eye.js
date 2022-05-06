@@ -126,7 +126,7 @@ const EyeNotes = ({ eye, t, handlers }) => {
   )
 }
 
-const EyeAdvanced = ({ eye, t, handlers }) => (
+const EyeAdvanced = ({ eye, t, handlers, error }) => (
   <>
     <h3 className="capitalize">{t(eye.isActive ? 'disable' : 'enable')}</h3>
     {eye.isActive
@@ -154,6 +154,7 @@ const EyeAdvanced = ({ eye, t, handlers }) => (
     {!eye.isActive && (
       <>
         <h3 className="capitalize">{t('delete')}</h3>
+        {error && <Popout {...error}>{error.msg}</Popout>}
         <div className="flex flex-row flex-wrap gap-8 items-center">
           <Popout warning compact>{t('pleaseBeCareful')}</Popout>
           <Popout tip compact><span className="font-normal">{t('noWayBack')}</span></Popout>
@@ -173,6 +174,7 @@ const Eye = ({ eye, app, setUpdate }) => {
   const router = useRouter()
 
   const [selected, setSelected ] = useState({})
+  const [error, setError] = useState(false)
 
   const refresh = () => setUpdate(Date.now())
 
@@ -209,9 +211,13 @@ const Eye = ({ eye, app, setUpdate }) => {
       axios.delete(
         `/api/eyes/delete/${id}`,
         app.bearer()
-      ).then(() => {
-        router.push('/admin/eyes')
-        refresh()
+      )
+      .catch(err => {
+        if (err.response.status === 403) setError({ warning: true, msg: t('errors:foreignKeysPreventRemoval') })
+        else setError({ warning: true, msg: t('errors:unknownError') })
+      })
+      .then(res => {
+        if (res?.status === 200) router.push('/admin/eyes')
       })
     },
   }
@@ -223,7 +229,7 @@ const Eye = ({ eye, app, setUpdate }) => {
       <EyeStats {...pass} />
       <EyeCalibration {...pass} />
       <EyeNotes {...pass} />
-      <EyeAdvanced {...pass} />
+      <EyeAdvanced {...pass} error={error} />
     </div>
   )
 }

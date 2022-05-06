@@ -8,6 +8,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import Popout from 'components/popout'
 import Grid from 'components/grid'
+import { useRouter } from 'next/router'
 
 const UserStats = ({ user, t, handlers }) => (
   <div className="stats stats-vertical lg:stats-horizontal shadow">
@@ -142,6 +143,7 @@ const UserAdvanced = ({ user, t, handlers, loggedIn }) => (
 
 const User = ({ user, app, setUpdate }) => {
   const { t } = useTranslation(['admin', 'vahi'])
+  const router = useRouter()
 
   const [selected, setSelected ] = useState({})
 
@@ -180,7 +182,9 @@ const User = ({ user, app, setUpdate }) => {
       axios.delete(
         `/api/users/delete/${id}`,
         app.bearer()
-      ).then(refresh)
+      ).then(() => {
+        router.push('/admin/users')
+      })
     },
   }
 

@@ -84,13 +84,13 @@ const Users = ({ users=[], app, setUpdate }) => {
     activateUsers: (userIds=false) => {
       const ids = Array.isArray(userIds) ? userIds : Object.keys(selected)
       axios
-        .post('/api/users/activate', { users: ids }, app.bearer())
+        .put('/api/users/activate', { users: ids }, app.bearer())
         .then(refresh)
     },
     deactivateUsers: (userIds=false) => {
       const ids = Array.isArray(userIds) ? userIds : Object.keys(selected)
       axios
-        .post('/api/users/deactivate', { users: ids }, app.bearer())
+        .put('/api/users/deactivate', { users: ids }, app.bearer())
         .then(refresh)
     }
   }

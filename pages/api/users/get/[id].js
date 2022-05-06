@@ -25,6 +25,7 @@ const handler = async (req, res) => {
       Grading: true
     }
   })
+  if (!user) return res.status(404).send()
 
   // Return only the count of grades
   user.grades = user.Grading.length || 0

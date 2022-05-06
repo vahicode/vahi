@@ -1,1 +1,1 @@
-{"unknownError":"There was an unexpected problem","pleaseReportThis":"Please help us by reporting this","notFound":"We could not find what you requested","accessDenied":"Your role does not permit access to this resource"}
+{"unknownError":"There was an unexpected problem","pleaseReportThis":"Please help us by reporting this","notFound":"We could not find what you requested","accessDenied":"Your role does not permit access to this resource","foreignKeysPreventRemoval":"You cannot remove this as other database records are (still) linked to it"}

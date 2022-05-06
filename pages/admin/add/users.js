@@ -49,13 +49,13 @@ const AdminAddUsersPage = (props) => {
   return (
     <Page app={app}>
       <AdminsOnly app={app}>
-      <div className="form-control w-full max-w-lg m-auto">
+      <div className="form-control w-full m-auto">
         <BreadCrumbs crumbs={crumbs} title={t('addUsers')}/>
         <h1>{t('addUsers')}</h1>
         {error && <Popout compact {...error}>{error.msg}</Popout>}
         {users
           ? (
-            <>
+            <div className="max-w-lg">
               <h4>{t('vahi:inviteCode')}:</h4>
               <ol className="list-decimal list-inside pl-4">
                 {users.map(user => <li key={user}><code className="font-mono text-accent py-2 pl-2">{user}</code></li>)}
@@ -63,10 +63,10 @@ const AdminAddUsersPage = (props) => {
               <button className="btn btn-primary mt-8 mb-4 w-full" onClick={() => setUsers(false)}>
                 {t('addUsers')}
               </button>
-            </>
+            </div>
           )
           : (
-            <form onSubmit={addUsers}>
+            <form onSubmit={addUsers} className="max-w-lg">
               <label className="label">
                 <span className="label-text">{t('numberOfUsers')}</span>
               </label>
@@ -78,7 +78,7 @@ const AdminAddUsersPage = (props) => {
               <textarea className="textarea textarea-bordered w-full" 
                 placeholder={t('notes')} onChange={(evt) => setNotes(evt.target.value)}>{notes}</textarea>
               <button type="submit" className="btn btn-primary mt-8 mb-4 w-full" onClick={addUsers}>
-              {count} {t('addUsers')}
+                {t('addUsers')}
               </button>
             </form>
           )
