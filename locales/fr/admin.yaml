@@ -42,4 +42,4 @@ vimgDesc: Typiquement une image régulière de l'œil
 himgDesc: Typiquement une image régulière de l'œil
 iimgDesc: Généralement une image de l'œil avec un filtre bleu
 filedrop: 'Faites glisser et déposez votre image ici ou <span class="filepond--label-action">Parcourez</span>'
-
+downloadThing: Télécharger {thing}

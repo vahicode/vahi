@@ -42,4 +42,4 @@ vimgDesc: Typically a regular picture of the eye
 himgDesc: Typically a regular picture of the eye
 iimgDesc: Typically a picture of the eye with a blue filter
 filedrop: 'Drag & Drop your image here or <span class="filepond--label-action">Browse</span>'
-
+downloadThing: Download {thing}
