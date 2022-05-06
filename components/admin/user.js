@@ -22,6 +22,11 @@ const UserStats = ({ user, t, handlers }) => (
       <div className="stat-desc"><TimeAgo date={user.createdAt} /></div>
     </div>
     <div className="stat">
+      <div className="stat-title">{t('graded')}</div>
+      <div className="stat-value">{user.grades}</div>
+      <div className="stat-desc"></div>
+    </div>
+    <div className="stat">
       <div className="stat-title">{t('demoUser')}</div>
       <div className="stat-value capitalize">{user.isDemoUser
         ? <EnableIcon className='text-success w-12 h-12'/>

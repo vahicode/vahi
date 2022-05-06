@@ -13,8 +13,22 @@ const handler = async (req, res) => {
 
   // Get eyes
   const user = await prisma.user.findUnique({
-    where: { id }
+    where: { id },
+    select: {
+      id: true,
+      createdAt: true,
+      createdBy: true,
+      isDemoUser: true,
+      isActive: true,
+      lastLogin: true,
+      notes: true,
+      Grading: true
+    }
   })
+
+  // Return only the count of grades
+  user.grades = user.Grading.length || 0
+  delete user.Grading
 
   return res.send(user)
 }
