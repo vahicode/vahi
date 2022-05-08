@@ -1,51 +1,45 @@
-# Install dependencies only when needed
-FROM node:16-alpine AS deps
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+# Start from NodeJS on Debian Buster (slim) and avoid all the MUSL issues of Alpine
+FROM node:16-buster-slim as builder
+
+# We need openssl for prisma, add sqlite for convenience
+RUN apt-get update && apt-get install -y openssl sqlite3
+
+# Keep everything in /vahi
 WORKDIR /vahi
+
+# Create user/group to run the app
+#RUN addgroup --system --gid 1001 vahi
+#RUN adduser --system --uid 1001 vahi
+#USER vahi
+
+# Copy package info & install dependencies
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-# Rebuild the source code only when needed
-FROM node:16-alpine AS builder
-WORKDIR /vahi
-COPY --from=deps /vahi/node_modules ./node_modules
-COPY . .
-
-# https://nextjs.org/telemetry
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN yarn build
-
-# Production image, copy all the files and run next
-FROM node:16-alpine AS runner
-WORKDIR /vahi
-
+# Set environment variables
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN addgroup --system --gid 1001 vahi
-RUN adduser --system --uid 1001 vahi
+# Copy source
+COPY . .
 
-COPY --from=builder --chown=vahi:vahi /vahi/api ./api
-COPY --from=builder --chown=vahi:vahi /vahi/db ./db
-COPY --from=builder --chown=vahi:vahi /vahi/markdown ./markdown
-COPY --from=builder --chown=vahi:vahi /vahi/prisma ./prisma
-COPY --from=builder --chown=vahi:vahi /vahi/public ./public
-COPY --from=builder --chown=vahi:vahi /vahi/scripts ./scripts
-COPY --from=builder --chown=vahi:vahi /vahi/next.config.mjs ./
-COPY --from=builder --chown=vahi:vahi /vahi/package.json ./package.json
-COPY --from=builder --chown=vahi:vahi /vahi/vahi.config.mjs ./vahi.config.mjs
+# Copy in an empty db
+#COPY db/schema.db ./db/vahi.db
 
-# Automatically leverage output traces to reduce image size 
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=vahi:vahi /vahi/.next/standalone ./
-COPY --from=builder --chown=vahi:vahi /vahi/.next/static ./.next/static
+# Build
+RUN yarn build
+
+# Copy in dependencies and build artifacts
+#COPY --chown=vahi:vahi node_modules ./
+COPY .next/standalone ./
+COPY .next/static ./.next/static
+
+# Add prisma
+RUN npx prisma generate
 
 # Install PM2 process manager
 RUN npm install pm2 -g
 
-USER vahi
 EXPOSE 3000
 ENV PORT 3000
 
