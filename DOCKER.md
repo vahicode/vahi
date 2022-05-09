@@ -1,3 +1,27 @@
+# VaHI - A standardized grading system for limbal stem cell deficiency
+
+[VaHI](https://vahi.eu/) is a standardized grading system 
+for limbal stem cell deficiency.
+
+Limbal stem cell deficiency (LSCD) results from a range of pathologies such as
+chemical burns and aniridia. While the repertoire of treatment techniques
+expands and the number of limbal cell therapies grows, there is still a lack of
+objective outcome measures in grading this pathology. The different assessment
+techniques and subjective parameters challenge the grading of LSCD severity and
+impede objective comparison of treatment outcomes.
+
+VaHI stands for Vascularisation, Haze and Integrity; 3 key clinical signs of 
+LSCD. Grading different clinical signs related to LSCD allows a simple way of
+documenting the severity of the condition and in evaluating outcomes after
+treatment.
+
+The VaHI software provides a new, improved and easy grading system for
+assessing and grading LSCD eyes. Feel welcome to discover this tool and join us
+for some simple and straightforward grading.
+
+For more information on what VaHI does/is, please 
+visit [vahi.eu](https://vahi.eu/).
+
 # VaHI Docker Image
 
 The VaHI docker image is published 
