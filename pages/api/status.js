@@ -1,11 +1,11 @@
 import prisma from 'api/prisma.mjs'
-import { schemaDbFileIsPresent } from 'api/utils.mjs'
+import { dbFileIsPresent } from 'api/utils.mjs'
 import config from '../../vahi.config.mjs'
 
 const ok = [true, 'Looks good']
 
 const handler = async (req, res) => {
-  const schema = schemaDbFileIsPresent()
+  const db = dbFileIsPresent()
   // Is there a root admin account in the database?
   const status = {
     status: 'green',
@@ -15,17 +15,15 @@ const handler = async (req, res) => {
       'Admin Email': config.root.email 
         ? ok 
         : [false, 'Please configure root.email with an email address for the root admin'],
-      'Database Path': config.db.path 
+      'Database': db 
         ? ok 
-        : [false, 'Please configure db.path to point to your database file'],
-      'Database Schema': schema
-        ? ok
-        : [false, 'Please ensure there is an empty database file named schema.db file in the db folder'],
+        : [false, 'No database detected. Restart VaHI to auto-create it'],
       'JWT Secret': config.jwt.secret 
         ? ok 
         : [false, 'Please set the VAHI_SECRET environment variable to a random string']
     }
   }
+  if (process.env.VAHI_DOCKER) status.valid['Docker'] = [true, 'Vahi is running in a container']
   let result = false
   try {
     result = await prisma.Admin.findUnique({ 

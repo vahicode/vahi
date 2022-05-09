@@ -92,24 +92,11 @@ export const authenticate = {
   user: (req) => jwt.verify(req.headers.authorization.slice(7), config.jwt.secret)
 }
 
-export const schemaDbFileIsPresent = () => {
+export const dbFileIsPresent = () => {
   try {
-    if (fs.existsSync(path.resolve(path.join('db', 'schema.db')))) return true
+    if (fs.existsSync(path.resolve(config.db.path))) return true
     else return false
   } catch (err) {
-    return false
-  }
-}
-
-export const copySchemaDbToRealDb = () => {
-  try {
-    console.log(fs.copyFileSync(
-      path.resolve(path.join('db', 'schema.db')),
-      path.resolve(config.db.path),
-    ) )
-    return true
-  } catch (err) {
-    console.log(err)
     return false
   }
 }

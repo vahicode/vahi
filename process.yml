@@ -1,0 +1,4 @@
+apps:
+  - name: vahi
+    script : ./server.js
+    cwd: /vahi

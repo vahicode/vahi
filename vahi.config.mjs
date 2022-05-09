@@ -80,4 +80,7 @@ const config = {
   }
 }
 
+export const dbpath = config.db.path
+
 export default config
+

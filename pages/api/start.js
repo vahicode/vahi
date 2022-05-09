@@ -1,5 +1,5 @@
 import prisma from 'api/prisma.mjs'
-import { generatePassword, copySchemaDbToRealDb } from 'api/utils.mjs'
+import { generatePassword } from 'api/utils.mjs'
 import config from '../../vahi.config.mjs'
 
 const seedDatabase = async () => {
@@ -57,11 +57,6 @@ const handler = async (req, res) => {
     else return res.status(409).send({ error: 'Already initilized' })
   }
   catch (err) {
-
-    // Copy empty/schema DB in place
-    await prisma.$disconnect()
-    if (!copySchemaDbToRealDb()) console.log('WARNING: Could not copy empty/schema database in place')
-    else console.log('copy succeeded')
 
     // Seed database
     const admin = await seedDatabase()

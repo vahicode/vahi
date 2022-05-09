@@ -1,5 +1,8 @@
 import path from 'path'
+import fs from 'fs'
 import i18nConfig from './next-i18next.config.js'
+import { dbpath } from './vahi.config.mjs'
+import { vascii } from './api/utils.mjs'
 
 const config = {
   experimental: {
@@ -22,5 +25,6 @@ const config = {
     return config
   },
 }
+
 
 export default config
