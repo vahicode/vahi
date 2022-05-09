@@ -28,14 +28,13 @@ for some simple and straightforward grading.
 For more information on what VaHI does/is, please 
 visit [vahi.eu](https://vahi.eu/).
 
-## T:w
-able of contents
+## Table of contents
 
 - [Getting started](#getting-started)
 - [Technology stack](#technology-stack)
 - [Configuration](#configuration)
 - [Deployment](#deployment)
-  - [With NodeJS](#with-nodejs)
+  - [With NodeJS](#pure-nodejs)
   - [With PM2](#with-pm2)
   - [With Docker](#with-docker)
 - [Where to get help](#where-to-get-help)
@@ -47,14 +46,8 @@ able of contents
 
 **Running the VaHI Docker image**
 
-The fastest way to try VaHI is to spin it up as a Docker container.
-
-```bash
-docker run vahicode/vahi
-```
-
-For all details about running VaHI under docker, please refer 
-to [DOCKER.md](https://github.com/vahicode/vahi/blob/develop/DOCKER.md)
+The fastest way to try VaHI is to [spin it up as a Docker 
+container](https://github.com/vahicode/vahi/blob/develop/DOCKER.md).
 
 **Running VaHI from source code**
 
@@ -131,7 +124,7 @@ configuration file --- see below).
 
 ## Deployment
 
-### With NodeJS
+### Pure NodeJS
 
 You can deploy Vahi by building the project, and then running it:
 
@@ -187,6 +180,19 @@ docker run \
 > If you're running VaHI with Docker, please refer 
 > to [DOCKER.md](https://github.com/vahicode/vahi/blob/develop/DOCKER.md) for
 > details on all aspects of running VaHI in Docker.
+
+## Where to get help
+
+VaHI is open source so if you run into any issues, feel free to dive in and 
+peek under the hood.
+
+If you get stuck, you can [create an 
+issue](https://github.com/vahicode/vahi/issues/new). 
+
+## Contribute
+
+If you'd like to see something added, feel free to submit a pull request and I'll
+try to have a look at it.
 
 ## License: MIT
 
