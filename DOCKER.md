@@ -4,9 +4,29 @@ The VaHI docker image is published
 at [vahicode/vahi](https://hub.docker.com/r/vahicode/vahi) on the Docker 
 registry.
 
+## Quick start
+
+**Step 1: Spin up the container:**
+
 ```bash
-docker run vahicode/vahi
+docker run -d \
+    --name vahi \
+    --restart unless-stopped \
+    -p 5000:3000 \
+    -v /your/local/folder:/vahi/db \
+    --env VAHI_SECRET="someRandomStringHere" \
+    vahicode/vahi:2.0.0-rc.3
 ```
+
+**Step 2: Create the database**
+
+```bash
+docker exec -it vahi yarn newdb
+```
+
+**Step 3: Visit the start page**
+
+Go to http://localhost:3000/start
 
 ## Exposed ports
 
