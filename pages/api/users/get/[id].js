@@ -4,7 +4,7 @@ import { authenticate } from 'api/utils.mjs'
 const handler = async (req, res) => {
 
   // Admin authentication
-  const admin = authenticate.admin(req)
+  const admin = authenticate.admin(req, ['admin', 'superadmin'])
   if (!admin) return res.status(403)
     .send({ error: 'authentication_failed' })
 
